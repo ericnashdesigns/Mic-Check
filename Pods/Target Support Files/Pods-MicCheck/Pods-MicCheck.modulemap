@@ -1,0 +1,6 @@
+framework module Pods_MicCheck {
+  umbrella header "Pods-MicCheck-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,18 @@
+PODS:
+  - Kanna (2.1.1)
+  - SwiftyJSON (3.1.3)
+  - youtube-ios-player-helper (0.1.6)
+
+DEPENDENCIES:
+  - Kanna (~> 2.1.0)
+  - SwiftyJSON
+  - youtube-ios-player-helper (~> 0.1.4)
+
+SPEC CHECKSUMS:
+  Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
+  SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
+  youtube-ios-player-helper: 21ab92db027c7ff86cb17a3843a3f6eafc8158d2
+
+PODFILE CHECKSUM: b2076a08ca4d11f3f86e2c097e7ea815a4bce06f
+
+COCOAPODS: 1.1.1
