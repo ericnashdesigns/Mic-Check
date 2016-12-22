@@ -16,6 +16,7 @@
 		0721B91A1E0A599D004BEB19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0721B9181E0A599D004BEB19 /* LaunchScreen.storyboard */; };
 		0721B9521E0A5F82004BEB19 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 0721B9511E0A5F82004BEB19 /* events.json */; };
 		0721B9551E0A64D8004BEB19 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B9541E0A64D8004BEB19 /* Event.swift */; };
+		0721B9571E0A6BF5004BEB19 /* EventLineup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B9561E0A6BF5004BEB19 /* EventLineup.swift */; };
 		8638F74A07331D398563A7EE /* Pods_MicCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 502BE0EB88CA0CD417A7AF0E /* Pods_MicCheck.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		0721B91B1E0A599D004BEB19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0721B9511E0A5F82004BEB19 /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		0721B9541E0A64D8004BEB19 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		0721B9561E0A6BF5004BEB19 /* EventLineup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventLineup.swift; sourceTree = "<group>"; };
 		19540C1178879B495440962D /* Pods-MicCheck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicCheck.release.xcconfig"; path = "Pods/Target Support Files/Pods-MicCheck/Pods-MicCheck.release.xcconfig"; sourceTree = "<group>"; };
 		261088C4E97BD33433EB3DB1 /* Pods-MicCheck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicCheck.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MicCheck/Pods-MicCheck.debug.xcconfig"; sourceTree = "<group>"; };
 		502BE0EB88CA0CD417A7AF0E /* Pods_MicCheck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicCheck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +127,7 @@
 			children = (
 				0721B9511E0A5F82004BEB19 /* events.json */,
 				0721B9541E0A64D8004BEB19 /* Event.swift */,
+				0721B9561E0A6BF5004BEB19 /* EventLineup.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				0721B90E1E0A599D004BEB19 /* RootViewController.swift in Sources */,
 				0721B9121E0A599D004BEB19 /* ModelController.swift in Sources */,
 				0721B9101E0A599D004BEB19 /* DataViewController.swift in Sources */,
+				0721B9571E0A6BF5004BEB19 /* EventLineup.swift in Sources */,
 				0721B90C1E0A599D004BEB19 /* AppDelegate.swift in Sources */,
 				0721B9551E0A64D8004BEB19 /* Event.swift in Sources */,
 			);
@@ -402,6 +406,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 261088C4E97BD33433EB3DB1 /* Pods-MicCheck.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = WM54JRC2M4;
 				INFOPLIST_FILE = MicCheck/Info.plist;
@@ -416,6 +421,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 19540C1178879B495440962D /* Pods-MicCheck.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = WM54JRC2M4;
 				INFOPLIST_FILE = MicCheck/Info.plist;

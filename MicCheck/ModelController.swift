@@ -20,6 +20,9 @@ import UIKit
 
 class ModelController: NSObject, UIPageViewControllerDataSource {
 
+    // MARK: - Use Singleton to load up event objects from the JSON file and create the model
+    let lineUp = EventLineup.sharedInstance
+    
     var pageData: [String] = []
 
 
