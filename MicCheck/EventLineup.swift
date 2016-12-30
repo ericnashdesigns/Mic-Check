@@ -116,20 +116,20 @@ class EventLineup {
                 // Check the date of the venue's most recent upcoming event, 
                 // if happening today, add it to events array,
                 // otherwise, purge it from the events array
-                let nodes = doc.xpath(currentEvent.xPathDate!)
-                guard nodes.count > 0 else {
+                let dateNodes = doc.xpath(currentEvent.xPathDate!)
+                guard dateNodes.count > 0 else {
                     print(" EventLineup.swift – No date at xPath for \(venueURLString). Removing and going to next event")
                     self.events.remove(at: index)
                     continue eventLoop
                 }
                 
-                for node in nodes {
+                for dateNode in dateNodes {
                     
                     // create a trimmed version of the HTML String without any excess characters
-                    print(" EventLineup.swift – Raw Date: \(node.text!)")
-                    var trimmedStrEventDate = node.text!.replacingOccurrences(of: "\r\n", with: "")
+                    // print(" EventLineup.swift – Raw Date: \(dateNode.text!)")
+                    var trimmedStrEventDate = dateNode.text!.replacingOccurrences(of: "\r\n", with: "")
                     trimmedStrEventDate = trimmedStrEventDate.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                    print(" EventLineup.swift - Trim Date: \(trimmedStrEventDate)")
+                    // print(" EventLineup.swift - Trim Date: \(trimmedStrEventDate)")
                     
                     // parse an actual Date from the trimmed String
                     let eventDateFormatter = DateFormatter()
@@ -158,9 +158,8 @@ class EventLineup {
                         parsedDate = Calendar.current.date(from: parsedDateComponents) as Date!
                     }
                     
-                    print(" EventLineup.swift - Parsed Date: \(eventDateFormatter.string(from: parsedDate))")
-
-                    print(" EventLineup.swift - Today: \(eventDateFormatter.string(from: todayDate))")
+                    // print(" EventLineup.swift - Parsed Date: \(eventDateFormatter.string(from: parsedDate))")
+                    // print(" EventLineup.swift - Today: \(eventDateFormatter.string(from: todayDate))")
                     
                     switch Calendar.current.compare(parsedDate, to: todayDate, toGranularity: .day) {
                     case .orderedAscending:
@@ -185,9 +184,72 @@ class EventLineup {
 
                 
                 // Event is happening today, so populate from website
+                // **************************************************
 
                 
+                // Add Artist Name
+                let artistNodes = doc.xpath(currentEvent.xPathArtist!)
+                guard artistNodes.count > 0 else {
+                    print(" EventLineup.swift – No artist at xPath for \(venueURLString). Removing and going to next event")
+                    self.events.remove(at: index)
+                    continue eventLoop
+                }
                 
+                for artistNode in artistNodes {
+                    // remove whitespace characters
+                    var trimmedStrArtist = artistNode.text!.replacingOccurrences(of: "\r\n", with: "")
+                    trimmedStrArtist = artistNode.text!.replacingOccurrences(of: "\n", with: "")
+                    trimmedStrArtist = trimmedStrArtist.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                    currentEvent.artist = trimmedStrArtist
+                    print("\r\n \(trimmedStrArtist)")
+                }
+                
+
+                // Add Event URL
+                let urlEventNodes = doc.xpath(currentEvent.xPathUrlEvent!)
+                if urlEventNodes.count == 0 {
+                    currentEvent.urlEvent = "http://www.google.com/#q=" + currentEvent.artist
+                    print(" EventLineup.swift – No event page at xPath for \(venueURLString). Using Google search instead")
+                } else {
+
+                    for urlEventNode in urlEventNodes {
+                        
+                        // check for valid Event URLs
+                        let eventUrl = URL(string: urlEventNode.text!)
+                        var eventStrUrl = eventUrl?.absoluteString
+                        //                    var eventUrlData = NSData(contentsOf: eventUrl!) as? Data
+                        
+                        if verifyUrl(urlString: urlEventNode.text!) {
+                            
+                            currentEvent.urlEvent = urlEventNode.text!
+                            
+                        } else {
+                            
+                            // if there's a double slash then add protocol prefix
+                            if (eventStrUrl!.range(of: "//") != nil) {
+                                
+                                eventStrUrl = "http:" + eventStrUrl!
+                                
+                            } else { // double slash not provided, so it's relative path
+                                
+                                // prefix venue website prefix
+                                eventStrUrl = currentEvent.urlVenue! + eventStrUrl!
+                                
+                            }
+                            
+                            // if it still doesn't work then default to event not available
+                            if verifyUrl(urlString: eventStrUrl) {
+                                currentEvent.urlEvent = eventStrUrl!
+                            } else {
+                                currentEvent.urlEvent = "http://www.google.com/#q=" + currentEvent.artist
+                            }
+                            
+                        }
+                        print(" EventLineup.swift – \(currentEvent.urlEvent)")
+                        
+                    }
+                    
+                } // end urlEventNode conditional
                 
             } // end testMode conditional
             
@@ -195,4 +257,19 @@ class EventLineup {
         
     } // end getTodaysEvents()
 
+    func verifyUrl (urlString: String?) -> Bool {
+        //Check for nil
+
+        let eventUrl = URL(string: urlString!)
+
+        if eventUrl != nil {
+            // create NSURL instance
+            if (NSData(contentsOf: eventUrl!) as? Data) != nil  {
+                // check if your application can open the NSURL instance
+                return true
+            }
+        }
+        return false
+    }
+    
 }
