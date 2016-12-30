@@ -77,7 +77,7 @@
 		0721B90A1E0A599D004BEB19 /* MicCheck */ = {
 			isa = PBXGroup;
 			children = (
-				0721B94E1E0A5E1A004BEB19 /* View */,
+				0721B94E1E0A5E1A004BEB19 /* Controller */,
 				0721B94D1E0A5E0C004BEB19 /* UI */,
 				0721B9531E0A5F90004BEB19 /* Data */,
 				0721B9501E0A5E88004BEB19 /* Model */,
@@ -95,13 +95,13 @@
 			name = UI;
 			sourceTree = "<group>";
 		};
-		0721B94E1E0A5E1A004BEB19 /* View */ = {
+		0721B94E1E0A5E1A004BEB19 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				0721B90D1E0A599D004BEB19 /* RootViewController.swift */,
 				0721B90F1E0A599D004BEB19 /* DataViewController.swift */,
 			);
-			name = View;
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		0721B94F1E0A5E3B004BEB19 /* Bundle Files */ = {
@@ -117,6 +117,8 @@
 		0721B9501E0A5E88004BEB19 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0721B9541E0A64D8004BEB19 /* Event.swift */,
+				0721B9561E0A6BF5004BEB19 /* EventLineup.swift */,
 				0721B9111E0A599D004BEB19 /* ModelController.swift */,
 			);
 			name = Model;
@@ -126,8 +128,6 @@
 			isa = PBXGroup;
 			children = (
 				0721B9511E0A5F82004BEB19 /* events.json */,
-				0721B9541E0A64D8004BEB19 /* Event.swift */,
-				0721B9561E0A6BF5004BEB19 /* EventLineup.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";

@@ -21,6 +21,7 @@ import UIKit
 class ModelController: NSObject, UIPageViewControllerDataSource {
 
     // MARK: - Use Singleton to load up event objects from the JSON file and create the model
+    // Step 1 of N: ModelController calls for a sharedInstance of EventLineup
     let lineUp = EventLineup.sharedInstance
     
     var pageData: [String] = []
@@ -31,6 +32,8 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         // Create the data model.
         let dateFormatter = DateFormatter()
         pageData = dateFormatter.monthSymbols
+
+        lineUp.getTodaysEvents()
     }
 
     func viewControllerAtIndex(_ index: Int, storyboard: UIStoryboard) -> DataViewController? {

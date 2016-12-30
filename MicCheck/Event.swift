@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Kanna
 import SwiftyJSON
 
 class Event {
@@ -47,8 +46,8 @@ class Event {
     
     init(Dictionary: NSDictionary) {
         
-        // These variables will contain the prerequisite data living in events.json
-        // With it, I'll scrape the venue website and popoulate the other variables
+        // The immutable variables will contain the prerequisite data living in events.json
+        // I'll use them to scrape the venue website and popoulate the variables
         
         venue                   = Dictionary["venue"]                   as? String
         imgVenue                = Dictionary["imgVenue"]                as? String
@@ -76,6 +75,41 @@ class Event {
         xPathDate               = Dictionary["xPathDate"]               as? String
         
     }
-    
+
+    // MARK: YouTube API Functions
+    func getVideosForArtist(completion: (() -> Void)!) {
+        
+        print("   Event.swift - getVideosForArtist start")
+        
+        let apiKey = "AIzaSyABMIvminGXw9pQ_P1OsKxsO8aaNkvWBak"
+        
+        // Form the Request URL String
+        var urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(self.artist)+music+live&type=video&&maxResults=4&key=\(apiKey)"
+        
+        urlString = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+        
+        // Create a URL Object using the string above
+        let targetURL = URL(string: urlString)
+
+        // Create the Async Request
+        let task = URLSession.shared.dataTask(with: targetURL!) { data, response, error in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            guard let data = data else {
+                print("   Event.swift - Data is empty")
+                return
+            }
+            
+            let json = try! JSONSerialization.jsonObject(with: data, options: [])
+            print(json)
+
+        
+        }
+        
+        task.resume()
+        
+    }
     
 }
