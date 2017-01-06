@@ -80,13 +80,11 @@ class EventLineup {
             print(" \(currentEvent.urlVenue!)")
             
             if self.testMode == true {
-
                 currentEvent.eventHappeningTonight = true
                 currentEvent.urlEvent = jsonlineup[index]["testUrlEvent"].string!
                 currentEvent.artist = jsonlineup[index]["testArtist"].string!
                 currentEvent.imgArtist = UIImage(named: jsonlineup[index]["testImgArtist"].string!)
                 currentEvent.price = jsonlineup[index]["testPrice"].string!
-                
             } else {  // self.testMode == false
                 
                 // use the Venue URL to access the venue website and populate other areas
@@ -116,18 +114,17 @@ class EventLineup {
                 // Check the date of the venue's most recent upcoming event, 
                 // if happening today, add it to events array,
                 // otherwise, purge it from the events array
-                let dateNodes = doc.xpath(currentEvent.xPathDate!)
-                guard dateNodes.count > 0 else {
+                let nodeDates = doc.xpath(currentEvent.xPathDate!)
+                guard nodeDates.count > 0 else {
                     print(" EventLineup.swift – No date at xPath for \(venueURLString). Removing and going to next event")
                     self.events.remove(at: index)
                     continue eventLoop
                 }
                 
-                for dateNode in dateNodes {
-                    
+                for nodeDate in nodeDates {
                     // create a trimmed version of the HTML String without any excess characters
                     // print(" EventLineup.swift – Raw Date: \(dateNode.text!)")
-                    var trimmedStrEventDate = dateNode.text!.replacingOccurrences(of: "\r\n", with: "")
+                    var trimmedStrEventDate = nodeDate.text!.replacingOccurrences(of: "\r\n", with: "")
                     trimmedStrEventDate = trimmedStrEventDate.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                     // print(" EventLineup.swift - Trim Date: \(trimmedStrEventDate)")
                     
@@ -144,7 +141,6 @@ class EventLineup {
                     let todayDate = Date()
                     let todayDateComponents = Calendar.current.dateComponents([.day , .month , .year], from: todayDate)
                     
-
                     // if year is not specified in HTML (e.g., 12/30), it will set to '2000' so need to update it
                     if (parsedDateComponents.year! < todayDateComponents.year!) {
                         if (parsedDateComponents.month! < todayDateComponents.month!) {
@@ -179,97 +175,181 @@ class EventLineup {
                         self.events.remove(at: index)
                         continue eventLoop
                     }
-                    
                 } // end for node loop
-
                 
                 // Event is happening today, so populate from website
                 // **************************************************
-
                 
-                // Add Artist Name
-                let artistNodes = doc.xpath(currentEvent.xPathArtist!)
-                guard artistNodes.count > 0 else {
+                // MARK: Add Artist Name
+                // **************************************************
+                let nodeArtists = doc.xpath(currentEvent.xPathArtist!)
+                guard nodeArtists.count > 0 else {
                     print(" EventLineup.swift – No artist at xPath for \(venueURLString). Removing and going to next event")
                     self.events.remove(at: index)
                     continue eventLoop
                 }
                 
-                for artistNode in artistNodes {
+                for nodeArtist in nodeArtists {
                     // remove whitespace characters
-                    var trimmedStrArtist = artistNode.text!.replacingOccurrences(of: "\r\n", with: "")
-                    trimmedStrArtist = artistNode.text!.replacingOccurrences(of: "\n", with: "")
+                    var trimmedStrArtist = nodeArtist.text!.replacingOccurrences(of: "\r\n", with: "")
+                    trimmedStrArtist = nodeArtist.text!.replacingOccurrences(of: "\n", with: "")
                     trimmedStrArtist = trimmedStrArtist.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                     currentEvent.artist = trimmedStrArtist
                     print("\r\n \(trimmedStrArtist)")
                 }
-                
 
-                // Add Event URL
-                let urlEventNodes = doc.xpath(currentEvent.xPathUrlEvent!)
-                if urlEventNodes.count == 0 {
+                // MARK: Add Event URL
+                // **************************************************
+                let nodeUrlEvents = doc.xpath(currentEvent.xPathUrlEvent!)
+                if nodeUrlEvents.count == 0 {
                     currentEvent.urlEvent = "http://www.google.com/#q=" + currentEvent.artist
                     print(" EventLineup.swift – No event page at xPath for \(venueURLString). Using Google search instead")
                 } else {
 
-                    for urlEventNode in urlEventNodes {
+                    for nodeUrlEvent in nodeUrlEvents {
+                        // check for valid Event URLs
+                        let urlEvent = NSURL(string: nodeUrlEvent.text!)
+                        let strEvent = urlEvent?.absoluteString
+
+                        // var eventUrlData = NSData(contentsOf: eventUrl!) as? Data
+                        // eventStrUrl = makeVerifiedURL(urlString: eventStrUrl!)
+
+                        if let verifiedStrEvent = makeVerifiedUrl(strPathUrl: strEvent, strVenueUrl: currentEvent.urlVenue) {
+                            currentEvent.urlEvent = verifiedStrEvent
+                        } else {
+                            let fallback = "http://www.google.com/#q=" + currentEvent.artist
+                            currentEvent.urlEvent = fallback
+                        }
+                        
+                        print(" EventLineup.swift – currentEvent.urlEvent = \(currentEvent.urlEvent)")
+                    } // end for nodeUrlEvent
+                    
+                } // end urlEventNodes conditional
+
+                // MARK: Add Artist Image
+                // **************************************************
+                
+                let nodeUrlImgArtists = doc.xpath(currentEvent.xPathImgArtist!)
+
+                if (nodeUrlImgArtists.count == 0) {
+                    currentEvent.imgArtist = UIImage(named: "image.not.available")!
+                    print(" Could not fetch Artist Image")
+                } else {
+                    for nodeUrlImgArtist in nodeUrlImgArtists {
                         
                         // check for valid Event URLs
-                        let eventUrl = URL(string: urlEventNode.text!)
-                        var eventStrUrl = eventUrl?.absoluteString
-                        //                    var eventUrlData = NSData(contentsOf: eventUrl!) as? Data
+                        let urlImgArtist = NSURL(string: nodeUrlImgArtist.text!)
+                        let strImgArtist = urlImgArtist?.absoluteString
                         
-                        if verifyUrl(urlString: urlEventNode.text!) {
+                        // var eventUrlData = NSData(contentsOf: eventUrl!) as? Data
+                        // eventStrUrl = makeVerifiedURL(urlString: eventStrUrl!)
+                        
+                        if var verifiedStrImgArtist = makeVerifiedUrl(strPathUrl: strImgArtist, strVenueUrl: currentEvent.urlVenue) {
+
+                            // get larger version of image if a small one has been provided
+                            if verifiedStrImgArtist.range(of: "atsm.") != nil {
+                                verifiedStrImgArtist = verifiedStrImgArtist.replacingOccurrences(of: "atsm.", with: "atlg.")
+                            }                            
                             
-                            currentEvent.urlEvent = urlEventNode.text!
+                            let verifiedUrlImgArtist = URL(string: verifiedStrImgArtist)
+                            let dataImgArtist = NSData(contentsOf: verifiedUrlImgArtist! as URL)
+                            let imgArtist = UIImage(data: dataImgArtist! as Data)
+                            currentEvent.imgArtist = imgArtist!
+                                
+                            print(" EventLineup.swift – currentEvent.imgArtist = \(verifiedStrImgArtist)")
                             
                         } else {
-                            
-                            // if there's a double slash then add protocol prefix
-                            if (eventStrUrl!.range(of: "//") != nil) {
-                                
-                                eventStrUrl = "http:" + eventStrUrl!
-                                
-                            } else { // double slash not provided, so it's relative path
-                                
-                                // prefix venue website prefix
-                                eventStrUrl = currentEvent.urlVenue! + eventStrUrl!
-                                
-                            }
-                            
-                            // if it still doesn't work then default to event not available
-                            if verifyUrl(urlString: eventStrUrl) {
-                                currentEvent.urlEvent = eventStrUrl!
-                            } else {
-                                currentEvent.urlEvent = "http://www.google.com/#q=" + currentEvent.artist
-                            }
-                            
+                            currentEvent.imgArtist = UIImage(named: "image.not.available")!
+                            print(" EventLineup.swift – Verified Image Not Available")
                         }
-                        print(" EventLineup.swift – \(currentEvent.urlEvent)")
-                        
-                    }
+                    } // end for nodeUrlImgArtist
                     
-                } // end urlEventNode conditional
+                } // end urlImgArtistNodes conditional
                 
+                
+                // MARK: Add Price
+                // **************************************************
+                guard (currentEvent.boolPriceShown == "true") else {
+                    currentEvent.price = ""
+                    print(" EventLineup.swift – Price not shown on this site.  Going to next event.")
+                    continue eventLoop
+                }
+                
+                let nodePrices = doc.xpath(currentEvent.xPathPrice!)
+                
+                if (nodePrices.count == 0) {
+                    currentEvent.price = ""
+                    print(" EventLineup.swift – Could not fetch price.  Going to next event.")
+                    continue eventLoop
+                } else {
+                    for nodePrice in nodePrices {
+                        // remove whitespace characters
+                        var trimmedStrPrice = nodePrice.text!.replacingOccurrences(of: "\n", with: "")
+                        trimmedStrPrice = nodePrice.text!.replacingOccurrences(of: "Tickets", with: "")
+                        trimmedStrPrice = nodePrice.text!.replacingOccurrences(of: ".00", with: "")
+                        trimmedStrPrice = trimmedStrPrice.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                        currentEvent.price = trimmedStrPrice
+                        
+                        print(" EventLineup.swift – currentEvent.price = \(trimmedStrPrice)")
+                    }
+                }
             } // end testMode conditional
-            
         } // end eventLoop
+
+
+        // MARK: No Events Today
+        // **************************************************
+        // if there's no events after going through the array, then just create a single blank event row to display
+        // this will push the footer down to the bottom of the page and looks better
+        if self.events.count == 0 {
+            let blankDictionary = ["venue": "noVenuesToday"] // venue is immutable, so I cant' set it like the others below
+            let event = Event(Dictionary: blankDictionary as NSDictionary)
+            event.artist = ""
+            event.imgArtist = nil
+            event.price = ""
+            
+            events.append(event)
+        }
         
     } // end getTodaysEvents()
 
-    func verifyUrl (urlString: String?) -> Bool {
-        //Check for nil
+    
+    // MARK: Verfied URLs
+    // **************************************************
+    func makeVerifiedUrl(strPathUrl: String?, strVenueUrl: String?) -> String? {
+        
+        // Check the URL to see if it's valid, as is
+        if verifyUrl(urlString: strPathUrl!) {
+            return strPathUrl!
+        } else {
+            // not valid URL, so we need to construct one
+            var strCandidate: String?
+            if (strPathUrl!.range(of: "//") != nil) {
+                // a double slash means we just add protocol prefix
+                strCandidate = "http:" + strPathUrl!
+            } else {
+                // no double slash, so it's relative path; use venue website to contstruct absolute path
+                // example: /event/1315901-nye-bonobo-dj-set-plus-san-francisco/
+                strCandidate = strVenueUrl! + strPathUrl!
+            }
+            if verifyUrl(urlString: strCandidate) {
+                return strCandidate
+            }
+            return nil
+        }
+        
+    }  // end makeVerifiedURL
 
-        let eventUrl = URL(string: urlString!)
+    func verifyUrl(urlString: String?) -> Bool {
 
-        if eventUrl != nil {
+        let url = URL(string: urlString!)
+        if urlString != nil {
             // create NSURL instance
-            if (NSData(contentsOf: eventUrl!) as? Data) != nil  {
+            if (NSData(contentsOf: url!) as? Data) != nil  {
                 // check if your application can open the NSURL instance
                 return true
             }
         }
         return false
-    }
-    
+    } // end verifyUrl
 }

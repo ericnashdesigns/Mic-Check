@@ -24,16 +24,18 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     // Step 1 of N: ModelController calls for a sharedInstance of EventLineup
     let lineUp = EventLineup.sharedInstance
     
-    var pageData: [String] = []
+//    var pageData: [String] = []
+        var pageData: [Event] = []
 
 
     override init() {
         super.init()
         // Create the data model.
-        let dateFormatter = DateFormatter()
-        pageData = dateFormatter.monthSymbols
-
+//        let dateFormatter = DateFormatter()
+//        pageData = dateFormatter.monthSymbols
+        
         lineUp.getTodaysEvents()
+        pageData = lineUp.events
     }
 
     func viewControllerAtIndex(_ index: Int, storyboard: UIStoryboard) -> DataViewController? {
@@ -44,14 +46,16 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 
         // Create a new view controller and pass suitable data.
         let dataViewController = storyboard.instantiateViewController(withIdentifier: "DataViewController") as! DataViewController
-        dataViewController.dataObject = self.pageData[index]
+//        dataViewController.dataObject = self.pageData[index]
+        dataViewController.dataObject = self.lineUp.events[index].artist
+        dataViewController.dataImgArtist = self.lineUp.events[index].imgArtist
         return dataViewController
     }
 
     func indexOfViewController(_ viewController: DataViewController) -> Int {
         // Return the index of the given data view controller.
         // For simplicity, this implementation uses a static array of model objects and the view controller stores the model object; you can therefore use the model object to identify the index.
-        return pageData.index(of: viewController.dataObject) ?? NSNotFound
+        return self.pageData.index(where: {$0.artist == viewController.dataObject }) ?? NSNotFound
     }
 
     // MARK: - Page View Controller Data Source

@@ -126,6 +126,27 @@
     "testPrice": "$13",
     "testVIDArtist": "uA0Xja6xem8",
 
+  }, {
+  
+  "venue": "The Regency Ballroom",
+  "imgVenue": "thechapel.sf.jpg",
+  "urlVenue": "http://www.theregencyballroom.com/events/all",
+  "addressVenue": "1300 Van Ness Ave., San Francisco, CA 94110",
+  "distanceFromVenue": "20 blocks",
+  "xPathUrlEvent": "(//h3[@class='carousel_item_title_small'])[1]/a/@href",
+  "xPathDate": "(//div[@class='date-time-container'])[1]/span[@class='date']",
+  "dateFormat": "EEE, MMM d, yyyy",
+  "xPathArtist": "(//h3[@class='carousel_item_title_small'])[1]/a",
+  "xPathImgArtist": "(//div[@class='thumb'])[1]/a/img/@src",
+  "boolPriceShown": "false",
+  "xPathPrice": "",
+  "testUrlEvent": "http://www.thechapelsf.com/event/875085-afrolicious-san-francisco/",
+  "testDate": "07-23-2015",
+  "testArtist": "DNCE",
+  "testImgArtist": "dnce",
+  "testPrice": "$12",
+  "testVIDArtist": "UmvvZ-wUINY",
+              
     } , {
 
     "venue": "The Warfield",
@@ -148,27 +169,6 @@
     "testVIDArtist": "uA0Xja6xem8",
 
     }, {
-
-    "venue": "The Regency Ballroom",
-    "imgVenue": "thechapel.sf.jpg",
-    "urlVenue": "http://www.theregencyballroom.com/events/all",
-    "addressVenue": "1300 Van Ness Ave., San Francisco, CA 94110",
-    "distanceFromVenue": "20 blocks",
-    "xPathUrlEvent": "(//h3[@class='carousel_item_title_small'])[1]/a/@href",
-    "xPathDate": "(//div[@class='date-time-container'])[1]/span[@class='date']",
-    "dateFormat": "EEE, MMM d, yyyy",
-    "xPathArtist": "(//h3[@class='carousel_item_title_small'])[1]/a",
-    "xPathImgArtist": "(//div[@class='thumb'])[1]/a/img/@src",
-    "boolPriceShown": "false",
-    "xPathPrice": "",
-    "testUrlEvent": "http://www.thechapelsf.com/event/875085-afrolicious-san-francisco/",
-    "testDate": "07-23-2015",
-    "testArtist": "DNCE",
-    "testImgArtist": "dnce",
-    "testPrice": "$12",
-    "testVIDArtist": "UmvvZ-wUINY",
-
-    }, {
               
     "venue": "The Fillmore",
     "imageVenue": "brick-and-mortar.jpg",
@@ -189,6 +189,27 @@
     "testPrice": "$13",
     "testVIDArtist": "uA0Xja6xem8",
 
+    }, {
+
+    "venue": "The Midway",
+    "imageVenue": "brick-and-mortar.jpg",
+    "urlVenue": "http://www.themidwaysf.com/events",
+    "addressVenue": "900 Marin St, San Francisco, CA 94124",
+    "distanceFromVenue": "28 blocks",
+    "xPathUrlEvent": "//div[contains(@class, 'list-view-item')][1]/a[1]/@href",
+    "xPathDate": "//div[contains(@class, 'list-view-item')][1]/div[contains(@class, 'list-view-details')][1]/h2[contains(@class, 'dates')]",
+    "dateFormat": "EEE MMM d",
+    "xPathArtist": "//div[contains(@class, 'list-view-item')][1]/div[contains(@class, 'list-view-details')][1]/h1[contains(@class, 'headliners')][1]/a",
+    "xPathImgArtist": "//div[contains(@class, 'list-view-item')][1]/a[1]/img/@src",
+    "boolPriceShown": "true",
+    "xPathPrice": "//div[contains(@class, 'list-view-item')][1]/div[contains(@class, 'ticket-price')][1]/h3[@class='price-range']",
+    "testUrlEvent": "http://www.thechapelsf.com/event/875085-afrolicious-san-francisco/",
+    "testDate": "07-23-2015",
+    "testArtist": "Bayonics",
+    "testImgArtist": "bayonics",
+    "testPrice": "$13",
+    "testVIDArtist": "uA0Xja6xem8",
+              
     }
               
 ]}
