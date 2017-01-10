@@ -45,6 +45,8 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         let dataViewController = storyboard.instantiateViewController(withIdentifier: "DataViewController") as! DataViewController
         dataViewController.dataArtist = self.lineUp.events[index].artist
         dataViewController.dataImgArtist = self.lineUp.events[index].imgArtist
+        dataViewController.dataVenue = self.lineUp.events[index].venue!
+        dataViewController.dataPrice = self.lineUp.events[index].price!
         return dataViewController
     }
 

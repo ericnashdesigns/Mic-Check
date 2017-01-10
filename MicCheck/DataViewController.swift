@@ -24,7 +24,8 @@ class DataViewController: UIViewController {
     
     var dataArtist: String = ""
     var dataImgArtist: UIImage!
-    
+    var dataVenue: String = ""
+    var dataPrice: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,8 @@ class DataViewController: UIViewController {
         super.viewWillAppear(animated)
         self.labelArtist.text = dataArtist
         self.imgArtist.image =  dataImgArtist
+        self.labelVenue.text = dataVenue
+        self.labelPrice.text = dataPrice
     }
 
 
