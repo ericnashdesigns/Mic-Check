@@ -31,6 +31,7 @@ class Event {
     
     var imgArtist: UIImage?
     let xPathImgArtist: String?
+    var descriptionArtist: String?
     
     let vIDArtist: String?
     var vIDItems: Array<Dictionary<NSObject, AnyObject>> = []
@@ -65,6 +66,7 @@ class Event {
         
         xPathArtist             = Dictionary["xPathArtist"]             as? String
         xPathImgArtist          = Dictionary["xPathImgArtist"]          as? String
+        descriptionArtist       = Dictionary["descriptionArtist"]       as? String
         vIDArtist               = Dictionary["vIDArtist"]               as? String
         
         

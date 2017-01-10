@@ -23,10 +23,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     // MARK: - Use Singleton to load up event objects from the JSON file and create the model
     // Step 1 of N: ModelController calls for a sharedInstance of EventLineup
     let lineUp = EventLineup.sharedInstance
-    
-//    var pageData: [String] = []
-        var pageData: [Event] = []
-
+    var pageData: [Event] = []
 
     override init() {
         super.init()
@@ -46,8 +43,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 
         // Create a new view controller and pass suitable data.
         let dataViewController = storyboard.instantiateViewController(withIdentifier: "DataViewController") as! DataViewController
-//        dataViewController.dataObject = self.pageData[index]
-        dataViewController.dataObject = self.lineUp.events[index].artist
+        dataViewController.dataArtist = self.lineUp.events[index].artist
         dataViewController.dataImgArtist = self.lineUp.events[index].imgArtist
         return dataViewController
     }
@@ -55,7 +51,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     func indexOfViewController(_ viewController: DataViewController) -> Int {
         // Return the index of the given data view controller.
         // For simplicity, this implementation uses a static array of model objects and the view controller stores the model object; you can therefore use the model object to identify the index.
-        return self.pageData.index(where: {$0.artist == viewController.dataObject }) ?? NSNotFound
+        return self.pageData.index(where: {$0.artist == viewController.dataArtist }) ?? NSNotFound
     }
 
     // MARK: - Page View Controller Data Source

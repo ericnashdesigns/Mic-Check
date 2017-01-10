@@ -25,7 +25,7 @@ class EventLineup {
         return Singleton.instance
     }
     
-    // a toggle for testing UI and interactions without making calls to external websites
+    // a toggle for testing UIvard interactions without making calls to external websites
     let testMode: Bool = false
     
     // Array for the Events.  They may be real Events or test events, depending on testMode
@@ -293,6 +293,42 @@ class EventLineup {
                         print(" EventLineup.swift – currentEvent.price = \(trimmedStrPrice)")
                     }
                 }
+            
+                // MARK: Add Description from Wikipedia
+//                let strTemp = "https://en.wikipedia.org/w/api.php?action=opensearch&search=\(currentEvent.artist)&prop=info&limit=1&format=json"
+                
+
+                
+//                guard let strTemp = makeVerifiedUrl(strPathUrl: "https://en.wikipedia.org/w/api.php?action=opensearch&search=\(currentEvent.artist)&prop=info&limit=1&format=json", strVenueUrl: currentEvent.urlVenue) else {
+//
+//                    currentEvent.descriptionArtist = "No description available"
+//                    print(" EventLineup.swift – Error getting description.")
+//                    
+//                    continue eventLoop
+//                    
+//                }
+////                let url = URL(string: strTemp)
+//                
+//                print(" EventLineup.swift – url = \(strTemp)")
+//
+//                
+//                let task = URLSession.shared.dataTask(with: strTemp) { data, response, error in
+//                    guard error == nil else {
+//                        currentEvent.descriptionArtist = "No description available"
+//                        print(" EventLineup.swift – Error getting description.")
+//                        return
+//                    }
+//                    guard let data = data else {
+//                        print(" EventLineup.swift – No description available.")
+//                        return
+//                    }
+//                    
+//                    let json = try! JSONSerialization.jsonObject(with: data, options: [])
+//                    print(" EventLineup.swift – Description = \(json)")
+//                }
+//                
+//                task.resume()
+            
             } // end testMode conditional
         } // end eventLoop
 

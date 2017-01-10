@@ -14,9 +14,9 @@
 		0721B9151E0A599D004BEB19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0721B9131E0A599D004BEB19 /* Main.storyboard */; };
 		0721B9171E0A599D004BEB19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0721B9161E0A599D004BEB19 /* Assets.xcassets */; };
 		0721B91A1E0A599D004BEB19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0721B9181E0A599D004BEB19 /* LaunchScreen.storyboard */; };
-		0721B9521E0A5F82004BEB19 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 0721B9511E0A5F82004BEB19 /* events.json */; };
 		0721B9551E0A64D8004BEB19 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B9541E0A64D8004BEB19 /* Event.swift */; };
 		0721B9571E0A6BF5004BEB19 /* EventLineup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B9561E0A6BF5004BEB19 /* EventLineup.swift */; };
+		07C59E8E1E24AB6300CC24CB /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 07C59E8D1E24AB6300CC24CB /* events.json */; };
 		8638F74A07331D398563A7EE /* Pods_MicCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 502BE0EB88CA0CD417A7AF0E /* Pods_MicCheck.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,9 +30,9 @@
 		0721B9161E0A599D004BEB19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0721B9191E0A599D004BEB19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0721B91B1E0A599D004BEB19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0721B9511E0A5F82004BEB19 /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		0721B9541E0A64D8004BEB19 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		0721B9561E0A6BF5004BEB19 /* EventLineup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventLineup.swift; sourceTree = "<group>"; };
+		07C59E8D1E24AB6300CC24CB /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		19540C1178879B495440962D /* Pods-MicCheck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicCheck.release.xcconfig"; path = "Pods/Target Support Files/Pods-MicCheck/Pods-MicCheck.release.xcconfig"; sourceTree = "<group>"; };
 		261088C4E97BD33433EB3DB1 /* Pods-MicCheck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicCheck.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MicCheck/Pods-MicCheck.debug.xcconfig"; sourceTree = "<group>"; };
 		502BE0EB88CA0CD417A7AF0E /* Pods_MicCheck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicCheck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,7 +127,7 @@
 		0721B9531E0A5F90004BEB19 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				0721B9511E0A5F82004BEB19 /* events.json */,
+				07C59E8D1E24AB6300CC24CB /* events.json */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -218,7 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0721B9521E0A5F82004BEB19 /* events.json in Resources */,
+				07C59E8E1E24AB6300CC24CB /* events.json in Resources */,
 				0721B91A1E0A599D004BEB19 /* LaunchScreen.storyboard in Resources */,
 				0721B9171E0A599D004BEB19 /* Assets.xcassets in Resources */,
 				0721B9151E0A599D004BEB19 /* Main.storyboard in Resources */,

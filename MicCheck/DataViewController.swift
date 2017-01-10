@@ -10,21 +10,21 @@ import UIKit
 
 class DataViewController: UIViewController {
 
-    @IBOutlet weak var dataLabel: UILabel!
+    @IBOutlet weak var labelDay: UILabel!
+    @IBOutlet weak var labelMonth: UILabel!
+    @IBOutlet weak var labelDate: UILabel!
+    @IBOutlet weak var labelIndexOfCount: UILabel!
+
+    @IBOutlet weak var labelArtist: UILabel!
+    @IBOutlet weak var labelVenue: UILabel!
+    @IBOutlet weak var labelPrice: UILabel!
     @IBOutlet weak var imgArtist: UIImageView!
+
+    @IBOutlet var labelNoVideosFound: UILabel!
     
-    var dataObject: String = ""
+    var dataArtist: String = ""
     var dataImgArtist: UIImage!
-    //    var dataObject: Event?
-//    var dataArtist: String = ""
     
-//        let lineUp = EventLineup.sharedInstance
-//        var dataObject: Event = EventLineup.sharedInstance.events
-//    var dataObject:
-//    var dataObjectArtists: [String] = EventLineup.sharedInstance.events.ar
-    
-//    let lineUp = EventLineup.sharedInstance
-//    var dataObject: Event = EventLineup.sharedInstance.events[0]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,11 +38,7 @@ class DataViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.dataLabel.text = dataObject
-        //        self.dataLabel!.text = dataArtist
-//        self.dataLabel!.text = dataObject
-//        self.dataImgArtist.image
-//                self.imgArtist.image = dataObject.imgArtist
+        self.labelArtist.text = dataArtist
         self.imgArtist.image =  dataImgArtist
     }
 
