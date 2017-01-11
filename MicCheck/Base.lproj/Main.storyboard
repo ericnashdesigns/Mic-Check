@@ -7,6 +7,8 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -61,12 +63,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gym-Z5-mpf" userLabel="View Video Top Left" customClass="YTPlayerView">
+                                <rect key="frame" x="20" y="406" width="164.5" height="92.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gym-Z5-mpf" secondAttribute="height" multiplier="16:9" id="nPj-XE-i3e"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97826086960000003" green="0.91848131079999995" blue="0.73914263440000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="qb7-ke-a1S" secondAttribute="trailing" id="0nj-Cf-kKm"/>
+                            <constraint firstItem="gym-Z5-mpf" firstAttribute="leading" secondItem="U9F-nY-ylS" secondAttribute="leading" id="1wt-I3-GBr"/>
                             <constraint firstItem="caz-Gf-Mub" firstAttribute="top" secondItem="cF2-Le-7mQ" secondAttribute="bottom" constant="7" id="5bX-n9-aYc"/>
                             <constraint firstItem="U9F-nY-ylS" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="8e7-hJ-BZO"/>
+                            <constraint firstItem="gym-Z5-mpf" firstAttribute="top" secondItem="U9F-nY-ylS" secondAttribute="bottom" constant="7" id="9ij-cD-gr2"/>
+                            <constraint firstAttribute="centerXWithinMargins" secondItem="gym-Z5-mpf" secondAttribute="trailing" constant="3" id="CX2-kx-VpZ"/>
                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="PnF-O8-Bso"/>
                             <constraint firstItem="U9F-nY-ylS" firstAttribute="top" secondItem="caz-Gf-Mub" secondAttribute="bottom" constant="7" id="R2x-ml-0UK"/>
                             <constraint firstAttribute="centerY" secondItem="qb7-ke-a1S" secondAttribute="bottom" id="Zkm-uY-Xov"/>
@@ -84,6 +96,7 @@
                         <outlet property="labelArtist" destination="cF2-Le-7mQ" id="GCE-Jd-YEK"/>
                         <outlet property="labelPrice" destination="U9F-nY-ylS" id="cb2-Sy-HuM"/>
                         <outlet property="labelVenue" destination="caz-Gf-Mub" id="4p7-OP-LRd"/>
+                        <outlet property="viewVideoPlayerTopLeft" destination="gym-Z5-mpf" id="Oq1-Cs-vM1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GmD-Rr-ZGN" sceneMemberID="firstResponder"/>

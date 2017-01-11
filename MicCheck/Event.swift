@@ -106,7 +106,6 @@ class Event {
             
             let json = try! JSONSerialization.jsonObject(with: data, options: [])
             print(json)
-
         
         }
         
