@@ -81,7 +81,7 @@ class Event {
     // MARK: YouTube API Functions
     func getVideosForArtist(completion: (() -> Void)!) {
         
-        print("   Event.swift - getVideosForArtist start")
+//        print("   Event.swift - getVideosForArtist start")
         
         let apiKey = "AIzaSyABMIvminGXw9pQ_P1OsKxsO8aaNkvWBak"
         
@@ -105,7 +105,7 @@ class Event {
             }
             
             let json = try! JSONSerialization.jsonObject(with: data, options: [])
-            print(json)
+//            print(json)
         
         }
         

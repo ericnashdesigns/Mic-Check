@@ -72,6 +72,31 @@ class DataViewController: UIViewController {
     func loadVideoThumbs() {
 
         // nothing here yet because I need to work it out
+
+        guard dataVIDItems.count > 0 else {
+
+            // Fade in the "No videos found" label
+            labelNoVideosFound.isHidden = false
+            labelNoVideosFound.alpha = 0
+            
+            UIView.animate(withDuration: 0.5, delay: 1, options: [], animations: {
+                self.labelNoVideosFound.alpha = 1
+                
+            }, completion: nil)
+
+            return
+
+        }
+ 
+        // load the video thumb parameters
+        let playervars: [String: Int] = [
+            "controls": 0,
+            "showinfo": 0,
+            "fs": 0,
+            "modestbranding": 1
+            
+        ]
+        
         
     }
 }

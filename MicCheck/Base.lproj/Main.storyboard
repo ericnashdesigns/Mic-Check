@@ -70,6 +70,12 @@
                                     <constraint firstAttribute="width" secondItem="gym-Z5-mpf" secondAttribute="height" multiplier="16:9" id="nPj-XE-i3e"/>
                                 </constraints>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No videos found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5d-s1-TZT" userLabel="Label No Videos Found">
+                                <rect key="frame" x="20" y="405" width="335" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.97826086960000003" green="0.91848131079999995" blue="0.73914263440000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -78,12 +84,15 @@
                             <constraint firstItem="caz-Gf-Mub" firstAttribute="top" secondItem="cF2-Le-7mQ" secondAttribute="bottom" constant="7" id="5bX-n9-aYc"/>
                             <constraint firstItem="U9F-nY-ylS" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="8e7-hJ-BZO"/>
                             <constraint firstItem="gym-Z5-mpf" firstAttribute="top" secondItem="U9F-nY-ylS" secondAttribute="bottom" constant="7" id="9ij-cD-gr2"/>
+                            <constraint firstItem="G5d-s1-TZT" firstAttribute="top" secondItem="U9F-nY-ylS" secondAttribute="bottom" constant="6" id="A1X-9v-85T"/>
+                            <constraint firstItem="G5d-s1-TZT" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="CRm-2e-eMz"/>
                             <constraint firstAttribute="centerXWithinMargins" secondItem="gym-Z5-mpf" secondAttribute="trailing" constant="3" id="CX2-kx-VpZ"/>
                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="PnF-O8-Bso"/>
                             <constraint firstItem="U9F-nY-ylS" firstAttribute="top" secondItem="caz-Gf-Mub" secondAttribute="bottom" constant="7" id="R2x-ml-0UK"/>
                             <constraint firstAttribute="centerY" secondItem="qb7-ke-a1S" secondAttribute="bottom" id="Zkm-uY-Xov"/>
                             <constraint firstItem="qb7-ke-a1S" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" id="aZK-s2-jJ9"/>
                             <constraint firstAttribute="trailing" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="20" symbolic="YES" id="cCk-mG-gz5"/>
+                            <constraint firstAttribute="trailing" secondItem="G5d-s1-TZT" secondAttribute="trailing" constant="20" symbolic="YES" id="dKh-wi-djU"/>
                             <constraint firstItem="caz-Gf-Mub" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="ga4-KN-tYA"/>
                             <constraint firstItem="qb7-ke-a1S" firstAttribute="top" secondItem="ZwX-cT-FIQ" secondAttribute="top" id="ldw-zr-f31"/>
                             <constraint firstAttribute="trailing" secondItem="caz-Gf-Mub" secondAttribute="trailing" constant="20" symbolic="YES" id="rOT-rJ-NeW"/>
@@ -94,6 +103,7 @@
                     <connections>
                         <outlet property="imgArtist" destination="qb7-ke-a1S" id="ee4-VW-7iD"/>
                         <outlet property="labelArtist" destination="cF2-Le-7mQ" id="GCE-Jd-YEK"/>
+                        <outlet property="labelNoVideosFound" destination="G5d-s1-TZT" id="QwE-4y-NoO"/>
                         <outlet property="labelPrice" destination="U9F-nY-ylS" id="cb2-Sy-HuM"/>
                         <outlet property="labelVenue" destination="caz-Gf-Mub" id="4p7-OP-LRd"/>
                         <outlet property="viewVideoPlayerTopLeft" destination="gym-Z5-mpf" id="Oq1-Cs-vM1"/>
