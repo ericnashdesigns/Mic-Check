@@ -43,10 +43,8 @@ class DataViewController: UIViewController {
             // callback to load the videos into the DataViewController and update the UI
             print("  DataViewController.swift - ViewWillAppear() - callback executing")
             self.dataVIDItems = self.lineUp.events[self.dataIntEventIndex - 1].vIDItems
-            self.loadVideoThumbs()
-            self.viewVideoPlayerTopLeft.load(withVideoId: "uA0Xja6xem8")
+
         })
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,40 +58,21 @@ class DataViewController: UIViewController {
         self.imgArtist.image =  dataImgArtist
         self.labelVenue.text = dataVenue
         self.labelPrice.text = dataPrice
-        
+
+        // load the video thumb parameters
+        let playervars: [String: Int] = [
+            "controls": 0,
+            "showinfo": 0,
+            "fs": 0,
+            "modestbranding": 1
+        ]
+        self.viewVideoPlayerTopLeft.load(withVideoId: "uA0Xja6xem8", playerVars: playervars)
     }
 
     func loadVideoThumbs() {
 
-        
-        
-//        print("  DataViewController.swift - loadVideoThumbs() – self.lineUp.events[self.dataIntEventIndex - 1].vIDItems.count = \(self.lineUp.events[self.dataIntEventIndex - 1].vIDItems.count)")
-//        
-//        // load the video thumb parameters
-//        let playervars: [String: Int] = [
-//            "controls": 0,
-//            "showinfo": 0,
-//            "fs": 0,
-//            "modestbranding": 1
-//            
-//        ]
-        
-        
-//        viewVideoPlayerTopLeft.load(withVideoId: self.dataVIDItems[index]["videoID"] as! String)
-        
-//                    let currentVideo = (self.dataVIDItems[index]["videoID"] as! String)
-//                    viewVideoPlayerTopLeft.load(withVideoId: currentVideo, playerVars: playervars)
-//
-//                }
-//                
-//                videoIndex += 1
-//            }
-//            
-//            print("  DataViewController.swift - loadVideoThumbs() - videos loaded successfully.")
+        // nothing here yet because I need to work it out
         
     }
-    
-    
-
 }
 
