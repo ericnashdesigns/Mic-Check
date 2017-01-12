@@ -17,8 +17,29 @@
 		0721B9551E0A64D8004BEB19 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B9541E0A64D8004BEB19 /* Event.swift */; };
 		0721B9571E0A6BF5004BEB19 /* EventLineup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B9561E0A6BF5004BEB19 /* EventLineup.swift */; };
 		07C59E8E1E24AB6300CC24CB /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 07C59E8D1E24AB6300CC24CB /* events.json */; };
+		07E7AC7F1E276C83006ECA18 /* MicCheckUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7AC7E1E276C83006ECA18 /* MicCheckUITests.swift */; };
+		07E7AC8D1E276C96006ECA18 /* MicCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7AC8C1E276C96006ECA18 /* MicCheckTests.swift */; };
 		8638F74A07331D398563A7EE /* Pods_MicCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 502BE0EB88CA0CD417A7AF0E /* Pods_MicCheck.framework */; };
+		9293CD5CE6EA9E5835FFE51F /* Pods_MicCheckTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D4F8A0B4AB559B3ACB640AC /* Pods_MicCheckTests.framework */; };
+		DC6D7EE7EF5DCB1489AB5C28 /* Pods_MicCheckUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3D89F24F792C7D22BC2610 /* Pods_MicCheckUITests.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		07E7AC811E276C83006ECA18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0721B9001E0A599D004BEB19 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0721B9071E0A599D004BEB19;
+			remoteInfo = MicCheck;
+		};
+		07E7AC8F1E276C96006ECA18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0721B9001E0A599D004BEB19 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0721B9071E0A599D004BEB19;
+			remoteInfo = MicCheck;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0721B9081E0A599D004BEB19 /* MicCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,6 +54,12 @@
 		0721B9541E0A64D8004BEB19 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		0721B9561E0A6BF5004BEB19 /* EventLineup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventLineup.swift; sourceTree = "<group>"; };
 		07C59E8D1E24AB6300CC24CB /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
+		07E7AC7C1E276C83006ECA18 /* MicCheckUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicCheckUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		07E7AC7E1E276C83006ECA18 /* MicCheckUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicCheckUITests.swift; sourceTree = "<group>"; };
+		07E7AC801E276C83006ECA18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07E7AC8A1E276C96006ECA18 /* MicCheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicCheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		07E7AC8C1E276C96006ECA18 /* MicCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicCheckTests.swift; sourceTree = "<group>"; };
+		07E7AC8E1E276C96006ECA18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		19540C1178879B495440962D /* Pods-MicCheck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicCheck.release.xcconfig"; path = "Pods/Target Support Files/Pods-MicCheck/Pods-MicCheck.release.xcconfig"; sourceTree = "<group>"; };
 		261088C4E97BD33433EB3DB1 /* Pods-MicCheck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicCheck.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MicCheck/Pods-MicCheck.debug.xcconfig"; sourceTree = "<group>"; };
 		502BE0EB88CA0CD417A7AF0E /* Pods_MicCheck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicCheck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +80,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		07E7AC791E276C83006ECA18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC6D7EE7EF5DCB1489AB5C28 /* Pods_MicCheckUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		07E7AC871E276C96006ECA18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9293CD5CE6EA9E5835FFE51F /* Pods_MicCheckTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -60,6 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				0721B90A1E0A599D004BEB19 /* MicCheck */,
+				07E7AC7D1E276C83006ECA18 /* MicCheckUITests */,
+				07E7AC8B1E276C96006ECA18 /* MicCheckTests */,
 				0721B9091E0A599D004BEB19 /* Products */,
 				3F420536A08ABC65925ACEE1 /* Pods */,
 				B74B32160A094C0A50AA5AFF /* Frameworks */,
@@ -70,6 +115,8 @@
 			isa = PBXGroup;
 			children = (
 				0721B9081E0A599D004BEB19 /* MicCheck.app */,
+				07E7AC7C1E276C83006ECA18 /* MicCheckUITests.xctest */,
+				07E7AC8A1E276C96006ECA18 /* MicCheckTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,6 +179,24 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
+		07E7AC7D1E276C83006ECA18 /* MicCheckUITests */ = {
+			isa = PBXGroup;
+			children = (
+				07E7AC7E1E276C83006ECA18 /* MicCheckUITests.swift */,
+				07E7AC801E276C83006ECA18 /* Info.plist */,
+			);
+			path = MicCheckUITests;
+			sourceTree = "<group>";
+		};
+		07E7AC8B1E276C96006ECA18 /* MicCheckTests */ = {
+			isa = PBXGroup;
+			children = (
+				07E7AC8C1E276C96006ECA18 /* MicCheckTests.swift */,
+				07E7AC8E1E276C96006ECA18 /* Info.plist */,
+			);
+			path = MicCheckTests;
+			sourceTree = "<group>";
+		};
 		3F420536A08ABC65925ACEE1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +243,48 @@
 			productReference = 0721B9081E0A599D004BEB19 /* MicCheck.app */;
 			productType = "com.apple.product-type.application";
 		};
+		07E7AC7B1E276C83006ECA18 /* MicCheckUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07E7AC851E276C83006ECA18 /* Build configuration list for PBXNativeTarget "MicCheckUITests" */;
+			buildPhases = (
+				2D4C74233BBEEA0ED3D993C0 /* [CP] Check Pods Manifest.lock */,
+				07E7AC781E276C83006ECA18 /* Sources */,
+				07E7AC791E276C83006ECA18 /* Frameworks */,
+				07E7AC7A1E276C83006ECA18 /* Resources */,
+				E9E2273FE55B1FF9D2AACB6E /* [CP] Embed Pods Frameworks */,
+				8CEC5A7549339DB086A5A7ED /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				07E7AC821E276C83006ECA18 /* PBXTargetDependency */,
+			);
+			name = MicCheckUITests;
+			productName = MicCheckUITests;
+			productReference = 07E7AC7C1E276C83006ECA18 /* MicCheckUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		07E7AC891E276C96006ECA18 /* MicCheckTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07E7AC911E276C96006ECA18 /* Build configuration list for PBXNativeTarget "MicCheckTests" */;
+			buildPhases = (
+				5D16B7555CE290A602F1EC02 /* [CP] Check Pods Manifest.lock */,
+				07E7AC861E276C96006ECA18 /* Sources */,
+				07E7AC871E276C96006ECA18 /* Frameworks */,
+				07E7AC881E276C96006ECA18 /* Resources */,
+				9B56CB5028D70D178D61D48D /* [CP] Embed Pods Frameworks */,
+				0CC92EB47446D0D87E743564 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				07E7AC901E276C96006ECA18 /* PBXTargetDependency */,
+			);
+			name = MicCheckTests;
+			productName = MicCheckTests;
+			productReference = 07E7AC8A1E276C96006ECA18 /* MicCheckTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -192,6 +299,18 @@
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = WM54JRC2M4;
 						ProvisioningStyle = Automatic;
+					};
+					07E7AC7B1E276C83006ECA18 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = WM54JRC2M4;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 0721B9071E0A599D004BEB19;
+					};
+					07E7AC891E276C96006ECA18 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = WM54JRC2M4;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 0721B9071E0A599D004BEB19;
 					};
 				};
 			};
@@ -209,6 +328,8 @@
 			projectRoot = "";
 			targets = (
 				0721B9071E0A599D004BEB19 /* MicCheck */,
+				07E7AC7B1E276C83006ECA18 /* MicCheckUITests */,
+				07E7AC891E276C96006ECA18 /* MicCheckTests */,
 			);
 		};
 /* End PBXProject section */
@@ -222,6 +343,20 @@
 				0721B91A1E0A599D004BEB19 /* LaunchScreen.storyboard in Resources */,
 				0721B9171E0A599D004BEB19 /* Assets.xcassets in Resources */,
 				0721B9151E0A599D004BEB19 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		07E7AC7A1E276C83006ECA18 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		07E7AC881E276C96006ECA18 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,7 +378,52 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MicCheck/Pods-MicCheck-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		0CC92EB47446D0D87E743564 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MicCheckTests/Pods-MicCheckTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2D4C74233BBEEA0ED3D993C0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		437D7EF930253E263756B363 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5D16B7555CE290A602F1EC02 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -273,6 +453,51 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MicCheck/Pods-MicCheck-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8CEC5A7549339DB086A5A7ED /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MicCheckUITests/Pods-MicCheckUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B56CB5028D70D178D61D48D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MicCheckTests/Pods-MicCheckTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9E2273FE55B1FF9D2AACB6E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MicCheckUITests/Pods-MicCheckUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -289,7 +514,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		07E7AC781E276C83006ECA18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07E7AC7F1E276C83006ECA18 /* MicCheckUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		07E7AC861E276C96006ECA18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07E7AC8D1E276C96006ECA18 /* MicCheckTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		07E7AC821E276C83006ECA18 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0721B9071E0A599D004BEB19 /* MicCheck */;
+			targetProxy = 07E7AC811E276C83006ECA18 /* PBXContainerItemProxy */;
+		};
+		07E7AC901E276C96006ECA18 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0721B9071E0A599D004BEB19 /* MicCheck */;
+			targetProxy = 07E7AC8F1E276C96006ECA18 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0721B9131E0A599D004BEB19 /* Main.storyboard */ = {
@@ -432,6 +686,64 @@
 			};
 			name = Release;
 		};
+		07E7AC831E276C83006ECA18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F99AA86FF3BE283FCBA2DE76 /* Pods-MicCheckUITests.debug.xcconfig */;
+			buildSettings = {
+				DEVELOPMENT_TEAM = WM54JRC2M4;
+				INFOPLIST_FILE = MicCheckUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ericnashdesigns.com.MicCheckUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = MicCheck;
+			};
+			name = Debug;
+		};
+		07E7AC841E276C83006ECA18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C0395B4D94928F317DF6CA81 /* Pods-MicCheckUITests.release.xcconfig */;
+			buildSettings = {
+				DEVELOPMENT_TEAM = WM54JRC2M4;
+				INFOPLIST_FILE = MicCheckUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ericnashdesigns.com.MicCheckUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = MicCheck;
+			};
+			name = Release;
+		};
+		07E7AC921E276C96006ECA18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A0721439FA7B42FA7EF4F75 /* Pods-MicCheckTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = WM54JRC2M4;
+				INFOPLIST_FILE = MicCheckTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ericnashdesigns.com.MicCheckTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MicCheck.app/MicCheck";
+			};
+			name = Debug;
+		};
+		07E7AC931E276C96006ECA18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9872B87E3A95F397B62E6521 /* Pods-MicCheckTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = WM54JRC2M4;
+				INFOPLIST_FILE = MicCheckTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ericnashdesigns.com.MicCheckTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MicCheck.app/MicCheck";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -452,6 +764,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		07E7AC851E276C83006ECA18 /* Build configuration list for PBXNativeTarget "MicCheckUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07E7AC831E276C83006ECA18 /* Debug */,
+				07E7AC841E276C83006ECA18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		07E7AC911E276C96006ECA18 /* Build configuration list for PBXNativeTarget "MicCheckTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07E7AC921E276C96006ECA18 /* Debug */,
+				07E7AC931E276C96006ECA18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
