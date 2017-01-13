@@ -43,10 +43,16 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 
         // Create a new view controller and pass suitable data.
         let dataViewController = storyboard.instantiateViewController(withIdentifier: "DataViewController") as! DataViewController
+
+        dataViewController.dataIntEventIndex = index
+        
         dataViewController.dataArtist = self.lineUp.events[index].artist
         dataViewController.dataImgArtist = self.lineUp.events[index].imgArtist
         dataViewController.dataVenue = self.lineUp.events[index].venue!
         dataViewController.dataPrice = self.lineUp.events[index].price!
+        
+        dataViewController.dataVIDItems = self.lineUp.events[index].vIDItems
+
         return dataViewController
     }
 

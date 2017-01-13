@@ -37,14 +37,26 @@ class DataViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     
-        // get the videos for the artist and load them into the model
-        self.lineUp.events[self.dataIntEventIndex - 0].getVideosForArtist(completion: { Void in
-            
-            // callback to load the videos into the DataViewController and update the UI
-            print("  DataViewController.swift - ViewWillAppear() - callback executing")
-            self.dataVIDItems = self.lineUp.events[self.dataIntEventIndex - 1].vIDItems
+        // fetch the artist videos
+        if dataVIDItems.isEmpty {
 
-        })
+            // if the artist videos aren't already in the model then add them to the model
+            // callback to load the videos into the DataViewController and update the UI
+            // I think I should rewrite getVideosForArtist so that it also grabs the thumbnail images from YouTube and 
+            // I'll use those in my Ken Burns transition on the detail page.
+
+            lineUp.events[dataIntEventIndex].getVideosForArtist(completion: { Void in
+                
+                print("  DataViewController.swift - ViewWillAppear() - callback executing")
+                self.dataVIDItems = self.lineUp.events[self.dataIntEventIndex].vIDItems
+                
+            })
+            
+        }
+
+        // display the artist videos
+        self.loadVideoThumbs()
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,8 +83,7 @@ class DataViewController: UIViewController {
 
     func loadVideoThumbs() {
 
-        // nothing here yet because I need to work it out
-
+        // if the model is empty now then it's because there were no videos returned by the YouTube API
         guard dataVIDItems.count > 0 else {
 
             // Fade in the "No videos found" label

@@ -34,7 +34,10 @@ class Event {
     var descriptionArtist: String?
     
     let vIDArtist: String?
+    // I think I should redo this variable as a simple array of video IDs: vIDItems2
+    // I don't think I ever used the other parameters like thumbnail resolution, etc.
     var vIDItems: Array<Dictionary<NSObject, AnyObject>> = []
+    var vIDItems2: Array<String> = []
     
     var price: String?
     let boolPriceShown: String?
@@ -79,6 +82,8 @@ class Event {
     }
 
     // MARK: YouTube API Functions
+    
+    // I think maybe I should rewrite this so that it returns an array of videos
     func getVideosForArtist(completion: (() -> Void)!) {
         
 //        print("   Event.swift - getVideosForArtist start")
@@ -105,8 +110,10 @@ class Event {
             }
             
             let json = try! JSONSerialization.jsonObject(with: data, options: [])
-//            print(json)
-        
+            print(json)
+
+//            self.vIDItems = self.lineUp.events[self.dataIntEventIndex - 1].vIDItems
+            
         }
         
         task.resume()
