@@ -30,6 +30,7 @@ class Event {
     let xPathArtist: String?
     
     var imgArtist: UIImage?
+    var strArtistVidImgUrls: Array<String> = []
     let xPathImgArtist: String?
     var descriptionArtist: String?
     
@@ -37,7 +38,7 @@ class Event {
     // I think I should redo this variable as a simple array of video IDs: vIDItems2
     // I don't think I ever used the other parameters like thumbnail resolution, etc.
     var vIDItems: Array<Dictionary<NSObject, AnyObject>> = []
-    var vIDItems2: Array<String> = []
+    var strVIDs: Array<String> = []
     
     var price: String?
     let boolPriceShown: String?
@@ -83,7 +84,7 @@ class Event {
 
     // MARK: YouTube API Functions
     
-    // I think maybe I should rewrite this so that it returns an array of videos
+    // Query the YouTube API to return the JSON blob of videos, then store these into an array within the Event
     func getVideosForArtist(completion: (() -> Void)!) {
         
 //        print("   Event.swift - getVideosForArtist start")
@@ -108,17 +109,47 @@ class Event {
                 print("   Event.swift - Data is empty")
                 return
             }
-            
-            let json = try! JSONSerialization.jsonObject(with: data, options: [])
-            print(json)
 
-//            self.vIDItems = self.lineUp.events[self.dataIntEventIndex - 1].vIDItems
+            let json = JSON(data: data)
+
+            //Getting an array of string from a JSON Array
+
+            if let items = json["items"].array {
+                for item in items {
+
+                    // grab the videoIDs and store them in the Event
+                    if let strVID = item["id"]["videoId"].string {
+                    
+                        self.strVIDs.append(strVID)
+                        print("   Event.swift - strVID Added: \(strVID)")
+                        
+                    } else {
+                    
+                        print("   Event.swift - Could not get the videoId string from the YouTube items array")
+
+                    }
+
+                    // also grab the Artist video thumbs and store them in the event
+                    if let strArtistVidImgUrl = item["snippet"]["thumbnails"]["high"]["url"].string {
+
+                        //print("strArtistVidImgUrl: \(strArtistVidImgUrl)")
+                        self.strArtistVidImgUrls.append(strArtistVidImgUrl)
+
+                    } else {
+                    
+                        print("   Event.swift - Could not get the Artsit Video URLs from the YouTube items array")
+                    
+                    }
+                }
+            } else {
+                print("   Event.swift - Could not get the YouTube items array")
+            }
             
         }
-        
+ 
         task.resume()
-        
+ 
     }
 
-    
+ 
 }

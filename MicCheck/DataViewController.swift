@@ -32,30 +32,19 @@ class DataViewController: UIViewController {
     var dataPrice: String = ""
     var dataVIDItems: Array<Dictionary<NSObject, AnyObject>> = []
     var dataIntEventIndex: Int = 0
+    var dataStrVIDs: Array<String> = []
     
+    // when you are loading things from a server, you also have to think about latency. If you pack all of your network communication into viewDidLoad or viewWillAppear, they will be executed before the user gets to see the view - possibly resulting a short freeze of your app. It may be good idea to first show the user an unpopulated view with an activity indicator of some sort
+    
+    // viewDidLoad is things you have to do once.
+    // it occures before viewWillAppear
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     
-        // fetch the artist videos
-        if dataVIDItems.isEmpty {
-
-            // if the artist videos aren't already in the model then add them to the model
-            // callback to load the videos into the DataViewController and update the UI
-            // I think I should rewrite getVideosForArtist so that it also grabs the thumbnail images from YouTube and 
-            // I'll use those in my Ken Burns transition on the detail page.
-
-            lineUp.events[dataIntEventIndex].getVideosForArtist(completion: { Void in
-                
-                print("  DataViewController.swift - ViewWillAppear() - callback executing")
-                self.dataVIDItems = self.lineUp.events[self.dataIntEventIndex].vIDItems
-                
-            })
-            
-        }
 
         // display the artist videos
-        self.loadVideoThumbs()
+//        self.loadVideoThumbs()
 
     }
 
@@ -64,6 +53,7 @@ class DataViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // viewWillAppear gets called every time the view appears.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.labelArtist.text = dataArtist
@@ -78,7 +68,87 @@ class DataViewController: UIViewController {
             "fs": 0,
             "modestbranding": 1
         ]
-        self.viewVideoPlayerTopLeft.load(withVideoId: "uA0Xja6xem8", playerVars: playervars)
+
+        // fetch the artist videos and load them into the Event object
+        
+        let todoEndpoint: String = "https://jsonplaceholder.typicode.com/todos/1"
+        guard let url = URL(string: todoEndpoint) else {
+            print("Error: cannot create URL")
+            return
+        }
+        let urlRequest = URLRequest(url: url)
+
+        let session = URLSession.shared
+
+        let task = session.dataTask(with: urlRequest) {
+            (data, response, error) in
+            // check for any errors
+            guard error == nil else {
+                print("error calling GET on /todos/1")
+                print(error!)
+                return
+            }
+            // make sure we got data
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            // parse the result as JSON, since that's what the API provides
+            do {
+                guard let todo = try JSONSerialization.jsonObject(with: responseData, options: [])
+                    as? [String: Any] else {
+                        print("error trying to convert data to JSON")
+                        return
+                }
+                // now we have the todo
+                // let's just print it to prove we can access it
+                print("The todo is: " + todo.description)
+                
+                // the todo object is a dictionary
+                // so we just access the title using the "title" key
+                // so check for a title and print it if we have one
+                guard let todoTitle = todo["title"] as? String else {
+                    print("Could not get todo title from JSON")
+                    return
+                }
+                print("The title is: " + todoTitle)
+            } catch  {
+                print("error trying to convert data to JSON")
+                return
+            }
+        }
+        task.resume()
+        
+        
+        if dataStrVIDs.isEmpty {
+            
+            print("  DataViewController.swift - dataStrVIDs is empty, so fill it")
+            
+            // if the artist videos aren't already in the model then add them to the model
+            // callback to load the videos into the DataViewController and update the UI
+            // I think I should rewrite getVideosForArtist so that it also grabs the thumbnail images from YouTube and
+            // I'll use those in my Ken Burns transition on the detail page.
+            
+            let currentEvent = lineUp.events[dataIntEventIndex]
+            
+            currentEvent.getVideosForArtist(completion: { Void in
+                
+                print("  DataViewController.swift - ViewWillAppear() - callback executing")
+                self.dataStrVIDs = self.lineUp.events[self.dataIntEventIndex].strVIDs
+                print("self.dataStrVIDs[0] = \(self.dataStrVIDs[0])")
+                self.viewVideoPlayerTopLeft.load(withVideoId: self.dataStrVIDs[0], playerVars: playervars)
+                
+            })
+            
+        } else {
+            viewVideoPlayerTopLeft.load(withVideoId: dataStrVIDs[0], playerVars: playervars)
+            print("dataStrVIDs was not empty")
+        }
+        
+        
+        // load the video thumbs onto the page
+        //let videoID = self.dataStrVIDs[0]
+        //self.viewVideoPlayerTopLeft.load(withVideoId: videoID, playerVars: playervars)
     }
 
     func loadVideoThumbs() {
