@@ -61,96 +61,45 @@ class DataViewController: UIViewController {
         self.labelVenue.text = dataVenue
         self.labelPrice.text = dataPrice
 
-        // load the video thumb parameters
-        let playervars: [String: Int] = [
-            "controls": 0,
-            "showinfo": 0,
-            "fs": 0,
-            "modestbranding": 1
-        ]
-
         // fetch the artist videos and load them into the Event object
+        let currentEvent = lineUp.events[dataIntEventIndex]
         
-        let todoEndpoint: String = "https://jsonplaceholder.typicode.com/todos/1"
-        guard let url = URL(string: todoEndpoint) else {
-            print("Error: cannot create URL")
-            return
-        }
-        let urlRequest = URLRequest(url: url)
-
-        let session = URLSession.shared
-
-        let task = session.dataTask(with: urlRequest) {
-            (data, response, error) in
-            // check for any errors
-            guard error == nil else {
-                print("error calling GET on /todos/1")
-                print(error!)
-                return
-            }
-            // make sure we got data
-            guard let responseData = data else {
-                print("Error: did not receive data")
-                return
-            }
-            // parse the result as JSON, since that's what the API provides
-            do {
-                guard let todo = try JSONSerialization.jsonObject(with: responseData, options: [])
-                    as? [String: Any] else {
-                        print("error trying to convert data to JSON")
-                        return
-                }
-                // now we have the todo
-                // let's just print it to prove we can access it
-                print("The todo is: " + todo.description)
+        // closures have s syntax: { (parameters) -> return type in statements }
+        // you can tack closures at the end of the function call and it will be passed to the function just like a parameter
+        currentEvent.getVideosForArtist() { (strVIDs, error) -> Void in
+            
+            if error != nil{
                 
-                // the todo object is a dictionary
-                // so we just access the title using the "title" key
-                // so check for a title and print it if we have one
-                guard let todoTitle = todo["title"] as? String else {
-                    print("Could not get todo title from JSON")
-                    return
-                }
-                print("The title is: " + todoTitle)
-            } catch  {
-                print("error trying to convert data to JSON")
-                return
+                print(error as Any)
             }
-        }
-        task.resume()
-        
-        
-        if dataStrVIDs.isEmpty {
-            
-            print("  DataViewController.swift - dataStrVIDs is empty, so fill it")
-            
-            // if the artist videos aren't already in the model then add them to the model
-            // callback to load the videos into the DataViewController and update the UI
-            // I think I should rewrite getVideosForArtist so that it also grabs the thumbnail images from YouTube and
-            // I'll use those in my Ken Burns transition on the detail page.
-            
-            let currentEvent = lineUp.events[dataIntEventIndex]
-            
-            currentEvent.getVideosForArtist(completion: { Void in
+            else{
                 
-                print("  DataViewController.swift - ViewWillAppear() - callback executing")
-                self.dataStrVIDs = self.lineUp.events[self.dataIntEventIndex].strVIDs
-                print("self.dataStrVIDs[0] = \(self.dataStrVIDs[0])")
-                self.viewVideoPlayerTopLeft.load(withVideoId: self.dataStrVIDs[0], playerVars: playervars)
-                
-            })
-            
-        } else {
-            viewVideoPlayerTopLeft.load(withVideoId: dataStrVIDs[0], playerVars: playervars)
-            print("dataStrVIDs was not empty")
-        }
-        
-        
-        // load the video thumbs onto the page
-        //let videoID = self.dataStrVIDs[0]
-        //self.viewVideoPlayerTopLeft.load(withVideoId: videoID, playerVars: playervars)
-    }
+                // load the video thumbs onto the page
+                print(strVIDs![0])
+ 
+                // To update anything on the main thread, just jump back on like so.
+                DispatchQueue.main.async {
 
+                    // load the video thumb parameters
+                    let playervars: [String: Int] = [
+                        "controls": 0,
+                        "showinfo": 0,
+                        "fs": 0,
+                        "modestbranding": 1
+                        
+                    ]
+                    
+                    self.viewVideoPlayerTopLeft.load(withVideoId: strVIDs![0], playerVars: playervars)
+                
+                } // end Dispatch.main.sync
+                
+            } // end if
+
+        } // end getVideoForArtist() completion handler
+
+    } // end viewWillAppear()
+
+    
     func loadVideoThumbs() {
 
         // if the model is empty now then it's because there were no videos returned by the YouTube API
@@ -167,18 +116,9 @@ class DataViewController: UIViewController {
 
             return
 
-        }
- 
-        // load the video thumb parameters
-        let playervars: [String: Int] = [
-            "controls": 0,
-            "showinfo": 0,
-            "fs": 0,
-            "modestbranding": 1
-            
-        ]
+        } // end guard
         
-        
-    }
+    } // end loadVideoThumbs()
+
 }
 

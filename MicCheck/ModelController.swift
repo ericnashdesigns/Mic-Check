@@ -52,7 +52,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         dataViewController.dataPrice = self.lineUp.events[index].price!
         
         //dataViewController.dataVIDItems = self.lineUp.events[index].vIDItems
-        dataViewController.dataStrVIDs = self.lineUp.events[index].strVIDs
+        //dataViewController.dataStrVIDs = self.lineUp.events[index].strVIDs
 
         return dataViewController
     }

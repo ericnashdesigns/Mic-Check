@@ -85,10 +85,12 @@ class Event {
     // MARK: YouTube API Functions
     
     // Query the YouTube API to return the JSON blob of videos, then store these into an array within the Event
-    func getVideosForArtist(completion: (() -> Void)!) {
-        
-//        print("   Event.swift - getVideosForArtist start")
-        
+
+    // I was thinking maybe I should rewrite this so that it simply returns
+
+
+    
+    func getVideosForArtist(completionHandler: @escaping (Array<String>?, NSError?) -> Void ) -> Void {
         let apiKey = "AIzaSyABMIvminGXw9pQ_P1OsKxsO8aaNkvWBak"
         
         // Form the Request URL String
@@ -98,57 +100,69 @@ class Event {
         
         // Create a URL Object using the string above
         let targetURL = URL(string: urlString)
-
+        
         // Create the Async Request
         let task = URLSession.shared.dataTask(with: targetURL!) { data, response, error in
+            // check for any errors
             guard error == nil else {
                 print(error!)
+                completionHandler(nil, error as NSError?)
                 return
             }
+            // make sure we got data
             guard let data = data else {
-                print("   Event.swift - Data is empty")
+                print("   Event.swift - Data was not received")
                 return
             }
 
+            // parse the result as JSON, since that's what the API provides
             let json = JSON(data: data)
-
+            
             //Getting an array of string from a JSON Array
-
+            
             if let items = json["items"].array {
                 for item in items {
-
+                    
                     // grab the videoIDs and store them in the Event
                     if let strVID = item["id"]["videoId"].string {
-                    
+                        
                         self.strVIDs.append(strVID)
                         print("   Event.swift - strVID Added: \(strVID)")
                         
                     } else {
-                    
+                        
                         print("   Event.swift - Could not get the videoId string from the YouTube items array")
-
-                    }
-
+                        
+                    } // end if
+                    
                     // also grab the Artist video thumbs and store them in the event
                     if let strArtistVidImgUrl = item["snippet"]["thumbnails"]["high"]["url"].string {
-
+                        
                         //print("strArtistVidImgUrl: \(strArtistVidImgUrl)")
                         self.strArtistVidImgUrls.append(strArtistVidImgUrl)
-
+                        
                     } else {
-                    
+                        
                         print("   Event.swift - Could not get the Artsit Video URLs from the YouTube items array")
+                        
+                    } // end if
                     
-                    }
-                }
+                } // end for statement
+
+                completionHandler(self.strVIDs, nil)
+                return
+                
             } else {
+
                 print("   Event.swift - Could not get the YouTube items array")
-            }
+                return
+
+            } // end if
             
-        }
- 
+        } // end URLSession.shared.dataTask completionHandler
+        
         task.resume()
- 
+        return
     }
 
  
