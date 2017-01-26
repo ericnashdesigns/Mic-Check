@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0721B91F1E0A599E004BEB19"
+               BlueprintIdentifier = "07E7AC891E276C96006ECA18"
                BuildableName = "MicCheckTests.xctest"
                BlueprintName = "MicCheckTests"
                ReferencedContainer = "container:MicCheck.xcodeproj">
@@ -42,7 +42,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0721B92A1E0A599E004BEB19"
+               BlueprintIdentifier = "07E7AC7B1E276C83006ECA18"
                BuildableName = "MicCheckUITests.xctest"
                BlueprintName = "MicCheckUITests"
                ReferencedContainer = "container:MicCheck.xcodeproj">

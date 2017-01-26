@@ -772,6 +772,7 @@
 				07E7AC841E276C83006ECA18 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		07E7AC911E276C96006ECA18 /* Build configuration list for PBXNativeTarget "MicCheckTests" */ = {
 			isa = XCConfigurationList;
@@ -780,6 +781,7 @@
 				07E7AC931E276C96006ECA18 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
