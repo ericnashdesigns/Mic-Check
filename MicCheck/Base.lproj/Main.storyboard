@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="703-4V-yAM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="703-4V-yAM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -70,6 +70,13 @@
                                     <constraint firstAttribute="width" secondItem="gym-Z5-mpf" secondAttribute="height" multiplier="16:9" id="nPj-XE-i3e"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hxj-65-G1j" userLabel="View Video Top RIght" customClass="YTPlayerView">
+                                <rect key="frame" x="192" y="406" width="163" height="91.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Hxj-65-G1j" secondAttribute="height" multiplier="16:9" id="hMi-Nw-fsm"/>
+                                </constraints>
+                            </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No videos found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5d-s1-TZT" userLabel="Label No Videos Found">
                                 <rect key="frame" x="20" y="405" width="335" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -85,8 +92,10 @@
                             <constraint firstItem="U9F-nY-ylS" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="8e7-hJ-BZO"/>
                             <constraint firstItem="gym-Z5-mpf" firstAttribute="top" secondItem="U9F-nY-ylS" secondAttribute="bottom" constant="7" id="9ij-cD-gr2"/>
                             <constraint firstItem="G5d-s1-TZT" firstAttribute="top" secondItem="U9F-nY-ylS" secondAttribute="bottom" constant="6" id="A1X-9v-85T"/>
+                            <constraint firstItem="Hxj-65-G1j" firstAttribute="leading" secondItem="gym-Z5-mpf" secondAttribute="trailing" constant="7" id="CEW-Bh-OUY"/>
                             <constraint firstItem="G5d-s1-TZT" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="CRm-2e-eMz"/>
                             <constraint firstAttribute="centerXWithinMargins" secondItem="gym-Z5-mpf" secondAttribute="trailing" constant="3" id="CX2-kx-VpZ"/>
+                            <constraint firstItem="Hxj-65-G1j" firstAttribute="trailing" secondItem="U9F-nY-ylS" secondAttribute="trailing" id="ECr-u0-eB7"/>
                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="PnF-O8-Bso"/>
                             <constraint firstItem="U9F-nY-ylS" firstAttribute="top" secondItem="caz-Gf-Mub" secondAttribute="bottom" constant="7" id="R2x-ml-0UK"/>
                             <constraint firstAttribute="centerY" secondItem="qb7-ke-a1S" secondAttribute="bottom" id="Zkm-uY-Xov"/>
@@ -97,6 +106,7 @@
                             <constraint firstItem="qb7-ke-a1S" firstAttribute="top" secondItem="ZwX-cT-FIQ" secondAttribute="top" id="ldw-zr-f31"/>
                             <constraint firstAttribute="trailing" secondItem="caz-Gf-Mub" secondAttribute="trailing" constant="20" symbolic="YES" id="rOT-rJ-NeW"/>
                             <constraint firstAttribute="trailing" secondItem="U9F-nY-ylS" secondAttribute="trailing" constant="20" symbolic="YES" id="tN3-V7-JWR"/>
+                            <constraint firstItem="Hxj-65-G1j" firstAttribute="top" secondItem="U9F-nY-ylS" secondAttribute="bottom" constant="7" id="uqe-6L-6R6"/>
                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="top" secondItem="ZwX-cT-FIQ" secondAttribute="centerY" symbolic="YES" id="zem-Jm-uYh"/>
                         </constraints>
                     </view>
@@ -107,11 +117,12 @@
                         <outlet property="labelPrice" destination="U9F-nY-ylS" id="cb2-Sy-HuM"/>
                         <outlet property="labelVenue" destination="caz-Gf-Mub" id="4p7-OP-LRd"/>
                         <outlet property="viewVideoPlayerTopLeft" destination="gym-Z5-mpf" id="Oq1-Cs-vM1"/>
+                        <outlet property="viewVideoPlayerTopRight" destination="Hxj-65-G1j" id="a5L-75-m4A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GmD-Rr-ZGN" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="597" y="-243"/>
+            <point key="canvasLocation" x="596" y="-243.32833583208398"/>
         </scene>
     </scenes>
 </document>
