@@ -51,9 +51,6 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         dataViewController.dataVenue = self.lineUp.events[index].venue!
         dataViewController.dataPrice = self.lineUp.events[index].price!
         
-        //dataViewController.dataVIDItems = self.lineUp.events[index].vIDItems
-        //dataViewController.dataStrVIDs = self.lineUp.events[index].strVIDs
-
         return dataViewController
     }
 

@@ -30,22 +30,12 @@ class DataViewController: UIViewController {
     var dataImgArtist: UIImage!
     var dataVenue: String = ""
     var dataPrice: String = ""
-    var dataVIDItems: Array<Dictionary<NSObject, AnyObject>> = []
     var dataIntEventIndex: Int = 0
     var dataStrVIDs: Array<String> = []
     
-    // when you are loading things from a server, you also have to think about latency. If you pack all of your network communication into viewDidLoad or viewWillAppear, they will be executed before the user gets to see the view - possibly resulting a short freeze of your app. It may be good idea to first show the user an unpopulated view with an activity indicator of some sort
-    
-    // viewDidLoad is things you have to do once.
-    // it occures before viewWillAppear
+    // viewDidLoad is things you have to do once.  it occures before viewWillAppear
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    
-
-        // display the artist videos
-//        self.loadVideoThumbs()
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,22 +64,12 @@ class DataViewController: UIViewController {
             }
             else{
                 
-                // load the video thumbs onto the page
-                print(strVIDs![0])
- 
                 // To update anything on the main thread, just jump back on like so.
                 DispatchQueue.main.async {
 
-                    // load the video thumb parameters
-                    let playervars: [String: Int] = [
-                        "controls": 0,
-                        "showinfo": 0,
-                        "fs": 0,
-                        "modestbranding": 1
-                        
-                    ]
-                    
-                    self.viewVideoPlayerTopLeft.load(withVideoId: strVIDs![0], playerVars: playervars)
+                    // load the video thumbs onto the page
+                    self.loadVideoThumbs(strVIDs: strVIDs)
+
                 
                 } // end Dispatch.main.sync
                 
@@ -100,11 +80,14 @@ class DataViewController: UIViewController {
     } // end viewWillAppear()
 
     
-    func loadVideoThumbs() {
-
+    func loadVideoThumbs(strVIDs: Array<String>?) {
+        
         // if the model is empty now then it's because there were no videos returned by the YouTube API
-        guard dataVIDItems.count > 0 else {
+        guard (strVIDs?.count)! > 0 else {
 
+            // Hide the video thumb
+            labelNoVideosFound.alpha = 0
+            
             // Fade in the "No videos found" label
             labelNoVideosFound.isHidden = false
             labelNoVideosFound.alpha = 0
@@ -117,6 +100,18 @@ class DataViewController: UIViewController {
             return
 
         } // end guard
+
+        // load the video thumb parameters
+        let playervars: [String: Int] = [
+            "controls": 0,
+            "showinfo": 0,
+            "fs": 0,
+            "modestbranding": 1
+        ]
+        
+        
+        self.viewVideoPlayerTopLeft.load(withVideoId: strVIDs![0], playerVars: playervars)
+        
         
     } // end loadVideoThumbs()
 

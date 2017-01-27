@@ -35,9 +35,6 @@ class Event {
     var descriptionArtist: String?
     
     let vIDArtist: String?
-    // I think I should redo this variable as a simple array of video IDs: vIDItems2
-    // I don't think I ever used the other parameters like thumbnail resolution, etc.
-    var vIDItems: Array<Dictionary<NSObject, AnyObject>> = []
     var strVIDs: Array<String> = []
     
     var price: String?
@@ -91,6 +88,14 @@ class Event {
 
     
     func getVideosForArtist(completionHandler: @escaping (Array<String>?, NSError?) -> Void ) -> Void {
+        
+        // if the video IDs are already populated, then no need to run through the YouTube API
+        guard strVIDs.isEmpty else {
+            print("   Event.swift - strVIDs already populated")
+            completionHandler(strVIDs, nil)
+            return
+        }        
+        
         let apiKey = "AIzaSyABMIvminGXw9pQ_P1OsKxsO8aaNkvWBak"
         
         // Form the Request URL String
