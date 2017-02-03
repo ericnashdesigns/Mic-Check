@@ -12,18 +12,7 @@ import SwiftyJSON
 
 class EventLineup {
     
-    // a singleton pattern I'm trying from: https://www.raywenderlich.com/86477/introducing-ios-design-patterns-in-swift-part-1
-    class var sharedInstance: EventLineup {
-        
-        struct Singleton {
-            
-            // Declaring a property as static means this property only exists once
-            static let instance = EventLineup()
-            
-        }
-    
-        return Singleton.instance
-    }
+    static let sharedInstance = EventLineup()
     
     // a toggle for testing UIvard interactions without making calls to external websites
     let testMode: Bool = false
@@ -32,8 +21,7 @@ class EventLineup {
     var events: [Event] = []
     
     private init() {
-        //I'm making the getTodaysEvents call in ModelController, but may move it to a ViewController later
-        //self.getTodaysEvents()
+        self.getTodaysEvents()
     }
     
     func getTodaysEvents() {

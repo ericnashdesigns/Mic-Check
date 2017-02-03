@@ -21,23 +21,15 @@ import UIKit
 class ModelController: NSObject, UIPageViewControllerDataSource {
 
     // MARK: - Use Singleton to load up event objects from the JSON file and create the model
-    // Step 1 of N: ModelController calls for a sharedInstance of EventLineup
     let lineUp = EventLineup.sharedInstance
-    var pageData: [Event] = []
 
     override init() {
         super.init()
-        // Create the data model.
-//        let dateFormatter = DateFormatter()
-//        pageData = dateFormatter.monthSymbols
-        
-        lineUp.getTodaysEvents()
-        pageData = lineUp.events
     }
 
     func viewControllerAtIndex(_ index: Int, storyboard: UIStoryboard) -> DataViewController? {
         // Return the data view controller for the given index.
-        if (self.pageData.count == 0) || (index >= self.pageData.count) {
+        if (self.lineUp.events.count == 0) || (index >= self.lineUp.events.count) {
             return nil
         }
 
@@ -57,7 +49,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     func indexOfViewController(_ viewController: DataViewController) -> Int {
         // Return the index of the given data view controller.
         // For simplicity, this implementation uses a static array of model objects and the view controller stores the model object; you can therefore use the model object to identify the index.
-        return self.pageData.index(where: {$0.artist == viewController.dataArtist }) ?? NSNotFound
+        return self.lineUp.events.index(where: {$0.artist == viewController.dataArtist }) ?? NSNotFound
     }
 
     // MARK: - Page View Controller Data Source
@@ -79,7 +71,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         }
         
         index += 1
-        if index == self.pageData.count {
+        if index == self.lineUp.events.count {
             return nil
         }
         return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
