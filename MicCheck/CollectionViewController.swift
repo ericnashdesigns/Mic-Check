@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "IDcell"
 
-class CollectionViewController: UICollectionViewController {
+class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     var modelController: ModelController {
         // Return the model controller object, creating it if necessary.
@@ -21,6 +21,7 @@ class CollectionViewController: UICollectionViewController {
     }
     
     var _modelController: ModelController? = nil
+    let cellSpacingsInStoryboard: CGFloat = 2 * 2 // spacing * 2 edges
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,73 @@ class CollectionViewController: UICollectionViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+
+    // MARK: – Sizing
+    // Header
+    //func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
+        //let orientation = UIApplication.shared.statusBarOrientation
+        
+        //if(orientation == .landscapeLeft || orientation == .landscapeRight) {
+            // 1 header row of 1
+            //let width = collectionView.frame.size.width - cellSpacingsInStoryboard
+            //let height = collectionView.frame.size.height/2
+            //return CGSize(width: width, height: height)
+        //}
+        //else { // portrait mode
+            // 1 header row of 1
+            //let width = collectionView.frame.size.width - cellSpacingsInStoryboard
+            //let height = collectionView.frame.size.height/3
+            //return CGSize(width: width, height: height)
+        //}
+        
+    //}
+    
+    // Main Cells
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // your code here
+        let orientation = UIApplication.shared.statusBarOrientation
+        
+        if(orientation == .landscapeLeft || orientation == .landscapeRight) {
+            // 2 rows of 2
+            let width = collectionView.frame.size.width/2 - cellSpacingsInStoryboard
+            let height = collectionView.frame.size.height/2
+            return CGSize(width: width, height: height)
+        }
+        else { // portrait mode
+            // 3 rows of 1
+            let width = collectionView.frame.size.width - cellSpacingsInStoryboard
+            let height = collectionView.frame.size.height/3
+            print("width = \(width)")
+            return CGSize(width: width, height: height)
+        }
+    
+    }
+    
+
+    // Footer
+    //func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        
+        //let orientation = UIApplication.shared.statusBarOrientation
+        
+        //if(orientation == .landscapeLeft || orientation == .landscapeRight) {
+            // 1 footer row of 1
+            //let width = collectionView.frame.size.width - cellSpacingsInStoryboard
+            //let height = collectionView.frame.size.height/2
+            //return CGSize(width: width, height: height)
+        //}
+        //else { // portrait mode
+            // 1 footer row of 1
+            //let width = collectionView.frame.size.width - cellSpacingsInStoryboard
+            //let height = collectionView.frame.size.height/3
+            //return CGSize(width: width, height: height)
+        //}
+        
+    //}
+    
     
     // MARK: - Navigation
 

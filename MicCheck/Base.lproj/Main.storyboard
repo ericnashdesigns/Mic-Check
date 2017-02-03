@@ -32,7 +32,7 @@
         <scene sceneID="bGo-oc-OFH">
             <objects>
                 <collectionViewController id="Fep-5J-U4E" customClass="CollectionViewController" customModule="MicCheck" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="2cn-bf-Fn1">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="2cn-bf-Fn1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -50,23 +50,28 @@
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uG3-AQ-TCF" userLabel="Image View Artist">
-                                            <rect key="frame" x="-166" y="-39" width="240" height="128"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uG3-AQ-TCF" userLabel="Image View Artist">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         </imageView>
                                     </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="uG3-AQ-TCF" firstAttribute="top" secondItem="0Gk-K1-eZE" secondAttribute="top" id="XoQ-o7-9PJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="uG3-AQ-TCF" secondAttribute="trailing" id="bJC-5u-nz5"/>
+                                    <constraint firstItem="uG3-AQ-TCF" firstAttribute="leading" secondItem="0Gk-K1-eZE" secondAttribute="leading" id="sZV-oS-Zc8"/>
+                                    <constraint firstAttribute="bottom" secondItem="uG3-AQ-TCF" secondAttribute="bottom" id="yWF-px-4OY"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="imgViewArtist" destination="uG3-AQ-TCF" id="9Lj-I3-rZ3"/>
                                     <segue destination="703-4V-yAM" kind="show" identifier="collectionViewSegue" id="nX5-yY-2e5"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="XNP-Ju-KqO" userLabel="Collection View Header">
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewHeader" id="XNP-Ju-KqO" userLabel="Collection View Header">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </collectionReusableView>
-                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="RoK-Xv-Zga" userLabel="Collection View Footer">
+                        <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewFooter" id="RoK-Xv-Zga" userLabel="Collection View Footer">
                             <rect key="frame" x="0.0" y="100" width="375" height="50"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </collectionReusableView>
