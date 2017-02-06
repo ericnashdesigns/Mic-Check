@@ -30,7 +30,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         // self.clearsSelectionOnViewWillAppear = false
 
         // Do any additional setup after loading the view.
-        
+
+        // if I don't use this, the collectionview will be too low on the screen.
+        self.automaticallyAdjustsScrollViewInsets = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,7 +77,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             // 3 rows of 1
             let width = collectionView.frame.size.width - cellSpacingsInStoryboard
             let height = collectionView.frame.size.height/3
-            print("width = \(width)")
             return CGSize(width: width, height: height)
         }
     }
@@ -141,8 +142,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
         return cell
     }
-
-
     
     //
     

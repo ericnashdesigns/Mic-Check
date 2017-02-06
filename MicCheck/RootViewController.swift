@@ -38,8 +38,13 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
             pageViewRect = pageViewRect.insetBy(dx: 40.0, dy: 40.0)
         }
         self.pageViewController!.view.frame = pageViewRect
-
+        
         self.pageViewController!.didMove(toParentViewController: self)
+
+        // if I don't use this, the dataviewcontrollers will be too low on the screen.
+        self.automaticallyAdjustsScrollViewInsets = false
+
+    
     }
 
     override func didReceiveMemoryWarning() {
