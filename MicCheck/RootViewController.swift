@@ -23,7 +23,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
         // ERic: swapped out the 0 for the monthIndex as an Int
         
-        let startingViewController: DataViewController = self.modelController.viewControllerAtIndex(eventIndex!, storyboard: self.storyboard!)!
+        let startingViewController: DataViewController = self.modelController.viewControllerAtIndex(eventIndex!, direction: "down", storyboard: self.storyboard!)!
         let viewControllers = [startingViewController]
         self.pageViewController!.setViewControllers(viewControllers, direction: .forward, animated: false, completion: {done in })
 

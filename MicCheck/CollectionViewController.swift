@@ -39,7 +39,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             self.modelController.lineUp.getColorsForArtistImages()
         }
     
-        print(" CollectionViewController – viewDidLoad() called")
+        // print(" CollectionViewController – viewDidLoad() called")
     }
 
     override func didReceiveMemoryWarning() {
@@ -120,8 +120,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             
             if let indexPath = self.collectionView?.indexPath(for: cell) {
                 vc.eventIndex = indexPath.row
-                //let selectedEvent = self.modelController.lineUp.events[indexPath.row]
-                print(" CollectionViewController – indexPath = \(indexPath.row)")
+                // let selectedEvent = self.modelController.lineUp.events[indexPath.row]
+                // print(" CollectionViewController – indexPath = \(indexPath.row)")
             }
             
         }

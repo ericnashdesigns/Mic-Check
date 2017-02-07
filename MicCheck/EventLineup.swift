@@ -16,7 +16,7 @@ class EventLineup {
     static let sharedInstance = EventLineup()
     
     // a toggle for testing UIvard interactions without making calls to external websites
-    let testMode: Bool = false
+    let testMode: Bool = true
     
     // Array for the Events.  They may be real Events or test events, depending on testMode
     var events: [Event] = []
@@ -63,10 +63,6 @@ class EventLineup {
         //       It's cleaner to do removals from the bottom since the index don't change
 
         eventLoop: for (index, currentEvent) in self.events.enumerated().reversed() {
-
-            print("\r\n - - - - - - - - - - - -")
-            print(" \(currentEvent.venue!)")
-            print(" \(currentEvent.urlVenue!)")
             
             if self.testMode == true {
                 currentEvent.eventHappeningTonight = true
@@ -75,6 +71,10 @@ class EventLineup {
                 currentEvent.imgArtist = UIImage(named: jsonlineup[index]["testImgArtist"].string!)
                 currentEvent.price = jsonlineup[index]["testPrice"].string!
             } else {  // self.testMode == false
+
+                print("\r\n - - - - - - - - - - - -")
+                print(" \(currentEvent.venue!)")
+                print(" \(currentEvent.urlVenue!)")
                 
                 // use the Venue URL to access the venue website and populate other areas
                 guard let venueURLString = currentEvent.urlVenue else {
