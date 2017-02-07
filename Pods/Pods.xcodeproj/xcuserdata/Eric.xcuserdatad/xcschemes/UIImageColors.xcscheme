@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '4D10E4FF5A483B852B47CCA0B994E340'
-               BlueprintName = 'Kanna'
+               BlueprintIdentifier = 'C043AFEA127D064CAE32118D907955BC'
+               BlueprintName = 'UIImageColors'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Kanna.framework'>
+               BuildableName = 'UIImageColors.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

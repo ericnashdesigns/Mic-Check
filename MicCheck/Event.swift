@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+import UIImageColors
 
 class Event {
     
@@ -45,6 +46,7 @@ class Event {
     let dateFormat: String?
     let xPathDate: String?
     
+    var colorsArtistimageColors: UIImageColors? = nil
     
     init(Dictionary: NSDictionary) {
         

@@ -8,10 +8,13 @@
 
 import UIKit
 import youtube_ios_player_helper
+import UIImageColors
 
 class DataViewController: UIViewController {
 
     let lineUp = EventLineup.sharedInstance
+    
+    @IBOutlet var viewContainer: UIView!
     
     @IBOutlet weak var labelDay: UILabel!
     @IBOutlet weak var labelMonth: UILabel!
@@ -33,6 +36,7 @@ class DataViewController: UIViewController {
     var dataPrice: String = ""
     var dataIntEventIndex: Int = 0
     var dataStrVIDs: Array<String> = []
+    var dataColorsImgArtist: UIImageColors?
     
     // viewDidLoad is things you have to do once.  it occures before viewWillAppear
     override func viewDidLoad() {
@@ -52,6 +56,12 @@ class DataViewController: UIViewController {
         self.labelVenue.text = dataVenue
         self.labelPrice.text = dataPrice
 
+        // assign colors, I'm running getColors() in a background thread because doing it here slows down paging
+        viewContainer.backgroundColor = dataColorsImgArtist?.backgroundColor
+        labelArtist.textColor = dataColorsImgArtist?.secondaryColor
+        labelVenue.textColor = dataColorsImgArtist?.detailColor
+        labelPrice.textColor = dataColorsImgArtist?.detailColor
+        
         // fetch the artist videos and load them into the Event object
         let currentEvent = lineUp.events[dataIntEventIndex]
         
@@ -60,7 +70,6 @@ class DataViewController: UIViewController {
         currentEvent.getVideosForArtist() { (strVIDs, error) -> Void in
             
             if error != nil{
-                
                 print(error as Any)
             }
             else{
@@ -70,7 +79,6 @@ class DataViewController: UIViewController {
 
                     // load the video thumbs onto the page
                     self.loadVideoThumbs(strVIDs: strVIDs)
-
                 
                 } // end Dispatch.main.sync
                 

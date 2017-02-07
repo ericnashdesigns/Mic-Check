@@ -9,6 +9,7 @@
 import Foundation
 import Kanna
 import SwiftyJSON
+import UIImageColors
 
 class EventLineup {
     
@@ -376,4 +377,17 @@ class EventLineup {
         }
         return false
     } // end verifyUrl
+    
+    func getColorsForArtistImages() {
+        
+        for event in self.events {
+        
+            if event.colorsArtistimageColors == nil {
+            
+                event.colorsArtistimageColors = event.imgArtist?.getColors()
+
+            }
+        
+        }
+    }
 }

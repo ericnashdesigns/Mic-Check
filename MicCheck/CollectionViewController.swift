@@ -33,6 +33,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
         // if I don't use this, the collectionview will be too low on the screen.
         self.automaticallyAdjustsScrollViewInsets = false
+
+        // start cranking through the color palletes for the detail views, moving to a background thread
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.modelController.lineUp.getColorsForArtistImages()
+        }
+    
+        print(" CollectionViewController – viewDidLoad() called")
     }
 
     override func didReceiveMemoryWarning() {

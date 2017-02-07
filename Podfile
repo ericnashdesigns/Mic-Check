@@ -8,7 +8,8 @@ target 'MicCheck' do
   # Pods for MicCheck
   pod 'SwiftyJSON'
   pod 'Kanna', '~> 2.1.0'
-  pod "youtube-ios-player-helper", "~> 0.1.4"
+  pod 'youtube-ios-player-helper', '~> 0.1.4'
+  pod 'UIImageColors', '~> 1.2'
 
   target 'MicCheckTests' do
     inherit! :search_paths

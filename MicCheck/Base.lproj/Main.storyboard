@@ -98,7 +98,7 @@
                     <view key="view" contentMode="scaleToFill" id="502-Ir-ELC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3h-pU-vEd" sceneMemberID="firstResponder"/>
@@ -191,6 +191,7 @@
                         <outlet property="labelNoVideosFound" destination="G5d-s1-TZT" id="QwE-4y-NoO"/>
                         <outlet property="labelPrice" destination="U9F-nY-ylS" id="cb2-Sy-HuM"/>
                         <outlet property="labelVenue" destination="caz-Gf-Mub" id="4p7-OP-LRd"/>
+                        <outlet property="viewContainer" destination="ZwX-cT-FIQ" id="AKu-bI-LUH"/>
                         <outlet property="viewVideoPlayerTopLeft" destination="gym-Z5-mpf" id="Oq1-Cs-vM1"/>
                         <outlet property="viewVideoPlayerTopRight" destination="Hxj-65-G1j" id="a5L-75-m4A"/>
                     </connections>
