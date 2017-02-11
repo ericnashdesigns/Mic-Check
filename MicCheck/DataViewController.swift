@@ -85,7 +85,7 @@ class DataViewController: UIViewController {
             } // end if
 
         } // end getVideoForArtist() completion handler
-
+        
     } // end viewWillAppear()
 
     

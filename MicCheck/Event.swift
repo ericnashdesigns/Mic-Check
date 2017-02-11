@@ -82,12 +82,7 @@ class Event {
     }
 
     // MARK: YouTube API Functions
-    
     // Query the YouTube API to return the JSON blob of videos, then store these into an array within the Event
-
-    // I was thinking maybe I should rewrite this so that it simply returns
-
-
     
     func getVideosForArtist(completionHandler: @escaping (Array<String>?, NSError?) -> Void ) -> Void {
         
@@ -172,5 +167,15 @@ class Event {
         return
     }
 
- 
+    func getColorsForArtistImage() {
+
+        if self.colorsArtistimageColors == nil {
+            
+            self.colorsArtistimageColors = self.imgArtist?.getColors()
+            
+        }
+
+        
+    }
+    
 }

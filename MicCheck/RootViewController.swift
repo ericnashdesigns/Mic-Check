@@ -43,9 +43,6 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
         // if I don't use this, the dataviewcontrollers will be too low on the screen.
         self.automaticallyAdjustsScrollViewInsets = false
-
-        // set the image colors
-        //self.modelController.lineUp
         
     
     }

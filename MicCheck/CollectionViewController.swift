@@ -12,18 +12,14 @@ private let reuseIdentifier = "IDcell"
 
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
-    var modelController: ModelController {
-        // Return the model controller object, creating it if necessary.
-        if _modelController == nil {
-            _modelController = ModelController()
-        }
-        return _modelController!
-    }
-    
-    var _modelController: ModelController? = nil
+    var lineUp: EventLineup?
+    var eventsLoaded: Bool = false // keeps track of when everything is loaded
     let cellSpacingsInStoryboard: CGFloat = 2 * 2 // spacing * 2 edges
     
+    @IBOutlet var kenBurnsView: JBKenBurnsView!
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
@@ -31,13 +27,51 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
         // Do any additional setup after loading the view.
 
+        print(" CollectionViewController – 1 of 4: before the first shared instance")
+
         // if I don't use this, the collectionview will be too low on the screen.
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        let images = [
+            UIImage(named: "basia.bulat")!,
+            UIImage(named: "bayonics")!,
+            UIImage(named: "birds.of.chicago")!
+        ]
+    
+        self.kenBurnsView.animateWithImages(images, imageAnimationDuration: 5, initialDelay: 0, shouldLoop: true, randomFirstImage: true)
 
+        self.lineUp = EventLineup.sharedInstance
+        
         // start cranking through the color palletes for the detail views, moving to a background thread
         DispatchQueue.global(qos: .userInitiated).async {
-            self.modelController.lineUp.getColorsForArtistImages()
-        }
+            
+            print(" CollectionViewController – 2 of 4: Global queue right after the ken burns initialize")
+            self.lineUp?.filterTodaysEvents() // this filter will return nothing if in test mode
+
+            DispatchQueue.main.async {
+
+                //self.collectionView?.bringSubview(toFront: self.kenBurnsView)
+                print(" CollectionViewController – 3 of 4: Main Queue - right before reloadDate")
+                self.eventsLoaded = true
+                
+                self.collectionView?.reloadData()
+                
+                self.collectionView?.bringSubview(toFront: self.kenBurnsView)
+                
+                self.kenBurnsView.alpha = 0
+                self.kenBurnsView.stopAnimation()
+
+                // TODO: This part takes a long time, so I think I'll try to get it on a separate thread.
+                //       I may even try again to put it on the DataViewController
+                
+                //print(" CollectionViewController – 3 of 4: getColorsForArtistImages start")
+                self.lineUp?.getColorsForArtistImages()
+                //print(" CollectionViewController – 4 of 4: getColorsForArtistImages end")
+                
+                
+            } // end Dispatch.main.sync
+
+        } // end Dispatch.global
     
         // print(" CollectionViewController – viewDidLoad() called")
     }
@@ -138,15 +172,21 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return self.modelController.lineUp.events.count
+        return self.lineUp!.events.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
     
         // Configure the cell
-        cell.imgViewArtist.image = self.modelController.lineUp.events[indexPath.row].imgArtist
+        cell.imgViewArtist.image = self.lineUp?.events[indexPath.row].imgArtist
 
+        if eventsLoaded == false {
+            cell.isHidden = true
+        } else {
+            cell.isHidden = false
+        }
+        
         return cell
     }
     
