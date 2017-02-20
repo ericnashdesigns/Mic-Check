@@ -33,9 +33,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         self.automaticallyAdjustsScrollViewInsets = false
         
         let images = [
-            UIImage(named: "basia.bulat")!,
-            UIImage(named: "bayonics")!,
-            UIImage(named: "birds.of.chicago")!
+            UIImage(named: "empty.stage")!,
+            UIImage(named: "guitarist.mountain.oasis")!,
+            UIImage(named: "guitarist.on.stage")!,
+            UIImage(named: "edm")!,
+            UIImage(named: "jazz.horns")!
         ]
     
         self.kenBurnsView.animateWithImages(images, imageAnimationDuration: 5, initialDelay: 0, shouldLoop: true, randomFirstImage: true)

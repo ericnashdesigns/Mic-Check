@@ -93,7 +93,6 @@ class DataViewController: UIViewController {
         
         // if the model is empty now then it's because there were no videos returned by the YouTube API
         guard (strVIDs?.count)! > 0 else {
-
             
             // Fade in the "No videos found" label
             labelNoVideosFound.isHidden = false
@@ -120,11 +119,24 @@ class DataViewController: UIViewController {
             "fs": 0,
             "modestbranding": 1
         ]
-        
-        
-        self.viewVideoPlayerTopLeft.load(withVideoId: strVIDs![0], playerVars: playervars)
-        self.viewVideoPlayerTopRight.load(withVideoId: strVIDs![1], playerVars: playervars)
-        
+
+        // load the video IDs into the YTPlayerViews
+        let viewVideoPlayers = [self.viewVideoPlayerTopLeft,
+                                self.viewVideoPlayerTopRight]
+        var intVIDIndex = 0
+
+        for currentViewVideoPlayer in viewVideoPlayers {
+            
+            // check to see if each exists and if so, fade it in
+            if (strVIDs?.count)! > intVIDIndex {
+                currentViewVideoPlayer?.load(withVideoId: strVIDs![intVIDIndex], playerVars: playervars)
+            } else {
+                currentViewVideoPlayer?.alpha = 0
+            } // end if
+
+            intVIDIndex += 1
+            
+        } // end for
         
     } // end loadVideoThumbs()
 
