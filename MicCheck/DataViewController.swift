@@ -20,10 +20,11 @@ class DataViewController: UIViewController {
     @IBOutlet weak var labelMonth: UILabel!
     @IBOutlet weak var labelDate: UILabel!
     @IBOutlet weak var labelIndexOfCount: UILabel!
-
+    
     @IBOutlet weak var labelArtist: UILabel!
     @IBOutlet weak var labelVenue: UILabel!
     @IBOutlet weak var labelPrice: UILabel!
+    @IBOutlet weak var labelDescription: UILabel!
     @IBOutlet weak var imgArtist: UIImageView!
 
     @IBOutlet var labelNoVideosFound: UILabel!
@@ -61,9 +62,33 @@ class DataViewController: UIViewController {
         labelArtist.textColor = dataColorsImgArtist?.secondaryColor
         labelVenue.textColor = dataColorsImgArtist?.detailColor
         labelPrice.textColor = dataColorsImgArtist?.detailColor
+        labelDescription.textColor = dataColorsImgArtist?.detailColor
         
         // fetch the artist videos and load them into the Event object
         let currentEvent = lineUp.events[dataIntEventIndex]
+
+
+        currentEvent.getDescriptionForArtist() { (strDescription, error) -> Void in
+
+            if error != nil{
+                print(error as Any)
+            }
+            else{
+                
+                // To update anything on the main thread, just jump back on like so.
+                DispatchQueue.main.async {
+                    
+                    if strDescription != nil {
+                        self.labelDescription.text = strDescription
+                    }
+
+                } // end Dispatch.main.sync
+                
+            } // end if
+            
+        }
+        
+    
         
         // closures have s syntax: { (parameters) -> return type in statements }
         // you can tack closures at the end of the function call and it will be passed to the function just like a parameter

@@ -81,6 +81,63 @@ class Event {
         
     }
 
+    func getDescriptionForArtist(completionHandler: @escaping (String?, NSError?) -> Void ) -> Void {
+        // if the artist description is already populated, then no need to run through the Wikipedia API
+        if self.descriptionArtist != nil {
+            print("   Event.swift - description already populated as \(self.descriptionArtist)")
+            completionHandler(descriptionArtist, nil)
+            return
+        }
+        
+        var urlString = "https://en.wikipedia.org/w/api.php?action=opensearch&search=\(self.artist)&limit=1&format=json"
+        urlString = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+
+        // Create a URL Object using the string above
+        let targetURL = URL(string: urlString)
+        
+        // Create the Async Request
+        let task = URLSession.shared.dataTask(with: targetURL!) { data, response, error in
+            // check for any errors
+            guard error == nil else {
+                print(error!)
+                completionHandler(nil, error as NSError?)
+                return
+            }
+            // make sure we got data
+            guard let data = data else {
+                print("   Event.swift - Wikipedia data was not received")
+                return
+            }
+            
+            // parse the result as JSON, since that's what the API provides
+            let json = JSON(data: data)
+            
+            //Getting a string from JSON
+            
+            if let parsedDescription = json[2][0].string {
+                
+                self.descriptionArtist = parsedDescription
+                //print("   Event.swift - descriptionArtist Added: \(self.descriptionArtist!)")
+                
+                completionHandler(self.descriptionArtist, nil)
+                return
+                
+            } else {
+                
+                print("   Event.swift - Could not get the descriptionArtist from the Wikipedia JSON")
+                return
+                
+            } // end if
+            
+        } // end URLSession.shared.dataTask completionHandler
+        
+        task.resume()
+        return
+
+    }
+    
+    
+    
     // MARK: YouTube API Functions
     // Query the YouTube API to return the JSON blob of videos, then store these into an array within the Event
     
@@ -113,7 +170,7 @@ class Event {
             }
             // make sure we got data
             guard let data = data else {
-                print("   Event.swift - Data was not received")
+                print("   Event.swift - YouTube data was not received")
                 return
             }
 
