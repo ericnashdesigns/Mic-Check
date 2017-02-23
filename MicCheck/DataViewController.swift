@@ -69,8 +69,9 @@ class DataViewController: UIViewController {
                 DispatchQueue.main.async {
                     
                     self.viewContainer.backgroundColor = colorsFromArtistImage.backgroundColor
-                    self.labelArtist.textColor = colorsFromArtistImage.secondaryColor
-                    self.labelVenue.textColor = colorsFromArtistImage.detailColor
+                    self.navigationController!.navigationBar.tintColor = colorsFromArtistImage.secondaryColor;
+                    self.labelArtist.textColor = colorsFromArtistImage.primaryColor
+                    self.labelVenue.textColor = colorsFromArtistImage.secondaryColor
                     self.labelPrice.textColor = colorsFromArtistImage.detailColor
                     self.labelDescription.textColor = colorsFromArtistImage.detailColor
 
