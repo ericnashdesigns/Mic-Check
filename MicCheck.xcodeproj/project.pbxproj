@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0712CF021E5D6BE3005E78C8 /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0712CF011E5D6BE3005E78C8 /* CollectionViewHeader.swift */; };
 		0721B90C1E0A599D004BEB19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B90B1E0A599D004BEB19 /* AppDelegate.swift */; };
 		0721B90E1E0A599D004BEB19 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B90D1E0A599D004BEB19 /* RootViewController.swift */; };
 		0721B9101E0A599D004BEB19 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B90F1E0A599D004BEB19 /* DataViewController.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0712CF011E5D6BE3005E78C8 /* CollectionViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewHeader.swift; sourceTree = "<group>"; };
 		0721B9081E0A599D004BEB19 /* MicCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0721B90B1E0A599D004BEB19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0721B90D1E0A599D004BEB19 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				0721B90D1E0A599D004BEB19 /* RootViewController.swift */,
+				0712CF011E5D6BE3005E78C8 /* CollectionViewHeader.swift */,
 				075F17CF1E3F16B10065CA26 /* CollectionViewController.swift */,
 				075F17CD1E3F12BF0065CA26 /* CollectionViewCell.swift */,
 				0721B90F1E0A599D004BEB19 /* DataViewController.swift */,
@@ -515,6 +518,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0721B90E1E0A599D004BEB19 /* RootViewController.swift in Sources */,
+				0712CF021E5D6BE3005E78C8 /* CollectionViewHeader.swift in Sources */,
 				0721B9121E0A599D004BEB19 /* ModelController.swift in Sources */,
 				0721B9101E0A599D004BEB19 /* DataViewController.swift in Sources */,
 				074B93C91E4C3CE90042AFC0 /* JBKenBurnsView.swift in Sources */,

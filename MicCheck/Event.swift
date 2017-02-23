@@ -186,7 +186,6 @@ class Event {
                     if let strVID = item["id"]["videoId"].string {
                         
                         self.strVIDs.append(strVID)
-                        print("   Event.swift - strVID Added: \(strVID)")
                         
                     } else {
                         
@@ -208,6 +207,8 @@ class Event {
                     
                 } // end for statement
 
+                print("   Event.swift - \(self.strVIDs.count) strVIDs Added ")
+                
                 completionHandler(self.strVIDs, nil)
                 return
                 
@@ -224,15 +225,20 @@ class Event {
         return
     }
 
-    func getColorsForArtistImage() {
-
-        if self.colorsArtistimageColors == nil {
-            
-            self.colorsArtistimageColors = self.imgArtist?.getColors()
-            
+    func getColorsForArtistImage() -> UIImageColors? {
+        
+        // if the artist image colors are already populated, then no need to run through it again
+        if self.colorsArtistimageColors != nil {
+            //print("   Event.swift - getColorsForArtistImage() Already Populated \r\n")
+            return colorsArtistimageColors
         }
-
+        
+        self.colorsArtistimageColors = self.imgArtist?.getColors()
+        //print("   Event.swift – getColorsForArtistImage() Finished \r\n")
+        
+        return colorsArtistimageColors
         
     }
+    
     
 }

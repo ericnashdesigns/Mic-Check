@@ -57,23 +57,43 @@ class DataViewController: UIViewController {
         self.labelVenue.text = dataVenue
         self.labelPrice.text = dataPrice
 
-        // assign colors, I'm running getColors() in a background thread because doing it here slows down paging
-        viewContainer.backgroundColor = dataColorsImgArtist?.backgroundColor
-        labelArtist.textColor = dataColorsImgArtist?.secondaryColor
-        labelVenue.textColor = dataColorsImgArtist?.detailColor
-        labelPrice.textColor = dataColorsImgArtist?.detailColor
-        labelDescription.textColor = dataColorsImgArtist?.detailColor
         
-        // fetch the artist videos and load them into the Event object
         let currentEvent = lineUp.events[dataIntEventIndex]
 
+        // Use artists image to assign colors, if available.  If not, use a background thread so that the image processing won't slow down paging
+        DispatchQueue.global(qos: .userInitiated).async {
+        
+            if let colorsFromArtistImage = currentEvent.getColorsForArtistImage() {
 
+                // To update anything on the main thread, just jump back on like so.
+                DispatchQueue.main.async {
+                    
+                    self.viewContainer.backgroundColor = colorsFromArtistImage.backgroundColor
+                    self.labelArtist.textColor = colorsFromArtistImage.secondaryColor
+                    self.labelVenue.textColor = colorsFromArtistImage.detailColor
+                    self.labelPrice.textColor = colorsFromArtistImage.detailColor
+                    self.labelDescription.textColor = colorsFromArtistImage.detailColor
+
+                } // end Dispatch.main
+                
+            } else {
+
+                // Assign some colors
+                print(" DataViewController.swift - No Artist Image Colors Available for Formatting ")
+                
+            } // end else
+            
+        } // end Dispatch.global
+
+        // Grab a description of the artist from the Wikipedia API asynchronously.  When it's finished, use it in our UI
+        // closures have a syntax: { (parameters) -> return type in statements }
+        // you can tack closures at the end of the function call and it will be passed to the function just like a parameter
         currentEvent.getDescriptionForArtist() { (strDescription, error) -> Void in
 
             if error != nil{
                 print(error as Any)
             }
-            else{
+            else {
                 
                 // To update anything on the main thread, just jump back on like so.
                 DispatchQueue.main.async {
@@ -89,15 +109,13 @@ class DataViewController: UIViewController {
         }
         
     
-        
-        // closures have s syntax: { (parameters) -> return type in statements }
-        // you can tack closures at the end of the function call and it will be passed to the function just like a parameter
+        // fetch the artist videos and load them into the Event object
         currentEvent.getVideosForArtist() { (strVIDs, error) -> Void in
             
             if error != nil{
                 print(error as Any)
             }
-            else{
+            else {
                 
                 // To update anything on the main thread, just jump back on like so.
                 DispatchQueue.main.async {

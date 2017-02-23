@@ -9,6 +9,7 @@
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -38,7 +39,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="7cG-T6-OF8">
                             <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="50" height="33"/>
                             <size key="footerReferenceSize" width="50" height="50"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
@@ -49,7 +50,7 @@
                         </view>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="IDcell" id="0Gk-K1-eZE" customClass="CollectionViewCell" customModule="MicCheck" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="50" height="50"/>
+                                <rect key="frame" x="0.0" y="33" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -72,13 +73,28 @@
                                 </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewHeader" id="XNP-Ju-KqO" userLabel="Collection View Header">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewHeader" id="XNP-Ju-KqO" userLabel="Collection View Header" customClass="CollectionViewHeader" customModule="MicCheck" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="33"/>
                             <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTz-qU-Hai" userLabel="Colored Background">
+                                    <rect key="frame" x="0.0" y="0.0" width="124" height="33"/>
+                                    <color key="backgroundColor" red="1" green="0.43529412150000002" blue="0.81176471709999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </view>
+                            </subviews>
                             <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="tTz-qU-Hai" firstAttribute="width" secondItem="XNP-Ju-KqO" secondAttribute="width" multiplier="0.33" id="7LQ-6v-G2W"/>
+                                <constraint firstAttribute="bottom" secondItem="tTz-qU-Hai" secondAttribute="bottom" id="arL-cS-3Zl"/>
+                                <constraint firstItem="tTz-qU-Hai" firstAttribute="leading" secondItem="XNP-Ju-KqO" secondAttribute="leading" id="dQf-oL-kmS"/>
+                                <constraint firstItem="tTz-qU-Hai" firstAttribute="top" secondItem="XNP-Ju-KqO" secondAttribute="top" id="xJl-RU-eE0"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="viewColoredBackground" destination="tTz-qU-Hai" id="rMi-Qm-gPK"/>
+                            </connections>
                         </collectionReusableView>
                         <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewFooter" id="RoK-Xv-Zga" userLabel="Collection View Footer">
-                            <rect key="frame" x="0.0" y="100" width="375" height="50"/>
+                            <rect key="frame" x="0.0" y="83" width="375" height="50"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </collectionReusableView>
                         <connections>

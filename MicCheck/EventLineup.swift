@@ -9,7 +9,6 @@
 import Foundation
 import Kanna
 import SwiftyJSON
-import UIImageColors
 
 class EventLineup {
     
@@ -30,27 +29,28 @@ class EventLineup {
     //       but splitting them in two was the only way I could make it work with multithreading.
     
     func getVenueList() {
-
-        print(" EventLineup.swift - getVenueList() - start")
-        print(" = = = = = = = = = = = =")
         
         guard let path = Bundle.main.path(forResource: "events", ofType: "json") else {
-            print(" EventLineup.swift - Invalid filename/path. Stopping")
+            print("  EventLineup.swift - Invalid filename/path. Stopping")
             return
-        }
+        } // end guard
+        
         guard let data = NSData(contentsOf: URL(fileURLWithPath: path)) as? Data else {
-            print(" EventLineup.swift - Could not get data from the file.  Make sure there's data in the file")
+            print("  EventLineup.swift - Could not get data from the file.  Make sure there's data in the file")
             return
-        }
+        } // end guard
+        
         let json = JSON(data: data as Data)
+        
         guard json != JSON.null else {
-            print(" EventLineup.swift - Could not generate JSON from the data.  Make sure your syntax is correct")
+            print("  EventLineup.swift - Could not generate JSON from the data.  Make sure your syntax is correct")
             return
-        }
+        } // end guard
+        
         guard let jsonlineup = json["events"].array else {
-            print(" EventLineup.swift – could not generate lineup array from JSON")
+            print("  EventLineup.swift – could not generate lineup array from JSON")
             return
-        }
+        } // end guard
 
         eventLoop: for (index, currentEvent) in jsonlineup.enumerated() {
             
@@ -66,8 +66,8 @@ class EventLineup {
             
         } // end eventLoop
 
-        print(" EventLineup.swift - getVenueList() - end")
-        print(" = = = = = = = = = = = =")
+        print("  EventLineup.swift - Finished getVenueList() \r\n")
+
         
     } // end getVenueList()
 
@@ -80,53 +80,52 @@ class EventLineup {
         // if testMode is true, then there's no need to do more processessing
         guard (testMode == false) else {
 
-            print(" EventLineup.swift - filterTodaysEvents() - Not filtering events since ")
-            print(" = = = = = = = = = = = =")
+            print("  EventLineup.swift - filterTodaysEvents() - In Test Mode...No Filtering")
+            print("  = = = = = = = = = = = =")
             
             return
-        }
+        } // end guard
 
-        print(" EventLineup.swift - filterTodaysEvents() - begin")
-        print(" = = = = = = = = = = = =")
+        print("  EventLineup.swift - Starting filterTodaysEvents()")
         
         // It's cleaner to do removals from the bottom since the index don't change
         eventLoop: for (index, currentEvent) in self.events.enumerated().reversed() {
             
-
-            print("\r\n - - - - - - - - - - - -")
-            print(" \(currentEvent.venue!)")
-            print(" \(currentEvent.urlVenue!)")
+            print("\r\n  - - - - - - - - - - - -")
+            print("  \(currentEvent.venue!)")
+            print("  \(currentEvent.urlVenue!)")
             
             // use the Venue URL to access the venue website and populate other areas
             guard let venueURLString = currentEvent.urlVenue else {
-                print(" EventLineup.swift – Could not get the URL String from the Event object. Going to next event.")
+                print("  EventLineup.swift – Could not get the URL String from the Event object. Going to next event.")
                 continue eventLoop
-            }
+            } // end guard
             
             // make sure that the URL is valid
             guard let venueURL = NSURL(string: venueURLString) else {
-                print(" EventLineup.swift – \(venueURLString) URL is not a valid URL.  Going to next event.")
+                print("  EventLineup.swift – \(venueURLString) URL is not a valid URL.  Going to next event.")
                 continue eventLoop
-            }
+            } // end guard
             
             // make sure there's HTML returend by the URL.  
             // try? means that if the operation fails, the method returns an optional without a value. 
             // If it succeeds, the optional contains a value
             guard let venueHTMLString = try? String(contentsOf: venueURL as URL, encoding: String.Encoding.utf8) else {
-                print(" EventLineup.swift – \(venueURLString) is not a valid URL.  Going to next event.")
+                print("  EventLineup.swift – \(venueURLString) is not a valid URL.  Going to next event.")
                 continue eventLoop
-            }
+            } // end guard
+            
             guard let doc = HTML(html: venueHTMLString, encoding: .utf8) else {
-                print(" EventLineup.swift – \(venueURLString) URL is not returning any HTML.  Going to next event.")
+                print("  EventLineup.swift – \(venueURLString) URL is not returning any HTML.  Going to next event.")
                 continue eventLoop
-            }
+            } // end guard
 
             // Check the date of the venue's most recent upcoming event, 
             // if happening today, add it to events array,
             // otherwise, purge it from the events array
             let nodeDates = doc.xpath(currentEvent.xPathDate!)
             guard nodeDates.count > 0 else {
-                print(" EventLineup.swift – No date at xPath for \(venueURLString). Removing and going to next event")
+                print("  EventLineup.swift – No date at xPath for \(venueURLString). Removing and going to next event")
                 self.events.remove(at: index)
                 continue eventLoop
             }
@@ -158,11 +157,11 @@ class EventLineup {
                         parsedDate = parsedDateWithNewYear!
                     } else { // equal months or parsed month comes after today's month
                         parsedDateComponents.year = todayDateComponents.year
-                    }
+                    } // end else
 
                     // update the parsed date to the same date but with the correct calendar components
                     parsedDate = Calendar.current.date(from: parsedDateComponents) as Date!
-                }
+                } // end if
                 
                 // print(" EventLineup.swift - Parsed Date: \(eventDateFormatter.string(from: parsedDate))")
                 // print(" EventLineup.swift - Today: \(eventDateFormatter.string(from: todayDate))")
@@ -170,21 +169,21 @@ class EventLineup {
                 switch Calendar.current.compare(parsedDate, to: todayDate, toGranularity: .day) {
                 case .orderedAscending:
                     currentEvent.eventHappeningTonight = false
-                    print(" EventLineup.swift - Past Event: \(eventDateFormatter.string(from: parsedDate))")
+                    print("  EventLineup.swift - Past Event: \(eventDateFormatter.string(from: parsedDate))")
                 case .orderedDescending:
                     currentEvent.eventHappeningTonight = false
-                    print(" EventLineup.swift - Future Event: \(eventDateFormatter.string(from: parsedDate))")
+                    print("  EventLineup.swift - Future Event: \(eventDateFormatter.string(from: parsedDate))")
                 case .orderedSame:
                     currentEvent.eventHappeningTonight = true
-                    print(" EventLineup.swift - Event Today: \(eventDateFormatter.string(from: parsedDate))")
-                }
+                    print("  EventLineup.swift - Event Today: \(eventDateFormatter.string(from: parsedDate))")
+                } // end switch
                 
                 // remove the array items that aren't happening tonight
                 if (currentEvent.eventHappeningTonight == false) {
                     //print(" Event.swift - event not happening so removing \(index)")
                     self.events.remove(at: index)
                     continue eventLoop
-                }
+                } // end if
             } // end for node loop
             
             // Event is happening today, so populate from website
@@ -194,10 +193,10 @@ class EventLineup {
             // **************************************************
             let nodeArtists = doc.xpath(currentEvent.xPathArtist!)
             guard nodeArtists.count > 0 else {
-                print(" EventLineup.swift – No artist at xPath for \(venueURLString). Removing and going to next event")
+                print("  EventLineup.swift – No artist at xPath for \(venueURLString). Removing and going to next event")
                 self.events.remove(at: index)
                 continue eventLoop
-            }
+            } // end guard
             
             for nodeArtist in nodeArtists {
                 // remove whitespace characters
@@ -205,15 +204,15 @@ class EventLineup {
                 trimmedStrArtist = nodeArtist.text!.replacingOccurrences(of: "\n", with: "")
                 trimmedStrArtist = trimmedStrArtist.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 currentEvent.artist = trimmedStrArtist
-                print("\r\n \(trimmedStrArtist)")
-            }
+                print("\r\n  \(trimmedStrArtist)")
+            } // end for
 
             // MARK: Add Event URL
             // **************************************************
             let nodeUrlEvents = doc.xpath(currentEvent.xPathUrlEvent!)
             if nodeUrlEvents.count == 0 {
                 currentEvent.urlEvent = "http://www.google.com/#q=" + currentEvent.artist
-                print(" EventLineup.swift – No event page at xPath for \(venueURLString). Using Google search instead")
+                print("  EventLineup.swift – No event page at xPath for \(venueURLString). Using Google search instead")
             } else {
 
                 for nodeUrlEvent in nodeUrlEvents {
@@ -229,12 +228,12 @@ class EventLineup {
                     } else {
                         let fallback = "http://www.google.com/#q=" + currentEvent.artist
                         currentEvent.urlEvent = fallback
-                    }
+                    } // end else
                     
-                    print(" EventLineup.swift – currentEvent.urlEvent = \(currentEvent.urlEvent)")
+                    print("  EventLineup.swift – currentEvent.urlEvent = \(currentEvent.urlEvent)")
                 } // end for nodeUrlEvent
                 
-            } // end urlEventNodes conditional
+            } // end else
 
             // MARK: Add Artist Image
             // **************************************************
@@ -243,7 +242,7 @@ class EventLineup {
 
             if (nodeUrlImgArtists.count == 0) {
                 currentEvent.imgArtist = UIImage(named: "image.not.available")!
-                print(" Could not fetch Artist Image")
+                print(" EventLineup.swift – Could not fetch Artist Image")
             } else {
                 for nodeUrlImgArtist in nodeUrlImgArtists {
                     
@@ -266,12 +265,13 @@ class EventLineup {
                         let imgArtist = UIImage(data: dataImgArtist! as Data)
                         currentEvent.imgArtist = imgArtist!
                             
-                        print(" EventLineup.swift – currentEvent.imgArtist = \(verifiedStrImgArtist)")
+                        print("  EventLineup.swift – currentEvent.imgArtist = \(verifiedStrImgArtist)")
                         
                     } else {
                         currentEvent.imgArtist = UIImage(named: "image.not.available")!
-                        print(" EventLineup.swift – Verified Image Not Available")
-                    }
+                        print("  EventLineup.swift – Verified Image Not Available")
+                    } // end else
+                    
                 } // end for nodeUrlImgArtist
                 
             } // end urlImgArtistNodes conditional
@@ -281,15 +281,15 @@ class EventLineup {
             // **************************************************
             guard (currentEvent.boolPriceShown == "true") else {
                 currentEvent.price = ""
-                print(" EventLineup.swift – Price not shown on this site.  Going to next event.")
+                print("  EventLineup.swift – Price not shown on this site.  Going to next event.")
                 continue eventLoop
-            }
+            } // end guard
             
             let nodePrices = doc.xpath(currentEvent.xPathPrice!)
             
             if (nodePrices.count == 0) {
                 currentEvent.price = ""
-                print(" EventLineup.swift – Could not fetch price.  Going to next event.")
+                print("  EventLineup.swift – Could not fetch price.  Going to next event.")
                 continue eventLoop
             } else {
                 for nodePrice in nodePrices {
@@ -300,44 +300,9 @@ class EventLineup {
                     trimmedStrPrice = trimmedStrPrice.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                     currentEvent.price = trimmedStrPrice
                     
-                    print(" EventLineup.swift – currentEvent.price = \(trimmedStrPrice)")
-                }
-            }
-        
-            // MARK: Add Description from Wikipedia
-    //                let strTemp = "https://en.wikipedia.org/w/api.php?action=opensearch&search=\(currentEvent.artist)&prop=info&limit=1&format=json"
-            
-
-            
-    //                guard let strTemp = makeVerifiedUrl(strPathUrl: "https://en.wikipedia.org/w/api.php?action=opensearch&search=\(currentEvent.artist)&prop=info&limit=1&format=json", strVenueUrl: currentEvent.urlVenue) else {
-    //
-    //                    currentEvent.descriptionArtist = "No description available"
-    //                    print(" EventLineup.swift – Error getting description.")
-    //                    
-    //                    continue eventLoop
-    //                    
-    //                }
-    ////                let url = URL(string: strTemp)
-    //                
-    //                print(" EventLineup.swift – url = \(strTemp)")
-    //
-    //                
-    //                let task = URLSession.shared.dataTask(with: strTemp) { data, response, error in
-    //                    guard error == nil else {
-    //                        currentEvent.descriptionArtist = "No description available"
-    //                        print(" EventLineup.swift – Error getting description.")
-    //                        return
-    //                    }
-    //                    guard let data = data else {
-    //                        print(" EventLineup.swift – No description available.")
-    //                        return
-    //                    }
-    //                    
-    //                    let json = try! JSONSerialization.jsonObject(with: data, options: [])
-    //                    print(" EventLineup.swift – Description = \(json)")
-    //                }
-    //                
-    //                task.resume()
+                    print("  EventLineup.swift – currentEvent.price = \(trimmedStrPrice)")
+                } // end for
+            } // end else
             
         } // end eventLoop
 
@@ -356,11 +321,34 @@ class EventLineup {
             events.append(event)
         }
 
-        print(" EventLineup.swift - filterTodaysEvents() - end")
-        print(" = = = = = = = = = = = =")
+        print("  EventLineup.swift - filterTodaysEvents() Finished")
+        print("\r\n  = = = = = = = = = = = =\r\n")
         
     } // end getTodaysEvents()
 
+
+    // MARK: Getting Colors
+    // **************************************************
+    func getColorsForArtistImages() {
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            
+            for event in self.events {
+                
+                if event.colorsArtistimageColors == nil {
+                    
+                    event.colorsArtistimageColors = event.getColorsForArtistImage()
+                    print("  EventLineup.swift – getColorsForArtistImages() Run for: \(event.artist)")
+                    
+                } // end if
+                
+            } // end for
+            
+            print("  EventLineup.swift – getColorsForArtistImages() Finished \r\n ")
+            
+        } // end Dispatch.global
+        
+    }
     
     // MARK: Verfied URLs
     // **************************************************
@@ -379,12 +367,14 @@ class EventLineup {
                 // no double slash, so it's relative path; use venue website to contstruct absolute path
                 // example: /event/1315901-nye-bonobo-dj-set-plus-san-francisco/
                 strCandidate = strVenueUrl! + strPathUrl!
-            }
+            } // end else
+
             if verifyUrl(urlString: strCandidate) {
                 return strCandidate
-            }
+            }  // end if
+
             return nil
-        }
+        } // end else
         
     }  // end makeVerifiedURL
 
@@ -397,28 +387,10 @@ class EventLineup {
                 // check if your application can open the NSURL instance
                 return true
             }
-        }
+        } // end if
+
         return false
+
     } // end verifyUrl
-
     
-    // TODO: This process takes a long time, so I think I'll try to get it on a separate thread.
-    
-    func getColorsForArtistImages() {
-        
-        print("  EventLineup – getColorsForArtstImages starting")
-        
-        for event in self.events {
-        
-            if event.colorsArtistimageColors == nil {
-            
-                event.colorsArtistimageColors = event.imgArtist?.getColors()
-
-            }
-        
-        }
-
-        print("  EventLineup – getColorsForArtstImages ending")
-    
-    }
 }

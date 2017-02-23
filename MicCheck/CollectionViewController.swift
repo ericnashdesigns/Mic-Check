@@ -27,8 +27,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
         // Do any additional setup after loading the view.
 
-        print(" CollectionViewController – 1 of 4: before the first shared instance")
-
         // if I don't use this, the collectionview will be too low on the screen.
         self.automaticallyAdjustsScrollViewInsets = false
         
@@ -42,18 +40,24 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     
         self.kenBurnsView.animateWithImages(images, imageAnimationDuration: 5, initialDelay: 0, shouldLoop: true, randomFirstImage: true)
 
+        print(" CollectionViewController – 1 of 4: Main Queue - Starting EventLineup() Instance")
+        
         self.lineUp = EventLineup.sharedInstance
         
-        // start cranking through the color palletes for the detail views, moving to a background thread
+        // start cranking through the events in a background thread
         DispatchQueue.global(qos: .userInitiated).async {
             
-            print(" CollectionViewController – 2 of 4: Global queue right after the ken burns initialize")
+            print(" CollectionViewController – 2 of 4: Global Queue - Starting filterTodaysEvents()")
             self.lineUp?.filterTodaysEvents() // this filter will return nothing if in test mode
 
+            print(" CollectionViewController – 3 of 4: Global Queue - Finish filterTodaysEvents(), Starting getColorsForArtistImages()")
+            // I updated getColorsForArtistImages to run in a separate thread and (hopefully) will just chug in the background
+            self.lineUp?.getColorsForArtistImages()
+            
             DispatchQueue.main.async {
 
                 //self.collectionView?.bringSubview(toFront: self.kenBurnsView)
-                print(" CollectionViewController – 3 of 4: Main Queue - right before reloadDate")
+                print(" CollectionViewController – 4 of 4: Main Queue - Finish getColorsForArtistImages(), Starting reloadData()")
                 self.eventsLoaded = true
                 
                 self.collectionView?.reloadData()
@@ -63,14 +67,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 self.kenBurnsView.alpha = 0
                 self.kenBurnsView.stopAnimation()
 
-                // TODO: This part takes a long time, so I think I'll try to get it on a separate thread.
-                //       I may even try again to put it on the DataViewController
-                
-                //print(" CollectionViewController – 3 of 4: getColorsForArtistImages start")
-                self.lineUp?.getColorsForArtistImages()
-                //print(" CollectionViewController – 4 of 4: getColorsForArtistImages end")
-                
-                
             } // end Dispatch.main.sync
 
         } // end Dispatch.global
@@ -142,6 +138,56 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             return CGSize(width: width, height: height)
         }
     }
+    
+    // MARK: – Formatting
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        switch kind {
+            
+        case UICollectionElementKindSectionHeader:
+
+            let headerView =
+                collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CollectionViewHeader",for: indexPath) as! CollectionViewHeader
+
+            if eventsLoaded == false {
+                headerView.isHidden = true
+            } else {
+                headerView.isHidden = false
+
+                // do color processing for the first event and assign the background color to the header
+
+                if let coloredBackground = self.lineUp?.events[0].getColorsForArtistImage() {
+
+                    print(" CollectionViewController.swift - Header Formatting: ArtistImage Colors Were Used")
+                    headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor
+                    
+                } else {
+
+                    print(" CollectionViewController.swift - Header Formatting: Couldn't Get ImageColors.  Using Red")
+                    headerView.viewColoredBackground.backgroundColor = UIColor.red
+
+                } // end else
+                
+            } // end else
+            
+            return headerView
+            
+            
+        case UICollectionElementKindSectionFooter:
+            let footerView =
+                collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                withReuseIdentifier: "CollectionViewFooter",
+                                                                for: indexPath)
+            return footerView
+            
+        default:
+            //4
+            assert(false, "Unexpected element kind")
+        }
+            
+    }
+    
     
     
     // MARK: - Navigation
