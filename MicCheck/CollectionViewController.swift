@@ -15,6 +15,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     var lineUp: EventLineup?
     var eventsLoaded: Bool = false // keeps track of when everything is loaded
     let cellSpacingsInStoryboard: CGFloat = 2 * 2 // spacing * 2 edges
+
+    var gradientLayerAdded: CALayer?  // reference gradient later when changing size on rotations
     
     @IBOutlet var kenBurnsView: JBKenBurnsView!
     
@@ -42,7 +44,24 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
         print(" CollectionViewController – 1 of 4: Main Queue - Starting EventLineup() Instance")
         
+        // create the model with placeholder data
         self.lineUp = EventLineup.sharedInstance
+
+        // Create the gradient
+        let topColor = UIColor(red: (62/255.0), green: (70/255.0), blue: (76/255.0), alpha: 1)
+        let bottomColor = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
+        let gradientColors: [CGColor] = [topColor.cgColor, bottomColor.cgColor]
+        let gradientLocations: [Float] = [0.0, 1.0]
+        let gradientLayer: CAGradientLayer = CAGradientLayer()
+        gradientLayer.colors = gradientColors
+        gradientLayer.locations = gradientLocations as [NSNumber]?
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.frame.size = self.view.frame.size
+        gradientLayer.frame.origin = CGPoint(x: 0.0, y: 0.0)
+        self.collectionView?.backgroundColor = UIColor.clear
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        gradientLayerAdded = self.view.layer.sublayers?.first
         
         // start cranking through the events in a background thread
         DispatchQueue.global(qos: .userInitiated).async {
