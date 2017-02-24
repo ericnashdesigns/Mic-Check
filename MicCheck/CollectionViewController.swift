@@ -182,13 +182,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     //headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor
                     //headerView.labelEventCount.textColor = coloredBackground.secondaryColor.withAlphaComponent(0.25)
                     headerView.labelEventCount.textColor = coloredBackground.secondaryColor.withAlphaComponent(0.75)
-                    headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor.withAlphaComponent(0.25)
+                    //headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor.withAlphaComponent(0.25)
+                    headerView.viewColoredBackground.backgroundColor = coloredBackground.primaryColor
 
                     
                 } else {
 
                     print(" CollectionViewController.swift - Header Formatting: Couldn't Get ImageColors.  Using Red")
-                    headerView.viewColoredBackground.backgroundColor = UIColor.red
+                    headerView.viewColoredBackground.backgroundColor = UIColor(red: (0.95), green: (0.26), blue: (0.21), alpha: 1)
 
                 } // end else
 

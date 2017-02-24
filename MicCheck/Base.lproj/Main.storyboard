@@ -79,6 +79,19 @@
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTz-qU-Hai" userLabel="Colored Background">
                                     <rect key="frame" x="0.0" y="0.0" width="124" height="31"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangulate.app.icon" translatesAutoresizingMaskIntoConstraints="NO" id="Bzu-YD-sqB">
+                                            <rect key="frame" x="41.5" y="-4.5" width="41" height="39"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="Bzu-YD-sqB" secondAttribute="height" multiplier="93:89" id="iWg-Mb-S0f"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Bzu-YD-sqB" firstAttribute="centerX" secondItem="tTz-qU-Hai" secondAttribute="centerX" id="afe-Q5-n1U"/>
+                                        <constraint firstItem="Bzu-YD-sqB" firstAttribute="centerY" secondItem="tTz-qU-Hai" secondAttribute="centerY" id="arY-uL-zM6"/>
+                                        <constraint firstItem="Bzu-YD-sqB" firstAttribute="width" secondItem="tTz-qU-Hai" secondAttribute="width" multiplier="0.33" id="rdq-kS-OS9"/>
+                                    </constraints>
                                 </view>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty.stage.header.faded" translatesAutoresizingMaskIntoConstraints="NO" id="nWl-87-ZQj">
                                     <rect key="frame" x="126" y="0.0" width="249" height="31"/>
@@ -201,7 +214,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No description available" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No description available" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description">
                                 <rect key="frame" x="20" y="505.5" width="335" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -256,5 +269,6 @@
     </scenes>
     <resources>
         <image name="empty.stage.header.faded" width="559" height="223"/>
+        <image name="triangulate.app.icon" width="93" height="89"/>
     </resources>
 </document>

@@ -113,7 +113,6 @@ class Event {
             let json = JSON(data: data)
             
             //Getting a string from JSON
-            
             if let parsedDescription = json[2][0].string {
                 
                 self.descriptionArtist = parsedDescription
