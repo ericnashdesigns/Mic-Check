@@ -78,23 +78,32 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTz-qU-Hai" userLabel="Colored Background">
-                                    <rect key="frame" x="0.0" y="0.0" width="124" height="33"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="124" height="31"/>
                                 </view>
-                                <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty.stage.header.faded" translatesAutoresizingMaskIntoConstraints="NO" id="nWl-87-ZQj">
-                                    <rect key="frame" x="126" y="0.0" width="249" height="33"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty.stage.header.faded" translatesAutoresizingMaskIntoConstraints="NO" id="nWl-87-ZQj">
+                                    <rect key="frame" x="126" y="0.0" width="249" height="31"/>
                                 </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMo-pr-isW" userLabel="labelEventCount">
+                                    <rect key="frame" x="274" y="-45" width="52" height="123"/>
+                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="90"/>
+                                    <color key="textColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="0.25" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <constraints>
+                                <constraint firstAttribute="trailing" secondItem="MMo-pr-isW" secondAttribute="trailing" multiplier="1.15" id="3ja-3l-3nv"/>
                                 <constraint firstItem="tTz-qU-Hai" firstAttribute="width" secondItem="XNP-Ju-KqO" secondAttribute="width" multiplier="0.33" id="7LQ-6v-G2W"/>
                                 <constraint firstAttribute="trailing" secondItem="nWl-87-ZQj" secondAttribute="trailing" id="HUm-ie-Prc"/>
                                 <constraint firstItem="nWl-87-ZQj" firstAttribute="leading" secondItem="tTz-qU-Hai" secondAttribute="trailing" constant="2" id="Sry-fL-361"/>
-                                <constraint firstAttribute="bottom" secondItem="nWl-87-ZQj" secondAttribute="bottom" id="WDF-hF-7Cp"/>
-                                <constraint firstAttribute="bottom" secondItem="tTz-qU-Hai" secondAttribute="bottom" id="arL-cS-3Zl"/>
+                                <constraint firstAttribute="bottom" secondItem="nWl-87-ZQj" secondAttribute="bottom" constant="2" id="WDF-hF-7Cp"/>
+                                <constraint firstAttribute="bottom" secondItem="tTz-qU-Hai" secondAttribute="bottom" constant="2" id="arL-cS-3Zl"/>
                                 <constraint firstItem="nWl-87-ZQj" firstAttribute="top" secondItem="XNP-Ju-KqO" secondAttribute="top" id="b1R-oE-SGV"/>
                                 <constraint firstItem="tTz-qU-Hai" firstAttribute="leading" secondItem="XNP-Ju-KqO" secondAttribute="leading" id="dQf-oL-kmS"/>
+                                <constraint firstItem="MMo-pr-isW" firstAttribute="centerY" secondItem="XNP-Ju-KqO" secondAttribute="centerY" id="epA-68-EFi"/>
                                 <constraint firstItem="tTz-qU-Hai" firstAttribute="top" secondItem="XNP-Ju-KqO" secondAttribute="top" id="xJl-RU-eE0"/>
                             </constraints>
                             <connections>
+                                <outlet property="labelEventCount" destination="MMo-pr-isW" id="v0m-fJ-fOs"/>
                                 <outlet property="viewColoredBackground" destination="tTz-qU-Hai" id="rMi-Qm-gPK"/>
                             </connections>
                         </collectionReusableView>

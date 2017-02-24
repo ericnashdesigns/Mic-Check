@@ -99,7 +99,7 @@ class DataViewController: UIViewController {
                 // To update anything on the main thread, just jump back on like so.
                 DispatchQueue.main.async {
                     
-                    if strDescription != nil {
+                    if strDescription != nil && strDescription != "" {
                         self.labelDescription.text = strDescription
                     }
 

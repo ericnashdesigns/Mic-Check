@@ -179,7 +179,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 if let coloredBackground = self.lineUp?.events[0].getColorsForArtistImage() {
 
                     print(" CollectionViewController.swift - Header Formatting: ArtistImage Colors Were Used")
-                    headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor
+                    //headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor
+                    //headerView.labelEventCount.textColor = coloredBackground.secondaryColor.withAlphaComponent(0.25)
+                    headerView.labelEventCount.textColor = coloredBackground.secondaryColor.withAlphaComponent(0.75)
+                    headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor.withAlphaComponent(0.25)
+
                     
                 } else {
 
@@ -187,6 +191,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     headerView.viewColoredBackground.backgroundColor = UIColor.red
 
                 } // end else
+
+                // update the count
+                headerView.labelEventCount.text =  "\(self.lineUp!.events.count)"
+                
+                // add the border
+                headerView.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.black, thickness: 2.0)
+                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: UIColor.black, thickness: 2.0)
                 
             } // end else
             

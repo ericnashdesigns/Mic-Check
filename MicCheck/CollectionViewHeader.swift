@@ -11,5 +11,6 @@ import UIKit
 class CollectionViewHeader: UICollectionReusableView {
 
     @IBOutlet var viewColoredBackground: UIView!
+    @IBOutlet var labelEventCount: UILabel!
     
 }
