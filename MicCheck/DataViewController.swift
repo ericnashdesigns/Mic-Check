@@ -139,18 +139,15 @@ class DataViewController: UIViewController {
         // if the model is empty now then it's because there were no videos returned by the YouTube API
         guard (strVIDs?.count)! > 0 else {
             
+            // Fade out the the video thumbs
+            self.viewVideoPlayerTopLeft.alpha = 0
+            self.viewVideoPlayerTopRight.alpha = 0
+
             // Fade in the "No videos found" label
             labelNoVideosFound.isHidden = false
             labelNoVideosFound.alpha = 0
-            
             UIView.animate(withDuration: 0.5, delay: 1, options: [], animations: {
-                // Fade out the the video thumb
-                self.viewVideoPlayerTopLeft.alpha = 0
-                self.viewVideoPlayerTopRight.alpha = 0
-
-                // Fade in the text
                 self.labelNoVideosFound.alpha = 1
-                
             }, completion: nil)
 
             return
