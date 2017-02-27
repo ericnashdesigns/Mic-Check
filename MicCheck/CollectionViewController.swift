@@ -184,7 +184,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     headerView.labelEventCount.textColor = coloredBackground.secondaryColor.withAlphaComponent(0.75)
                     //headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor.withAlphaComponent(0.25)
                     headerView.viewColoredBackground.backgroundColor = coloredBackground.primaryColor
-
+                    headerView.labelVenueList.textColor = coloredBackground.primaryColor.withAlphaComponent(0.75)
                     
                 } else {
 
@@ -193,6 +193,29 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
                 } // end else
 
+                // update the venues
+                headerView.labelVenueList.text = ""
+                var venueCount = 0
+                
+                for currentEvent in (self.lineUp?.events)! {
+                    if (currentEvent.eventHappeningTonight) {
+                        
+                        if venueCount == 6 {
+                            headerView.labelVenueList.text = headerView.labelVenueList.text! + "& More"
+                            break
+                        }
+                        
+                        headerView.labelVenueList.text = headerView.labelVenueList.text! + currentEvent.venue! + "\r"
+                        venueCount += 1
+                    }
+                }
+                
+                // when there's no events today, a single blank event gets added to the events array
+                // with the venue set to "noVenuesToday"
+                if self.lineUp?.events[0].venue == "noVenuesToday" {
+                    headerView.labelVenueList.text = "No Shows,\r\nThat Blows..."
+                }
+                
                 // update the count
                 headerView.labelEventCount.text =  "\(self.lineUp!.events.count)"
                 

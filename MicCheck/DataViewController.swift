@@ -74,6 +74,7 @@ class DataViewController: UIViewController {
                     self.labelVenue.textColor = colorsFromArtistImage.secondaryColor
                     self.labelPrice.textColor = colorsFromArtistImage.detailColor
                     self.labelDescription.textColor = colorsFromArtistImage.detailColor
+                    self.labelNoVideosFound.textColor = colorsFromArtistImage.detailColor
 
                 } // end Dispatch.main
                 

@@ -12,5 +12,6 @@ class CollectionViewHeader: UICollectionReusableView {
 
     @IBOutlet var viewColoredBackground: UIView!
     @IBOutlet var labelEventCount: UILabel!
+    @IBOutlet var labelVenueList: UILabel!
     
 }
