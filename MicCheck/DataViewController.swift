@@ -25,7 +25,7 @@ class DataViewController: UIViewController {
     @IBOutlet weak var labelVenue: UILabel!
     @IBOutlet weak var labelPrice: UILabel!
     @IBOutlet weak var labelDescription: UILabel!
-    @IBOutlet weak var imgArtist: UIImageView!
+    @IBOutlet weak var imgViewArtist: UIImageView!
 
     @IBOutlet var labelNoVideosFound: UILabel!
     @IBOutlet var viewVideoPlayerTopLeft: YTPlayerView!
@@ -53,7 +53,7 @@ class DataViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.labelArtist.text = dataArtist
-        self.imgArtist.image =  dataImgArtist
+        self.imgViewArtist.image =  dataImgArtist
         self.labelVenue.text = dataVenue
         self.labelPrice.text = dataPrice
 

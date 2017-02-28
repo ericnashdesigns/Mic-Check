@@ -122,7 +122,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // your code here
+        // your code here        
         let orientation = UIApplication.shared.statusBarOrientation
         
         if(orientation == .landscapeLeft || orientation == .landscapeRight) {

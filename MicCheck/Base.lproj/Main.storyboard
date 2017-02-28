@@ -22,10 +22,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
+                        <outlet property="delegate" destination="zaK-cx-POk" id="d35-h9-FgU"/>
                         <segue destination="Fep-5J-U4E" kind="relationship" relationship="rootViewController" id="jhg-1v-Gr7"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPR-oj-XCo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="zaK-cx-POk" customClass="NavDelegate" customModule="MicCheck" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="-1808" y="-244"/>
         </scene>
@@ -260,7 +262,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="imgArtist" destination="qb7-ke-a1S" id="ee4-VW-7iD"/>
+                        <outlet property="imgViewArtist" destination="qb7-ke-a1S" id="ARk-f4-3Xc"/>
                         <outlet property="labelArtist" destination="cF2-Le-7mQ" id="GCE-Jd-YEK"/>
                         <outlet property="labelDescription" destination="gDj-M6-bfC" id="BKY-ap-k3I"/>
                         <outlet property="labelNoVideosFound" destination="G5d-s1-TZT" id="QwE-4y-NoO"/>
