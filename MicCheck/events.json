@@ -126,27 +126,27 @@
     "testPrice": "$13",
     "testVIDArtist": "uA0Xja6xem8",
 
-  }, {
-  
-  "venue": "The Regency Ballroom",
-  "imgVenue": "thechapel.sf.jpg",
-  "urlVenue": "http://www.theregencyballroom.com/events/all",
-  "addressVenue": "1300 Van Ness Ave., San Francisco, CA 94110",
-  "distanceFromVenue": "20 blocks",
-  "xPathUrlEvent": "(//h3[@class='carousel_item_title_small'])[1]/a/@href",
-  "xPathDate": "(//div[@class='date-time-container'])[1]/span[@class='date']",
-  "dateFormat": "EEE, MMM d, yyyy",
-  "xPathArtist": "(//h3[@class='carousel_item_title_small'])[1]/a",
-  "xPathImgArtist": "(//div[@class='thumb'])[1]/a/img/@src",
-  "boolPriceShown": "false",
-  "xPathPrice": "",
-  "testUrlEvent": "http://www.thechapelsf.com/event/875085-afrolicious-san-francisco/",
-  "testDate": "07-23-2015",
-  "testArtist": "Sonny and the Sunsets",
-  "testImgArtist": "sonny.and.the.sunsets",
-  "testPrice": "$12",
-  "testVIDArtist": "UmvvZ-wUINY",
-              
+    }, {
+
+    "venue": "The Regency Ballroom",
+    "imgVenue": "thechapel.sf.jpg",
+    "urlVenue": "http://www.theregencyballroom.com/events/all",
+    "addressVenue": "1300 Van Ness Ave., San Francisco, CA 94110",
+    "distanceFromVenue": "20 blocks",
+    "xPathUrlEvent": "(//h3[@class='carousel_item_title_small'])[1]/a/@href",
+    "xPathDate": "(//div[@class='date-time-container'])[1]/span[@class='date']",
+    "dateFormat": "EEE, MMM d, yyyy",
+    "xPathArtist": "(//h3[@class='carousel_item_title_small'])[1]/a",
+    "xPathImgArtist": "(//div[@class='thumb'])[1]/a/img/@src",
+    "boolPriceShown": "false",
+    "xPathPrice": "",
+    "testUrlEvent": "http://www.thechapelsf.com/event/875085-afrolicious-san-francisco/",
+    "testDate": "07-23-2015",
+    "testArtist": "Sonny and the Sunsets",
+    "testImgArtist": "sonny.and.the.sunsets",
+    "testPrice": "$12",
+    "testVIDArtist": "UmvvZ-wUINY",
+
     } , {
 
     "venue": "The Warfield",
@@ -169,7 +169,7 @@
     "testVIDArtist": "uA0Xja6xem8",
 
     }, {
-              
+
     "venue": "The Fillmore",
     "imageVenue": "brick-and-mortar.jpg",
     "urlVenue": "http://thefillmore.com/calendar/",
@@ -209,7 +209,7 @@
     "testImgArtist": "pussy.riot",
     "testPrice": "$13",
     "testVIDArtist": "uA0Xja6xem8",
-              
+
     }
               
 ]}

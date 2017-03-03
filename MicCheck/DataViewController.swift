@@ -181,6 +181,5 @@ class DataViewController: UIViewController {
         } // end for
         
     } // end loadVideoThumbs()
-
+    
 }
-
