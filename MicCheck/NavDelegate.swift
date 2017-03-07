@@ -24,7 +24,7 @@ class NavDelegate: NSObject, UINavigationControllerDelegate {
 class Animator: NSObject, UIViewControllerAnimatedTransitioning {
 
     private var selectedCellFrame: CGRect? = nil
-    private var originalCollectionViewY: CGFloat? = nil
+    private var originCollectionViewY: CGFloat? = nil
 
     func transitionDuration(using context: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.4
@@ -55,28 +55,41 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             let selectedCell = collectionVC.collectionView?.cellForItem(at: indexPath) as? CollectionViewCell {
 
             context.containerView.addSubview(rootVC.view)
+            
+            // save collection view's original position and selected cell frame
+            // (as a property) to move them back during pop transition animation
+            selectedCellFrame = selectedCell.frame
+            originCollectionViewY = collectionVC.collectionView?.frame.origin.y
+            let selectedCellFrameY = selectedCellFrame?.origin.y // Same number regardless of scroll position
+            let convertedCoordinateY = collectionVC.collectionView?.convert(selectedCellFrame!, to: collectionVC.collectionView?.superview).origin.y // Different number depending on scroll position
+            let selectedCellFrameInSuperview = CGRect(x: selectedCell.frame.origin.x, y: convertedCoordinateY!, width: selectedCell.frame.width, height: selectedCell.frame.height)
 
             // cell background -> hero image view transition
-            // (don't want to mess with actual views,
-            // so creating a new image view just for transition)
-            let imageView = createTransitionImageViewWithFrame(frame: selectedCell.frame)
+            // (don't want to mess with actual views, so creating a new image view just for transition)
+            let imageView = createTransitionImageViewWithFrame(frame: selectedCellFrameInSuperview)
             imageView.image = selectedCell.imgViewArtist.image
             imageView.alpha = 0.0 // hidden initially
             rootVC.view.addSubview(imageView)
             rootVC.view.alpha = 1.0
             collectionVC.view.alpha = 1.0
             
-            // save table view's original position and selected cell frame
-            // (as a property) to move them back during pop transition animation
-            selectedCellFrame = selectedCell.frame
-            originalCollectionViewY = collectionVC.collectionView?.frame.origin.y
-
-            // figure out by how much need to move content
+            
+            // use hero image on DataViewController to determine by how much to move the content
             let currentDataViewController = rootVC.pageViewController?.viewControllers?.first as! DataViewController
             currentDataViewController.view.alpha = 0.0
             let heroFinalHeight = currentDataViewController.view.bounds.size.height / 2.0
-            let deltaY = selectedCell.center.y - heroFinalHeight / 2.0
+            //let deltaY = selectedCell.center.y - heroFinalHeight / 2.0
+            let deltaY = convertedCoordinateY! - heroFinalHeight / 2.0
 
+            print("\r\n \r\n \(currentDataViewController.dataArtist)")
+            print(" currentDataViewController.view.frame.width is : \(currentDataViewController.view.frame.width)")
+            print(" selectedCell.frame.width is : \(selectedCell.frame.width)")
+            print(" selectedCellFrameY is : \(selectedCellFrameY!)")
+            print(" selectedCell.center.y is : \(selectedCell.center.y)")
+            print(" convertedCoordinateY is : \(convertedCoordinateY!)")
+            print(" heroFinalHeight / 2 is : \(heroFinalHeight / 2)")
+            print(" deltaY is : \(deltaY)")
+            
             currentDataViewController.hideElementsForPushTransition() // hide page elements until transition ends
             
             UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
@@ -89,7 +102,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 collectionVC.view.alpha = 0.0
                 
                 // move our transitioning imageView towards hero image position (and grow its size at the same time)
-                imageView.frame = CGRect(x: 0.0, y: 0.0, width: imageView.frame.width, height: heroFinalHeight)
+                imageView.frame = CGRect(x: 0.0, y: 0.0, width: currentDataViewController.view.frame.width, height: heroFinalHeight)
                 imageView.alpha = 1.0
 
                 // fade the destination into view
@@ -151,13 +164,13 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             rootVC.view.alpha = 0.0
             rootVC.view.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             collectionVC.view.alpha = 1.0
-            collectionVC.collectionView?.frame.origin.y = self.originalCollectionViewY ?? (collectionVC.collectionView?.frame.origin.y)!
+            collectionVC.collectionView?.frame.origin.y = self.originCollectionViewY ?? (collectionVC.collectionView?.frame.origin.y)!
             imageView.alpha = 0.0
             imageView.frame = self.selectedCellFrame ?? imageView.frame
         }) { finished in
             rootVC.view.transform = .identity
             imageView.removeFromSuperview()
-            print("\r\n CollectionView FadeIn complete")
+            // print("\r\n CollectionView FadeIn complete")
             context.completeTransition(!context.transitionWasCancelled)
         }
     
@@ -165,6 +178,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
 
     private func createTransitionImageViewWithFrame(frame: CGRect) -> UIImageView {
         let imageView = UIImageView(frame: frame)
+        print("imageView.frame.origin.y is : \(imageView.frame.origin.y)")
         imageView.contentMode = .scaleAspectFill
         //imageView.setupDefaultTopInnerShadow()
         imageView.clipsToBounds = true

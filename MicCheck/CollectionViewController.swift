@@ -195,6 +195,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
                 // update the venues
                 headerView.labelVenueList.text = ""
+                headerView.labelVenueList.numberOfLines = 0
                 var venueCount = 0
                 
                 for currentEvent in (self.lineUp?.events)! {
@@ -206,6 +207,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                         }
                         
                         headerView.labelVenueList.text = headerView.labelVenueList.text! + currentEvent.venue! + "\r"
+                        headerView.labelVenueList.numberOfLines += 1
                         venueCount += 1
                     }
                 }
