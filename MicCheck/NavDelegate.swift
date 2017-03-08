@@ -25,6 +25,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
 
     private var selectedCellFrame: CGRect? = nil
     private var originCollectionViewY: CGFloat? = nil
+    private var selectedCellFrameInSuperview: CGRect? = nil
 
     func transitionDuration(using context: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.4
@@ -50,7 +51,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     
     private func moveFromCollectionView(collectionVC: CollectionViewController, toRoot rootVC: RootViewController, withContext context: UIViewControllerContextTransitioning) {
  
-        // this was tough because an array is returned instead of an index
+        // this was tough because an array is returned instead of an index for collectionViews
         if let indexPath = collectionVC.collectionView?.indexPathsForSelectedItems?.first!,
             let selectedCell = collectionVC.collectionView?.cellForItem(at: indexPath) as? CollectionViewCell {
 
@@ -62,11 +63,11 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             originCollectionViewY = collectionVC.collectionView?.frame.origin.y
             let selectedCellFrameY = selectedCellFrame?.origin.y // Same number regardless of scroll position
             let convertedCoordinateY = collectionVC.collectionView?.convert(selectedCellFrame!, to: collectionVC.collectionView?.superview).origin.y // Different number depending on scroll position
-            let selectedCellFrameInSuperview = CGRect(x: selectedCell.frame.origin.x, y: convertedCoordinateY!, width: selectedCell.frame.width, height: selectedCell.frame.height)
+            selectedCellFrameInSuperview = CGRect(x: selectedCell.frame.origin.x, y: convertedCoordinateY!, width: selectedCell.frame.width, height: selectedCell.frame.height)
 
             // cell background -> hero image view transition
             // (don't want to mess with actual views, so creating a new image view just for transition)
-            let imageView = createTransitionImageViewWithFrame(frame: selectedCellFrameInSuperview)
+            let imageView = createTransitionImageViewWithFrame(frame: selectedCellFrameInSuperview!)
             imageView.image = selectedCell.imgViewArtist.image
             imageView.alpha = 0.0 // hidden initially
             rootVC.view.addSubview(imageView)
@@ -121,15 +122,23 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 //for view in autoLayoutViews { view.setNeedsUpdateConstraints() }
 
                 currentDataViewController.imgViewArtist.alpha = 1.0
+
+                let controlsDeltaY: CGFloat = 20.0
                 
-                UIView.animate(withDuration: 0.3, animations: {
+                UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
                     currentDataViewController.labelArtist.alpha = 1.0
                     currentDataViewController.labelVenue.alpha = 1.0
                     currentDataViewController.labelPrice.alpha = 1.0
                     currentDataViewController.labelDescription.alpha = 1.0
                     currentDataViewController.viewVideoPlayerTopLeft.alpha = 1.0
                     currentDataViewController.viewVideoPlayerTopRight.alpha = 1.0
-
+                    
+                    currentDataViewController.labelArtist.frame.origin.y -= controlsDeltaY
+                    currentDataViewController.labelVenue.frame.origin.y -= controlsDeltaY
+                    currentDataViewController.labelPrice.frame.origin.y -= controlsDeltaY
+                    currentDataViewController.labelDescription.frame.origin.y -= controlsDeltaY
+                    currentDataViewController.viewVideoPlayerTopLeft.frame.origin.y -= controlsDeltaY
+                    currentDataViewController.viewVideoPlayerTopRight.frame.origin.y -= controlsDeltaY
                     //for view in autoLayoutViews { view.layoutIfNeeded() }
                     
                 }) { finishedInner in
@@ -155,18 +164,19 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
 
         // Access the DataViewController within the rootVC
         let currentDataViewController = rootVC.pageViewController?.viewControllers?.first as! DataViewController
-        
+
+        // Access the coordinates of the selected cell
         let imageView = createTransitionImageViewWithFrame(frame: currentDataViewController.imgViewArtist.frame)
         imageView.image = currentDataViewController.imgViewArtist.image
         context.containerView.addSubview(imageView)
         
-        UIView.animate(withDuration: 0.4, animations: {
+        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             rootVC.view.alpha = 0.0
-            rootVC.view.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            currentDataViewController.view.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             collectionVC.view.alpha = 1.0
             collectionVC.collectionView?.frame.origin.y = self.originCollectionViewY ?? (collectionVC.collectionView?.frame.origin.y)!
             imageView.alpha = 0.0
-            imageView.frame = self.selectedCellFrame ?? imageView.frame
+            imageView.frame = self.selectedCellFrameInSuperview ?? imageView.frame
         }) { finished in
             rootVC.view.transform = .identity
             imageView.removeFromSuperview()
