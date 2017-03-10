@@ -90,6 +90,17 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             print(" convertedCoordinateY is : \(convertedCoordinateY!)")
             print(" heroFinalHeight / 2 is : \(heroFinalHeight / 2)")
             print(" deltaY is : \(deltaY)")
+
+            // setup the mask for the artist image
+            let shadowSize: CGFloat = 30.0
+            let maskLayer = CAGradientLayer()
+            maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: currentDataViewController.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: heroFinalHeight)
+            maskLayer.shadowRadius = 0
+            maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
+            maskLayer.shadowOpacity = 1;
+            maskLayer.shadowOffset = CGSize(width: 0, height: 0)
+            maskLayer.shadowColor = UIColor.white.cgColor
+            currentDataViewController.imgViewArtist.layer.mask = maskLayer;
             
             currentDataViewController.hideElementsForPushTransition() // hide page elements until transition ends
             
@@ -132,6 +143,8 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                     currentDataViewController.labelDescription.alpha = 1.0
                     currentDataViewController.viewVideoPlayerTopLeft.alpha = 1.0
                     currentDataViewController.viewVideoPlayerTopRight.alpha = 1.0
+
+                    maskLayer.shadowRadius = shadowSize
                     
                     currentDataViewController.labelArtist.frame.origin.y -= controlsDeltaY
                     currentDataViewController.labelVenue.frame.origin.y -= controlsDeltaY
