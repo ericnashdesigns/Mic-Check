@@ -182,45 +182,45 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="333.5"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Artist" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ">
-                                <rect key="frame" x="20" y="333.5" width="335" height="17"/>
+                                <rect key="frame" x="20" y="313.5" width="335" height="17"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caz-Gf-Mub">
-                                <rect key="frame" x="20" y="357.5" width="335" height="17"/>
+                                <rect key="frame" x="20" y="337.5" width="335" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U9F-nY-ylS">
-                                <rect key="frame" x="20" y="382" width="335" height="17"/>
+                                <rect key="frame" x="20" y="362" width="335" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gym-Z5-mpf" userLabel="View Video Top Left" customClass="YTPlayerView">
-                                <rect key="frame" x="20" y="406" width="164.5" height="92.5"/>
+                                <rect key="frame" x="20" y="386" width="164.5" height="92.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gym-Z5-mpf" secondAttribute="height" multiplier="16:9" id="nPj-XE-i3e"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hxj-65-G1j" userLabel="View Video Top RIght" customClass="YTPlayerView">
-                                <rect key="frame" x="192" y="406" width="163" height="91.5"/>
+                                <rect key="frame" x="192" y="386" width="163" height="91.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Hxj-65-G1j" secondAttribute="height" multiplier="16:9" id="hMi-Nw-fsm"/>
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No videos found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5d-s1-TZT" userLabel="Label No Videos Found">
-                                <rect key="frame" x="20" y="405" width="335" height="21"/>
+                                <rect key="frame" x="20" y="385" width="335" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No description available" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description">
-                                <rect key="frame" x="20" y="505.5" width="335" height="21"/>
+                                <rect key="frame" x="20" y="485.5" width="335" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -252,7 +252,7 @@
                             <constraint firstAttribute="trailing" secondItem="caz-Gf-Mub" secondAttribute="trailing" constant="20" symbolic="YES" id="rOT-rJ-NeW"/>
                             <constraint firstAttribute="trailing" secondItem="U9F-nY-ylS" secondAttribute="trailing" constant="20" symbolic="YES" id="tN3-V7-JWR"/>
                             <constraint firstItem="Hxj-65-G1j" firstAttribute="top" secondItem="U9F-nY-ylS" secondAttribute="bottom" constant="7" id="uqe-6L-6R6"/>
-                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="top" secondItem="ZwX-cT-FIQ" secondAttribute="centerY" symbolic="YES" id="zem-Jm-uYh"/>
+                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="top" secondItem="ZwX-cT-FIQ" secondAttribute="centerY" constant="-20" id="zem-Jm-uYh"/>
                         </constraints>
                     </view>
                     <connections>

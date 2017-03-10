@@ -57,6 +57,16 @@ class DataViewController: UIViewController {
         self.labelVenue.text = dataVenue
         self.labelPrice.text = dataPrice
 
+        // setup the mask for the artist image
+        let shadowSize: CGFloat = 30.0
+        let maskLayer = CAGradientLayer()
+        maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: imgViewArtist.frame.height)
+        maskLayer.shadowRadius = shadowSize
+        maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
+        maskLayer.shadowOpacity = 1;
+        maskLayer.shadowOffset = CGSize(width: 0, height: 0)
+        maskLayer.shadowColor = UIColor.white.cgColor
+        imgViewArtist.layer.mask = maskLayer;
         
         let currentEvent = lineUp.events[dataIntEventIndex]
 

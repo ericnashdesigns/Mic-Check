@@ -73,6 +73,16 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             rootVC.view.addSubview(imageView)
             rootVC.view.alpha = 1.0
             collectionVC.view.alpha = 1.0
+
+//            let shadowSize2: CGFloat = 30.0
+//            let maskLayer2 = CAGradientLayer()
+//            maskLayer2.frame = CGRect(x: -shadowSize2, y: -shadowSize2, width: imageView.frame.width + shadowSize2 * CGFloat(5.0), height: imageView.frame.height)
+//            maskLayer2.shadowRadius = 0
+//            maskLayer2.shadowPath = CGPath(rect: maskLayer2.frame, transform: nil)
+//            maskLayer2.shadowOpacity = 1;
+//            maskLayer2.shadowOffset = CGSize(width: 0, height: 0)
+//            maskLayer2.shadowColor = UIColor.white.cgColor
+//            imageView.layer.mask = maskLayer2;
             
             
             // use hero image on DataViewController to determine by how much to move the content
@@ -92,10 +102,10 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             print(" deltaY is : \(deltaY)")
 
             // setup the mask for the artist image
-            let shadowSize: CGFloat = 30.0
+            let shadowSize: CGFloat = 20.0
             let maskLayer = CAGradientLayer()
             maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: currentDataViewController.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: heroFinalHeight)
-            maskLayer.shadowRadius = 0
+            maskLayer.shadowRadius = shadowSize
             maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
             maskLayer.shadowOpacity = 1;
             maskLayer.shadowOffset = CGSize(width: 0, height: 0)
@@ -144,7 +154,8 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                     currentDataViewController.viewVideoPlayerTopLeft.alpha = 1.0
                     currentDataViewController.viewVideoPlayerTopRight.alpha = 1.0
 
-                    maskLayer.shadowRadius = shadowSize
+                    //maskLayer.shadowRadius = shadowSize
+                    maskLayer.shadowOffset = CGSize(width: 0, height: -shadowSize)
                     
                     currentDataViewController.labelArtist.frame.origin.y -= controlsDeltaY
                     currentDataViewController.labelVenue.frame.origin.y -= controlsDeltaY
