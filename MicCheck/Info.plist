@@ -39,5 +39,9 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Ailerons-Typeface.otf</string>
+	</array>
 </dict>
 </plist>

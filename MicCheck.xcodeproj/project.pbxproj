@@ -19,6 +19,7 @@
 		0721B91A1E0A599D004BEB19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0721B9181E0A599D004BEB19 /* LaunchScreen.storyboard */; };
 		0721B9551E0A64D8004BEB19 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B9541E0A64D8004BEB19 /* Event.swift */; };
 		0721B9571E0A6BF5004BEB19 /* EventLineup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B9561E0A6BF5004BEB19 /* EventLineup.swift */; };
+		0726B4691E7BB48700D4D4EF /* Ailerons-Typeface.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0726B4681E7BB48700D4D4EF /* Ailerons-Typeface.otf */; };
 		074B93C91E4C3CE90042AFC0 /* JBKenBurnsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074B93C81E4C3CE90042AFC0 /* JBKenBurnsView.swift */; };
 		075F17CE1E3F12BF0065CA26 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F17CD1E3F12BF0065CA26 /* CollectionViewCell.swift */; };
 		075F17D01E3F16B10065CA26 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F17CF1E3F16B10065CA26 /* CollectionViewController.swift */; };
@@ -62,6 +63,7 @@
 		0721B91B1E0A599D004BEB19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0721B9541E0A64D8004BEB19 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		0721B9561E0A6BF5004BEB19 /* EventLineup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventLineup.swift; sourceTree = "<group>"; };
+		0726B4681E7BB48700D4D4EF /* Ailerons-Typeface.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ailerons-Typeface.otf"; path = "../../../../Desktop/Ailerons/Ailerons-Typeface.otf"; sourceTree = "<group>"; };
 		074B93C81E4C3CE90042AFC0 /* JBKenBurnsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JBKenBurnsView.swift; sourceTree = "<group>"; };
 		075F17CD1E3F12BF0065CA26 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		075F17CF1E3F16B10065CA26 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				0721B9161E0A599D004BEB19 /* Assets.xcassets */,
 				0721B91B1E0A599D004BEB19 /* Info.plist */,
 				0721B90B1E0A599D004BEB19 /* AppDelegate.swift */,
+				0726B4681E7BB48700D4D4EF /* Ailerons-Typeface.otf */,
 			);
 			name = "Bundle Files";
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07C59E8E1E24AB6300CC24CB /* events.json in Resources */,
+				0726B4691E7BB48700D4D4EF /* Ailerons-Typeface.otf in Resources */,
 				0721B91A1E0A599D004BEB19 /* LaunchScreen.storyboard in Resources */,
 				0721B9171E0A599D004BEB19 /* Assets.xcassets in Resources */,
 				0721B9151E0A599D004BEB19 /* Main.storyboard in Resources */,

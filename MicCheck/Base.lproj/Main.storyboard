@@ -12,12 +12,17 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ailerons-Typeface.otf">
+            <string>Ailerons-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="NyT-DX-zFM">
             <objects>
                 <navigationController id="bni-mu-vrF" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hv3-bY-y7a">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hv3-bY-y7a">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -182,46 +187,46 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="333.5"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Artist" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ">
-                                <rect key="frame" x="20" y="313.5" width="335" height="17"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                <rect key="frame" x="20" y="293.5" width="335" height="65"/>
+                                <fontDescription key="fontDescription" name="Ailerons-Regular" family="Ailerons" pointSize="54"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caz-Gf-Mub">
-                                <rect key="frame" x="20" y="337.5" width="335" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <rect key="frame" x="20" y="365.5" width="335" height="20"/>
+                                <fontDescription key="fontDescription" name="Ailerons-Regular" family="Ailerons" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U9F-nY-ylS">
-                                <rect key="frame" x="20" y="362" width="335" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <rect key="frame" x="20" y="393" width="335" height="20"/>
+                                <fontDescription key="fontDescription" name="Ailerons-Regular" family="Ailerons" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gym-Z5-mpf" userLabel="View Video Top Left" customClass="YTPlayerView">
-                                <rect key="frame" x="20" y="386" width="164.5" height="92.5"/>
+                                <rect key="frame" x="20" y="448" width="164.5" height="92.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gym-Z5-mpf" secondAttribute="height" multiplier="16:9" id="nPj-XE-i3e"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hxj-65-G1j" userLabel="View Video Top RIght" customClass="YTPlayerView">
-                                <rect key="frame" x="192" y="386" width="163" height="91.5"/>
+                                <rect key="frame" x="192" y="448" width="163" height="91.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Hxj-65-G1j" secondAttribute="height" multiplier="16:9" id="hMi-Nw-fsm"/>
                                 </constraints>
                             </view>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No videos found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5d-s1-TZT" userLabel="Label No Videos Found">
-                                <rect key="frame" x="20" y="385" width="335" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No description available" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description">
+                                <rect key="frame" x="20" y="420" width="335" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No description available" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description">
-                                <rect key="frame" x="20" y="485.5" width="335" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No videos found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5d-s1-TZT" userLabel="Label No Videos Found">
+                                <rect key="frame" x="20" y="448" width="335" height="20"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -232,12 +237,12 @@
                             <constraint firstItem="gym-Z5-mpf" firstAttribute="leading" secondItem="U9F-nY-ylS" secondAttribute="leading" id="1wt-I3-GBr"/>
                             <constraint firstItem="caz-Gf-Mub" firstAttribute="top" secondItem="cF2-Le-7mQ" secondAttribute="bottom" constant="7" id="5bX-n9-aYc"/>
                             <constraint firstItem="U9F-nY-ylS" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="8e7-hJ-BZO"/>
-                            <constraint firstItem="gym-Z5-mpf" firstAttribute="top" secondItem="U9F-nY-ylS" secondAttribute="bottom" constant="7" id="9ij-cD-gr2"/>
-                            <constraint firstItem="G5d-s1-TZT" firstAttribute="top" secondItem="U9F-nY-ylS" secondAttribute="bottom" constant="6" id="A1X-9v-85T"/>
+                            <constraint firstAttribute="trailing" secondItem="G5d-s1-TZT" secondAttribute="trailing" constant="20" symbolic="YES" id="A5p-04-aqu"/>
                             <constraint firstItem="Hxj-65-G1j" firstAttribute="leading" secondItem="gym-Z5-mpf" secondAttribute="trailing" constant="7" id="CEW-Bh-OUY"/>
-                            <constraint firstItem="G5d-s1-TZT" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="CRm-2e-eMz"/>
                             <constraint firstAttribute="centerXWithinMargins" secondItem="gym-Z5-mpf" secondAttribute="trailing" constant="3" id="CX2-kx-VpZ"/>
+                            <constraint firstItem="gDj-M6-bfC" firstAttribute="top" secondItem="U9F-nY-ylS" secondAttribute="bottom" constant="7" id="CiQ-DH-beu"/>
                             <constraint firstItem="Hxj-65-G1j" firstAttribute="trailing" secondItem="U9F-nY-ylS" secondAttribute="trailing" id="ECr-u0-eB7"/>
+                            <constraint firstItem="G5d-s1-TZT" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="Gly-eN-wUe"/>
                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="PnF-O8-Bso"/>
                             <constraint firstItem="U9F-nY-ylS" firstAttribute="top" secondItem="caz-Gf-Mub" secondAttribute="bottom" constant="7" id="R2x-ml-0UK"/>
                             <constraint firstAttribute="trailing" secondItem="gDj-M6-bfC" secondAttribute="trailing" constant="20" symbolic="YES" id="UFy-FX-AsK"/>
@@ -245,14 +250,14 @@
                             <constraint firstAttribute="centerY" secondItem="qb7-ke-a1S" secondAttribute="bottom" id="Zkm-uY-Xov"/>
                             <constraint firstItem="qb7-ke-a1S" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" id="aZK-s2-jJ9"/>
                             <constraint firstAttribute="trailing" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="20" symbolic="YES" id="cCk-mG-gz5"/>
-                            <constraint firstAttribute="trailing" secondItem="G5d-s1-TZT" secondAttribute="trailing" constant="20" symbolic="YES" id="dKh-wi-djU"/>
+                            <constraint firstItem="gym-Z5-mpf" firstAttribute="top" secondItem="gDj-M6-bfC" secondAttribute="bottom" constant="7" id="cGD-ZC-kdG"/>
                             <constraint firstItem="caz-Gf-Mub" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="ga4-KN-tYA"/>
-                            <constraint firstItem="gDj-M6-bfC" firstAttribute="top" secondItem="gym-Z5-mpf" secondAttribute="bottom" constant="7" id="hSc-l1-cYx"/>
                             <constraint firstItem="qb7-ke-a1S" firstAttribute="top" secondItem="ZwX-cT-FIQ" secondAttribute="top" id="ldw-zr-f31"/>
+                            <constraint firstItem="G5d-s1-TZT" firstAttribute="top" secondItem="gDj-M6-bfC" secondAttribute="bottom" constant="7" id="pfB-GX-j4h"/>
                             <constraint firstAttribute="trailing" secondItem="caz-Gf-Mub" secondAttribute="trailing" constant="20" symbolic="YES" id="rOT-rJ-NeW"/>
                             <constraint firstAttribute="trailing" secondItem="U9F-nY-ylS" secondAttribute="trailing" constant="20" symbolic="YES" id="tN3-V7-JWR"/>
-                            <constraint firstItem="Hxj-65-G1j" firstAttribute="top" secondItem="U9F-nY-ylS" secondAttribute="bottom" constant="7" id="uqe-6L-6R6"/>
-                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="top" secondItem="ZwX-cT-FIQ" secondAttribute="centerY" constant="-20" id="zem-Jm-uYh"/>
+                            <constraint firstItem="Hxj-65-G1j" firstAttribute="top" secondItem="gDj-M6-bfC" secondAttribute="bottom" constant="7" id="uLJ-EP-9Cb"/>
+                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="top" secondItem="ZwX-cT-FIQ" secondAttribute="centerY" constant="-40" id="zem-Jm-uYh"/>
                         </constraints>
                     </view>
                     <connections>
