@@ -73,17 +73,6 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             rootVC.view.addSubview(imageView)
             rootVC.view.alpha = 1.0
             collectionVC.view.alpha = 1.0
-
-//            let shadowSize2: CGFloat = 30.0
-//            let maskLayer2 = CAGradientLayer()
-//            maskLayer2.frame = CGRect(x: -shadowSize2, y: -shadowSize2, width: imageView.frame.width + shadowSize2 * CGFloat(5.0), height: imageView.frame.height)
-//            maskLayer2.shadowRadius = 0
-//            maskLayer2.shadowPath = CGPath(rect: maskLayer2.frame, transform: nil)
-//            maskLayer2.shadowOpacity = 1;
-//            maskLayer2.shadowOffset = CGSize(width: 0, height: 0)
-//            maskLayer2.shadowColor = UIColor.white.cgColor
-//            imageView.layer.mask = maskLayer2;
-            
             
             // use hero image on DataViewController to determine by how much to move the content
             let currentDataViewController = rootVC.pageViewController?.viewControllers?.first as! DataViewController
@@ -92,14 +81,14 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             //let deltaY = selectedCell.center.y - heroFinalHeight / 2.0
             let deltaY = convertedCoordinateY! - heroFinalHeight / 2.0
 
-            print("\r\n \r\n \(currentDataViewController.dataArtist)")
-            print(" currentDataViewController.view.frame.width is : \(currentDataViewController.view.frame.width)")
-            print(" selectedCell.frame.width is : \(selectedCell.frame.width)")
-            print(" selectedCellFrameY is : \(selectedCellFrameY!)")
-            print(" selectedCell.center.y is : \(selectedCell.center.y)")
-            print(" convertedCoordinateY is : \(convertedCoordinateY!)")
-            print(" heroFinalHeight / 2 is : \(heroFinalHeight / 2)")
-            print(" deltaY is : \(deltaY)")
+//            print("\r\n \r\n \(currentDataViewController.dataArtist)")
+//            print(" currentDataViewController.view.frame.width is : \(currentDataViewController.view.frame.width)")
+//            print(" selectedCell.frame.width is : \(selectedCell.frame.width)")
+//            print(" selectedCellFrameY is : \(selectedCellFrameY!)")
+//            print(" selectedCell.center.y is : \(selectedCell.center.y)")
+//            print(" convertedCoordinateY is : \(convertedCoordinateY!)")
+//            print(" heroFinalHeight / 2 is : \(heroFinalHeight / 2)")
+//            print(" deltaY is : \(deltaY)")
 
             // setup the mask for the artist image
             let shadowSize: CGFloat = 20.0
@@ -169,6 +158,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                     
                     // clean up & revert all the temporary things
                     imageView.removeFromSuperview()
+                    print(" NavDelegate.swift – moveFromCollectionView() finished animation")
                     //collectionVC.collectionView?.deselectRowAtIndexPath(indexPath, animated: false)
                     
                     context.completeTransition(!context.transitionWasCancelled)
@@ -177,6 +167,8 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             } // end callback
             
         }  // end if
+
+        print(" NavDelegate.swift – moveFromCollectionView() finished")
         
     }
     
@@ -212,7 +204,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
 
     private func createTransitionImageViewWithFrame(frame: CGRect) -> UIImageView {
         let imageView = UIImageView(frame: frame)
-        print("imageView.frame.origin.y is : \(imageView.frame.origin.y)")
+//        print("  NavDelegate.swift – imageView.frame.origin.y is : \(imageView.frame.origin.y)")
         imageView.contentMode = .scaleAspectFill
         //imageView.setupDefaultTopInnerShadow()
         imageView.clipsToBounds = true

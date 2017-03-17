@@ -38,6 +38,7 @@ class DataViewController: UIViewController {
     var dataIntEventIndex: Int = 0
     var dataStrVIDs: Array<String> = []
     var dataColorsImgArtist: UIImageColors?
+    var swipeDirection: String = ""
     
     // viewDidLoad is things you have to do once.  it occures before viewWillAppear
     override func viewDidLoad() {
@@ -52,6 +53,9 @@ class DataViewController: UIViewController {
     // viewWillAppear gets called every time the view appears.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        print(" DataViewController.swift – viewWillAppear() called")
+        
         self.labelArtist.text = dataArtist
         self.imgViewArtist.image =  dataImgArtist
         self.labelVenue.text = dataVenue
@@ -140,6 +144,43 @@ class DataViewController: UIViewController {
             } // end if
 
         } // end getVideoForArtist() completion handler
+
+//        self.labelArtist.alpha = 0
+//        self.labelVenue.alpha = 0
+//        self.labelPrice.alpha = 0
+        
+        let labelAnimationOffsetBegin: CGFloat = 100
+        if self.swipeDirection == "up" {
+
+            print(" DataViewController.swift – swipe direction UP")
+            
+            UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+                
+//                self.labelArtist.center.y += labelAnimationOffsetBegin
+//                self.labelArtist.alpha = 1
+//                self.labelVenue.center.y += labelAnimationOffsetBegin
+//                self.labelVenue.alpha = 1
+//                self.labelPrice.center.y += labelAnimationOffsetBegin
+//                self.labelPrice.alpha = 1
+                
+            }, completion: nil)
+            
+        } else if self.swipeDirection == "down" {
+
+            print(" DataViewController.swift – swipe direction DOWN")
+            
+            UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+
+//                self.labelArtist.center.y -= labelAnimationOffsetBegin
+//                self.labelArtist.alpha = 1
+//                self.labelVenue.center.y -= labelAnimationOffsetBegin
+//                self.labelVenue.alpha = 1
+//                self.labelPrice.center.y -= labelAnimationOffsetBegin
+//                self.labelPrice.alpha = 1
+                
+            }, completion: nil)
+            
+        }
         
     } // end viewWillAppear()
 

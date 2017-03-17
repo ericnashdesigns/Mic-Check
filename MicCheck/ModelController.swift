@@ -45,6 +45,8 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         dataViewController.dataPrice = self.lineUp.events[index].price!
         
         dataViewController.dataColorsImgArtist = self.lineUp.events[index].colorsArtistimageColors
+
+        dataViewController.swipeDirection = direction
         
         return dataViewController
     }
@@ -62,10 +64,10 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         if (self.lineUp.events.count == 1) || (index == NSNotFound) {
             return nil
         }
-        let swipeDirection: String = "up"
         
         index -= 1
-
+        let swipeDirection: String = "up"
+        
         // if you're at the top and you swipe to go up again, restart at the end
         if index < 0 {
             return self.viewControllerAtIndex(self.lineUp.events.count - 1, direction: swipeDirection, storyboard: viewController.storyboard!)
@@ -80,10 +82,10 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         if (self.lineUp.events.count == 1) || (index == NSNotFound) {
             return nil
         }
-
-        let swipeDirection: String = "down"
         
         index += 1
+        let swipeDirection: String = "down"
+        
         // if you're at the bottom and you swipe to go down again, restart at the beginning instead of returning nil
         if index == self.lineUp.events.count {
             return self.viewControllerAtIndex(0, direction: swipeDirection, storyboard: viewController.storyboard!)

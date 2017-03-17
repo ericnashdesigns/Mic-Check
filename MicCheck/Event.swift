@@ -84,7 +84,7 @@ class Event {
     func getDescriptionForArtist(completionHandler: @escaping (String?, NSError?) -> Void ) -> Void {
         // if the artist description is already populated, then no need to run through the Wikipedia API
         if self.descriptionArtist != nil {
-            print("   Event.swift - description already populated as \(self.descriptionArtist)")
+            print("   Event.swift - description already populated")
             completionHandler(descriptionArtist, nil)
             return
         }
