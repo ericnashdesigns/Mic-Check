@@ -235,9 +235,47 @@ class Event {
         self.colorsArtistimageColors = self.imgArtist?.getColors()
         //print("   Event.swift – getColorsForArtistImage() Finished \r\n")
         
+        print("  Event.swift – Primary Color: \(self.colorsArtistimageColors!.primaryColor.hexString!)")
+        print("  Event.swift – Secondary Color: \(self.colorsArtistimageColors!.secondaryColor.hexString!)")
+        print("  Event.swift – Background Color: \(self.colorsArtistimageColors!.backgroundColor.hexString!)")
+        print("  Event.swift – Detail Color: \(self.colorsArtistimageColors!.detailColor.hexString!)")
+        
         return colorsArtistimageColors
         
     }
     
     
+}
+
+extension UIColor {
+    var hexString: String? {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        
+        let multiplier = CGFloat(255.999999)
+        
+        guard self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) else {
+            return nil
+        }
+        
+        if alpha == 1.0 {
+            return String(
+                format: "#%02lX%02lX%02lX",
+                Int(red * multiplier),
+                Int(green * multiplier),
+                Int(blue * multiplier)
+            )
+        }
+        else {
+            return String(
+                format: "#%02lX%02lX%02lX%02lX",
+                Int(red * multiplier),
+                Int(green * multiplier),
+                Int(blue * multiplier),
+                Int(alpha * multiplier)
+            )
+        }
+    }
 }

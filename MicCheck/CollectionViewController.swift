@@ -14,7 +14,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
     var lineUp: EventLineup?
     var eventsLoaded: Bool = false // keeps track of when everything is loaded
-    let cellSpacingsInStoryboard: CGFloat = 2 * 2 // spacing * 2 edges
+    let cellSpacingsInStoryboard: CGFloat = 8 * 2 // spacing * 2 edges
 
     var gradientLayerAdded: CALayer?  // reference gradient later when changing size on rotations
     
@@ -50,6 +50,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         // Create the gradient
         let topColor = UIColor(red: (62/255.0), green: (70/255.0), blue: (76/255.0), alpha: 1)
         let bottomColor = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
+        //let bottomColor = UIColor.orange
         let gradientColors: [CGColor] = [topColor.cgColor, bottomColor.cgColor]
         let gradientLocations: [Float] = [0.0, 1.0]
         let gradientLayer: CAGradientLayer = CAGradientLayer()
@@ -58,6 +59,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
         gradientLayer.frame.size = self.view.frame.size
+        //gradientLayer.frame.size.height = self.view.frame.size.height / 2.0
+        gradientLayer.frame.size.height = self.view.frame.size.height
+        
         gradientLayer.frame.origin = CGPoint(x: 0.0, y: 0.0)
         self.collectionView?.backgroundColor = UIColor.clear
         self.view.layer.insertSublayer(gradientLayer, at: 0)
@@ -75,16 +79,51 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             
             DispatchQueue.main.async {
 
-                //self.collectionView?.bringSubview(toFront: self.kenBurnsView)
                 print(" CollectionViewController – 4 of 4: Main Queue - Finish getColorsForArtistImages(), Starting reloadData()")
                 self.eventsLoaded = true
                 
                 self.collectionView?.reloadData()
-                
-                self.collectionView?.bringSubview(toFront: self.kenBurnsView)
-                
-                self.kenBurnsView.alpha = 0
+
+                //self.collectionView?.bringSubview(toFront: self.kenBurnsView)
                 self.kenBurnsView.stopAnimation()
+                self.collectionView?.sendSubview(toBack: self.kenBurnsView)
+                self.kenBurnsView.alpha = 0
+
+                let topView = UIView(frame: CGRect(x: 0, y: -(self.collectionView?.bounds.height)! / 2.0,
+                                                   width: (self.collectionView?.bounds.width)!, height: (self.collectionView?.bounds.height)!))
+
+                
+                if let coloredBackground = self.lineUp?.events[0].getColorsForArtistImage() {
+                    topView.backgroundColor = coloredBackground.primaryColor
+                } else {
+                    let firstEventColors = self.lineUp?.events[0].getColorsForArtistImage()
+                    topView.backgroundColor = firstEventColors?.primaryColor
+                }
+
+                let imageStage = UIImage(named: "empty.stage.header.faded")
+                let imageStageView = UIImageView(image: imageStage!)
+                imageStageView.contentMode = .scaleAspectFill
+                imageStageView.frame = CGRect(x: 0, y: topView.frame.size.height / 2.0, width: topView.frame.size.width, height: topView.frame.size.height / 2.0)
+
+
+                
+//                    let rect = CGRect(x: 0, y: 0, width: imageStageView.frame.size.width, height: imageStageView.frame.size.height)
+//                    let renderer = UIGraphicsImageRenderer(size: imageStageView.frame.size)
+//                    
+//                    let result = renderer.image { ctx in
+//                        // fill the background with white so that translucent colors get lighter
+//                        UIColor.white.set()
+//                        ctx.fill(rect)
+//                        
+//                        imageStage?.draw(in: rect, blendMode: .screen, alpha: 1)
+//                    }
+                
+                topView.addSubview(imageStageView)
+
+                self.collectionView?.addSubview(topView)
+                self.collectionView?.sendSubview(toBack: topView)
+                
+
 
             } // end Dispatch.main.sync
 
@@ -93,6 +132,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         // print(" CollectionViewController – viewDidLoad() called")
     }
 
+    // removes the status bar
+    override var prefersStatusBarHidden : Bool {
+        return true
+    }    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -128,13 +172,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         if(orientation == .landscapeLeft || orientation == .landscapeRight) {
             // 2 rows of 2
             let width = collectionView.frame.size.width/2 - cellSpacingsInStoryboard
-            let height = collectionView.frame.size.height/2
+            let height = collectionView.frame.size.height/2 - cellSpacingsInStoryboard
             return CGSize(width: width, height: height)
         }
         else { // portrait mode
             // 3 rows of 1
             let width = collectionView.frame.size.width - cellSpacingsInStoryboard
-            let height = collectionView.frame.size.height/3
+            let height = collectionView.frame.size.height/3 - cellSpacingsInStoryboard
             return CGSize(width: width, height: height)
         }
     }
@@ -183,8 +227,18 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     //headerView.labelEventCount.textColor = coloredBackground.secondaryColor.withAlphaComponent(0.25)
                     headerView.labelEventCount.textColor = coloredBackground.secondaryColor.withAlphaComponent(0.75)
                     //headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor.withAlphaComponent(0.25)
-                    headerView.viewColoredBackground.backgroundColor = coloredBackground.primaryColor
+                    headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor
                     headerView.labelVenueList.textColor = coloredBackground.primaryColor.withAlphaComponent(0.75)
+
+                    
+                    // add the border
+                    //let borderColor = coloredBackground.primaryColor.withAlphaComponent(0.25)
+                    
+                    //headerView.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.black, thickness: 2.0)
+//                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
+//                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
+//                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
+//                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
                     
                 } else {
 
@@ -221,9 +275,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 // update the count
                 headerView.labelEventCount.text =  "\(self.lineUp!.events.count)"
                 
-                // add the border
-                headerView.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.black, thickness: 2.0)
-                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: UIColor.black, thickness: 2.0)
                 
             } // end else
             
@@ -284,7 +335,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     
         // Configure the cell
         cell.imgViewArtist.image = self.lineUp?.events[indexPath.row].imgArtist
-
+        cell.labelArtist.text = self.lineUp?.events[indexPath.row].artist
+        
         if eventsLoaded == false {
             cell.isHidden = true
         } else {

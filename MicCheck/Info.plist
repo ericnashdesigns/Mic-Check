@@ -41,7 +41,10 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Ailerons-Typeface.otf</string>
+		<string>Moderne Sans.ttf</string>
+		<string>US101.TTF</string>
 	</array>
+	<key>UIStatusBarHidden</key>
+	<true/>
 </dict>
 </plist>
