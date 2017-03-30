@@ -19,11 +19,10 @@
 		0721B91A1E0A599D004BEB19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0721B9181E0A599D004BEB19 /* LaunchScreen.storyboard */; };
 		0721B9551E0A64D8004BEB19 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B9541E0A64D8004BEB19 /* Event.swift */; };
 		0721B9571E0A6BF5004BEB19 /* EventLineup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B9561E0A6BF5004BEB19 /* EventLineup.swift */; };
-		0726B46B1E7C3D2E00D4D4EF /* Moderne Sans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0726B46A1E7C3D2E00D4D4EF /* Moderne Sans.ttf */; };
+		072640CA1E8CC84C004E76DF /* US101.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 072640C91E8CC84C004E76DF /* US101.TTF */; };
 		074B93C91E4C3CE90042AFC0 /* JBKenBurnsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074B93C81E4C3CE90042AFC0 /* JBKenBurnsView.swift */; };
 		075F17CE1E3F12BF0065CA26 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F17CD1E3F12BF0065CA26 /* CollectionViewCell.swift */; };
 		075F17D01E3F16B10065CA26 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F17CF1E3F16B10065CA26 /* CollectionViewController.swift */; };
-		07862A8B1E872079008AF6C8 /* US101.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 07862A8A1E872079008AF6C8 /* US101.TTF */; };
 		07C59E8E1E24AB6300CC24CB /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 07C59E8D1E24AB6300CC24CB /* events.json */; };
 		07E7AC7F1E276C83006ECA18 /* MicCheckUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7AC7E1E276C83006ECA18 /* MicCheckUITests.swift */; };
 		07E7AC8D1E276C96006ECA18 /* MicCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7AC8C1E276C96006ECA18 /* MicCheckTests.swift */; };
@@ -64,11 +63,10 @@
 		0721B91B1E0A599D004BEB19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0721B9541E0A64D8004BEB19 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		0721B9561E0A6BF5004BEB19 /* EventLineup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventLineup.swift; sourceTree = "<group>"; };
-		0726B46A1E7C3D2E00D4D4EF /* Moderne Sans.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Moderne Sans.ttf"; path = "../../../../Desktop/Moderne Sans.ttf"; sourceTree = "<group>"; };
+		072640C91E8CC84C004E76DF /* US101.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = US101.TTF; sourceTree = "<group>"; };
 		074B93C81E4C3CE90042AFC0 /* JBKenBurnsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JBKenBurnsView.swift; sourceTree = "<group>"; };
 		075F17CD1E3F12BF0065CA26 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		075F17CF1E3F16B10065CA26 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
-		07862A8A1E872079008AF6C8 /* US101.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = US101.TTF; path = ../../../website.2015/fonts/US101.TTF; sourceTree = "<group>"; };
 		07C59E8D1E24AB6300CC24CB /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		07E7AC7C1E276C83006ECA18 /* MicCheckUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicCheckUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E7AC7E1E276C83006ECA18 /* MicCheckUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicCheckUITests.swift; sourceTree = "<group>"; };
@@ -179,8 +177,7 @@
 				0721B9161E0A599D004BEB19 /* Assets.xcassets */,
 				0721B91B1E0A599D004BEB19 /* Info.plist */,
 				0721B90B1E0A599D004BEB19 /* AppDelegate.swift */,
-				0726B46A1E7C3D2E00D4D4EF /* Moderne Sans.ttf */,
-				07862A8A1E872079008AF6C8 /* US101.TTF */,
+				072640C91E8CC84C004E76DF /* US101.TTF */,
 			);
 			name = "Bundle Files";
 			sourceTree = "<group>";
@@ -364,11 +361,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				07C59E8E1E24AB6300CC24CB /* events.json in Resources */,
-				07862A8B1E872079008AF6C8 /* US101.TTF in Resources */,
 				0721B91A1E0A599D004BEB19 /* LaunchScreen.storyboard in Resources */,
-				0726B46B1E7C3D2E00D4D4EF /* Moderne Sans.ttf in Resources */,
 				0721B9171E0A599D004BEB19 /* Assets.xcassets in Resources */,
 				0721B9151E0A599D004BEB19 /* Main.storyboard in Resources */,
+				072640CA1E8CC84C004E76DF /* US101.TTF in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
