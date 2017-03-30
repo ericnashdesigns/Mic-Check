@@ -93,37 +93,25 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                                                    width: (self.collectionView?.bounds.width)!, height: (self.collectionView?.bounds.height)!))
 
                 
-                if let coloredBackground = self.lineUp?.events[0].getColorsForArtistImage() {
-                    topView.backgroundColor = coloredBackground.primaryColor
-                } else {
-                    let firstEventColors = self.lineUp?.events[0].getColorsForArtistImage()
-                    topView.backgroundColor = firstEventColors?.primaryColor
-                }
-
-                let imageStage = UIImage(named: "empty.stage.header.faded")
-                let imageStageView = UIImageView(image: imageStage!)
-                imageStageView.contentMode = .scaleAspectFill
+                let coloredBackground = self.lineUp?.events[0].getColorsForArtistImage()
+                let imageStage = UIImage(named: "empty.stage")
+                let imgBlended = UIImage.blend(image: imageStage!, color: (coloredBackground?.primaryColor)!, mode: .multiply)
+                let imageStageView = UIImageView(image: imgBlended!)
+                imageStageView.clipsToBounds = true
+                imageStageView.contentMode = .center
                 imageStageView.frame = CGRect(x: 0, y: topView.frame.size.height / 2.0, width: topView.frame.size.width, height: topView.frame.size.height / 2.0)
-
-
                 
-//                    let rect = CGRect(x: 0, y: 0, width: imageStageView.frame.size.width, height: imageStageView.frame.size.height)
-//                    let renderer = UIGraphicsImageRenderer(size: imageStageView.frame.size)
-//                    
-//                    let result = renderer.image { ctx in
-//                        // fill the background with white so that translucent colors get lighter
-//                        UIColor.white.set()
-//                        ctx.fill(rect)
-//                        
-//                        imageStage?.draw(in: rect, blendMode: .screen, alpha: 1)
-//                    }
+                imageStageView.alpha = 0.75
+                topView.backgroundColor = coloredBackground?.primaryColor
+                imageStageView.alpha = 0.5
+            
                 
                 topView.addSubview(imageStageView)
 
                 self.collectionView?.addSubview(topView)
                 self.collectionView?.sendSubview(toBack: topView)
                 
-
+                
 
             } // end Dispatch.main.sync
 
@@ -225,20 +213,26 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                     print(" CollectionViewController.swift - Header Formatting: ArtistImage Colors Were Used")
                     //headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor
                     //headerView.labelEventCount.textColor = coloredBackground.secondaryColor.withAlphaComponent(0.25)
-                    headerView.labelEventCount.textColor = coloredBackground.secondaryColor.withAlphaComponent(0.75)
+                    //headerView.labelEventCount.textColor = coloredBackground.secondaryColor.withAlphaComponent(0.75)
                     //headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor.withAlphaComponent(0.25)
-                    headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor
-                    headerView.labelVenueList.textColor = coloredBackground.primaryColor.withAlphaComponent(0.75)
+                    //let imgBlended = UIImage.blend(image: headerView.imgViewAppIcon.image!, color: (coloredBackground.secondaryColor)!, mode: .overlay)
+                    //headerView.imgViewAppIcon.image = imgBlended
+                    //headerView.labelVenueList.textColor = coloredBackground.primaryColor
+                    
+                    
+                    //headerView.labelVenueList.textColor = UIColor.white
 
                     
                     // add the border
-                    //let borderColor = coloredBackground.primaryColor.withAlphaComponent(0.25)
+                    let borderColor = coloredBackground.primaryColor!
                     
                     //headerView.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.black, thickness: 2.0)
-//                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
-//                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
-//                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
-//                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
+                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
+                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
+                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
+                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
+
+                    
                     
                 } else {
 
@@ -271,6 +265,14 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 if self.lineUp?.events[0].venue == "noVenuesToday" {
                     headerView.labelVenueList.text = "No Shows,\r\nThat Blows..."
                 }
+
+                // Set the line height for venues
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineSpacing = 2.25
+                let attrString = NSMutableAttributedString(string: headerView.labelVenueList.text!)
+                attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+                headerView.labelVenueList.attributedText = attrString
+                
                 
                 // update the count
                 headerView.labelEventCount.text =  "\(self.lineUp!.events.count)"

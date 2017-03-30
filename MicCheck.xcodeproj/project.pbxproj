@@ -20,6 +20,8 @@
 		0721B9551E0A64D8004BEB19 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B9541E0A64D8004BEB19 /* Event.swift */; };
 		0721B9571E0A6BF5004BEB19 /* EventLineup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0721B9561E0A6BF5004BEB19 /* EventLineup.swift */; };
 		072640CA1E8CC84C004E76DF /* US101.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 072640C91E8CC84C004E76DF /* US101.TTF */; };
+		072640D11E8CCAF5004E76DF /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072640D01E8CCAF5004E76DF /* UIColor.swift */; };
+		072640D31E8CCB65004E76DF /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072640D21E8CCB65004E76DF /* UIImage.swift */; };
 		074B93C91E4C3CE90042AFC0 /* JBKenBurnsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074B93C81E4C3CE90042AFC0 /* JBKenBurnsView.swift */; };
 		075F17CE1E3F12BF0065CA26 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F17CD1E3F12BF0065CA26 /* CollectionViewCell.swift */; };
 		075F17D01E3F16B10065CA26 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F17CF1E3F16B10065CA26 /* CollectionViewController.swift */; };
@@ -64,6 +66,8 @@
 		0721B9541E0A64D8004BEB19 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		0721B9561E0A6BF5004BEB19 /* EventLineup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventLineup.swift; sourceTree = "<group>"; };
 		072640C91E8CC84C004E76DF /* US101.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = US101.TTF; sourceTree = "<group>"; };
+		072640D01E8CCAF5004E76DF /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		072640D21E8CCB65004E76DF /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		074B93C81E4C3CE90042AFC0 /* JBKenBurnsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JBKenBurnsView.swift; sourceTree = "<group>"; };
 		075F17CD1E3F12BF0065CA26 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		075F17CF1E3F16B10065CA26 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 				0721B94D1E0A5E0C004BEB19 /* UI */,
 				0721B9531E0A5F90004BEB19 /* Data */,
 				0721B9501E0A5E88004BEB19 /* Model */,
+				072640CB1E8CC8AD004E76DF /* Extensions */,
 				0721B94F1E0A5E3B004BEB19 /* Bundle Files */,
 			);
 			path = MicCheck;
@@ -198,6 +203,15 @@
 				07C59E8D1E24AB6300CC24CB /* events.json */,
 			);
 			name = Data;
+			sourceTree = "<group>";
+		};
+		072640CB1E8CC8AD004E76DF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				072640D01E8CCAF5004E76DF /* UIColor.swift */,
+				072640D21E8CCB65004E76DF /* UIImage.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		07E7AC7D1E276C83006ECA18 /* MicCheckUITests */ = {
@@ -536,9 +550,11 @@
 				075F17CE1E3F12BF0065CA26 /* CollectionViewCell.swift in Sources */,
 				075F17D01E3F16B10065CA26 /* CollectionViewController.swift in Sources */,
 				0721B9571E0A6BF5004BEB19 /* EventLineup.swift in Sources */,
+				072640D11E8CCAF5004E76DF /* UIColor.swift in Sources */,
 				0721B90C1E0A599D004BEB19 /* AppDelegate.swift in Sources */,
 				0712CF041E601776005E78C8 /* ViewBorder.swift in Sources */,
 				0721B9551E0A64D8004BEB19 /* Event.swift in Sources */,
+				072640D31E8CCB65004E76DF /* UIImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

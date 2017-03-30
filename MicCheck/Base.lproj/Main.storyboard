@@ -100,7 +100,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="31"/>
                                 </imageView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTz-qU-Hai" userLabel="Colored Background">
-                                    <rect key="frame" x="8" y="0.0" width="65.5" height="65.5"/>
+                                    <rect key="frame" x="8" y="8" width="65.5" height="65.5"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="miccheck.icon.clipped" translatesAutoresizingMaskIntoConstraints="NO" id="Bzu-YD-sqB">
                                             <rect key="frame" x="11.5" y="15" width="42.5" height="35"/>
@@ -116,22 +116,16 @@
                                         <constraint firstItem="Bzu-YD-sqB" firstAttribute="width" secondItem="tTz-qU-Hai" secondAttribute="width" multiplier="0.66" id="rdq-kS-OS9"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMo-pr-isW" userLabel="labelEventCount">
+                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMo-pr-isW" userLabel="labelEventCount">
                                     <rect key="frame" x="274" y="-45" width="52" height="123"/>
                                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="90"/>
                                     <color key="textColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="0.25" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvx-re-DEf" userLabel="labelVenueList">
-                                    <rect key="frame" x="94" y="-3.5" width="34.5" height="40.5"/>
-                                    <attributedString key="attributedText">
-                                        <fragment content="Label">
-                                            <attributes>
-                                                <font key="NSFont" size="17" name="U.S.101"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="2" lineHeightMultiple="2" tighteningFactorForTruncation="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvx-re-DEf" userLabel="labelVenueList">
+                                    <rect key="frame" x="94" y="7.5" width="35" height="19"/>
+                                    <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="17"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -145,10 +139,11 @@
                                 <constraint firstItem="tTz-qU-Hai" firstAttribute="leading" secondItem="XNP-Ju-KqO" secondAttribute="leading" constant="8" id="dQf-oL-kmS"/>
                                 <constraint firstItem="MMo-pr-isW" firstAttribute="centerY" secondItem="XNP-Ju-KqO" secondAttribute="centerY" id="epA-68-EFi"/>
                                 <constraint firstItem="tTz-qU-Hai" firstAttribute="trailing" secondItem="wvx-re-DEf" secondAttribute="leading" multiplier="0.78" id="seB-2V-Clp"/>
-                                <constraint firstItem="tTz-qU-Hai" firstAttribute="top" secondItem="XNP-Ju-KqO" secondAttribute="top" id="xJl-RU-eE0"/>
+                                <constraint firstItem="tTz-qU-Hai" firstAttribute="top" secondItem="XNP-Ju-KqO" secondAttribute="top" constant="8" id="xJl-RU-eE0"/>
                                 <constraint firstItem="wvx-re-DEf" firstAttribute="centerY" secondItem="XNP-Ju-KqO" secondAttribute="centerY" id="yfE-Dp-sZR"/>
                             </constraints>
                             <connections>
+                                <outlet property="imgViewAppIcon" destination="Bzu-YD-sqB" id="au2-ID-fMH"/>
                                 <outlet property="labelEventCount" destination="MMo-pr-isW" id="v0m-fJ-fOs"/>
                                 <outlet property="labelVenueList" destination="wvx-re-DEf" id="Hp1-O5-nRG"/>
                                 <outlet property="viewColoredBackground" destination="tTz-qU-Hai" id="rMi-Qm-gPK"/>
