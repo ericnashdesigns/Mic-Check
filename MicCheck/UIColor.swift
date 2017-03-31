@@ -39,5 +39,25 @@ extension UIColor {
             )
         }
     }
+
+    func isDark() -> Bool
+    {
+        let components = self.cgColor.components
+        let redComponent = (components?[0])! * 299
+        let greenComponent = (components?[1])! * 587
+        let blueComponent = (components?[2])! * 114
+        
+        let brightness = (redComponent + greenComponent + blueComponent) / 1000
+        
+        if brightness > 0.5
+        {
+            return false
+        }
+        else
+        {
+            return true
+        }
+
+    }
 }
 

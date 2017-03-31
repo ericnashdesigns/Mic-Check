@@ -224,7 +224,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
                     
                     // add the border
-                    let borderColor = coloredBackground.primaryColor!
+                    var borderColor = coloredBackground.primaryColor!
+                    if borderColor.isDark() {
+                        //borderColor = UIColor.white.withAlphaComponent(0.75)
+                        borderColor = coloredBackground.backgroundColor!                        
+                    }
                     
                     //headerView.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.black, thickness: 2.0)
                     headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
