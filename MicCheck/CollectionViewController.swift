@@ -95,7 +95,15 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 
                 let coloredBackground = self.lineUp?.events[0].getColorsForArtistImage()
                 let imageStage = UIImage(named: "empty.stage")
-                let imgBlended = UIImage.blend(image: imageStage!, color: (coloredBackground?.primaryColor)!, mode: .multiply)
+
+                var imageToBlur = CIImage(image: imageStage!)
+                var blurfilter = CIFilter(name: "CIGaussianBlur")
+                blurfilter?.setValue(imageToBlur, forKey: "inputImage")
+                var resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
+                var blurredImage = UIImage(ciImage: resultImage)
+                
+                
+                let imgBlended = UIImage.blend(image: blurredImage, color: (coloredBackground?.primaryColor)!, mode: .multiply)
                 let imageStageView = UIImageView(image: imgBlended!)
                 imageStageView.clipsToBounds = true
                 imageStageView.contentMode = .center
@@ -104,7 +112,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 imageStageView.alpha = 0.75
                 topView.backgroundColor = coloredBackground?.primaryColor
                 imageStageView.alpha = 0.5
-            
                 
                 topView.addSubview(imageStageView)
 
@@ -230,7 +237,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                         borderColor = coloredBackground.backgroundColor!                        
                     }
                     
-                    //headerView.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.black, thickness: 2.0)
+                    headerView.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
                     headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
                     headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
                     headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
@@ -342,6 +349,20 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         // Configure the cell
         cell.imgViewArtist.image = self.lineUp?.events[indexPath.row].imgArtist
         cell.labelArtist.text = self.lineUp?.events[indexPath.row].artist
+        
+        // add the border
+        let coloredBackground = self.lineUp?.events[0].getColorsForArtistImage()
+
+        var borderColor = coloredBackground?.primaryColor!
+        if (borderColor?.isDark())! {
+            //borderColor = UIColor.white.withAlphaComponent(0.75)
+            borderColor = UIColor.white
+        }
+        
+        //headerView.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.black, thickness: 2.0)
+        cell.layer.addBorder(edge: UIRectEdge.top, color: borderColor!, thickness: 1.0)
+//        cell.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 1.0)
+        
         
         if eventsLoaded == false {
             cell.isHidden = true
