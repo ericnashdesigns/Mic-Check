@@ -48,7 +48,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         self.lineUp = EventLineup.sharedInstance
 
         // Add background Color
-        let backgroundColor = UIColor(red: (62/255.0), green: (70/255.0), blue: (76/255.0), alpha: 1)
+        let backgroundColor = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
         self.collectionView?.backgroundColor = backgroundColor
         // Create the gradient
 //        let topColor = UIColor(red: (62/255.0), green: (70/255.0), blue: (76/255.0), alpha: 1)
@@ -133,12 +133,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
                 let imageStage = UIImage(named: "empty.stage")
                 
+                let blurRadius = 5
                 var imageToBlur = CIImage(image: imageStage!)
                 var blurfilter = CIFilter(name: "CIGaussianBlur")
                 blurfilter?.setValue(imageToBlur, forKey: "inputImage")
+                blurfilter?.setValue(blurRadius, forKey: "inputRadius")
                 var resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
                 var blurredImage = UIImage(ciImage: resultImage)
-                
                 
                 // the .multiply blendMode is giving me some troubel when the primary color is really dark.  
                 // essentially, it blocks the underlying gradient from appearing.  
@@ -149,8 +150,15 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 imageStageView.clipsToBounds = true
                 imageStageView.contentMode = .center
                 imageStageView.frame = CGRect(x: 0, y: topView.frame.size.height / 2.0, width: topView.frame.size.width, height: topView.frame.size.height / 2.0)
-                
+
+                // need darker, more opaque background image if the gradient colors are too light
                 imageStageView.alpha = 0.35
+                if (!(coloredBackground?.primaryColor?.isDark())! && !(coloredBackground?.secondaryColor?.isDark())!) {
+                    //borderColor = UIColor.white.withAlphaComponent(0.75)
+                    imageStageView.alpha = 0.70
+                }                
+                
+
                 topView.addSubview(imageStageView)
 
                 self.collectionView?.addSubview(topView)
@@ -387,26 +395,37 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         // Configure the cell
         cell.imgViewArtist.image = self.lineUp?.events[indexPath.row].imgArtist
 
-        let insets: UIEdgeInsets = UIEdgeInsets(top: 2.0, left: 0.0, bottom: 2.0, right: 8.0)
-        cell.labelArtist.drawText(in: UIEdgeInsetsInsetRect(cell.labelArtist.frame, insets))
         cell.labelArtist.text = self.lineUp?.events[indexPath.row].artist
 
-        let backgroundColor = UIColor(red: (62/255.0), green: (70/255.0), blue: (76/255.0), alpha: 1)
+        let backgroundColor = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
         cell.labelArtist.backgroundColor = backgroundColor
         
         // add the border
         let coloredBackground = self.lineUp?.events[0].getColorsForArtistImage()
 
-        var borderColor = coloredBackground?.primaryColor!.withAlphaComponent(0.25)
+        
+        var borderColor = coloredBackground?.primaryColor!.withAlphaComponent(0.10)
         if (borderColor?.isDark())! {
             //borderColor = UIColor.white.withAlphaComponent(0.75)
-            borderColor = UIColor.white.withAlphaComponent(0.25)
+            borderColor = UIColor.white.withAlphaComponent(0.10)
         }
+
+//        cell.labelArtist.layer.addBorder(edge: UIRectEdge.right, color: borderColor!, thickness: 1.0)
+        
         
         //headerView.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.black, thickness: 2.0)
         cell.layer.addBorder(edge: UIRectEdge.top, color: borderColor!, thickness: 1.0)
-//        cell.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 1.0)
+        cell.layer.addBorder(edge: UIRectEdge.right, color: borderColor!, thickness: 1.0)
+        cell.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 1.0)
+        cell.imgViewArtist.layer.addBorder(edge: UIRectEdge.left, color: borderColor!, thickness: 1.0)
+
         
+//        let tempBorderColor = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
+//        cell.labelArtist.layer.addBorder(edge: UIRectEdge.left, color: tempBorderColor, thickness: 1.0)
+
+        cell.sendSubview(toBack: cell.imgViewArtist)
+        
+                        //self.collectionView?.bringSubview(toFront: self.kenBurnsView)
         
         if eventsLoaded == false {
             cell.isHidden = true

@@ -160,7 +160,6 @@
 				0721B9131E0A599D004BEB19 /* Main.storyboard */,
 				0721B9181E0A599D004BEB19 /* LaunchScreen.storyboard */,
 				074B93C81E4C3CE90042AFC0 /* JBKenBurnsView.swift */,
-				0712CF031E601776005E78C8 /* ViewBorder.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -213,6 +212,7 @@
 				072640D41E93F978004E76DF /* InsetLabel.swift */,
 				072640D01E8CCAF5004E76DF /* UIColor.swift */,
 				072640D21E8CCB65004E76DF /* UIImage.swift */,
+				0712CF031E601776005E78C8 /* ViewBorder.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";

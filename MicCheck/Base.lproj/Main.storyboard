@@ -58,18 +58,18 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="IDcell" id="0Gk-K1-eZE" customClass="CollectionViewCell" customModule="MicCheck" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="IDcell" id="0Gk-K1-eZE" customClass="CollectionViewCell" customModule="MicCheck" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="33" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uG3-AQ-TCF" userLabel="Image View Artist">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uG3-AQ-TCF" userLabel="Image View Artist">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S16-ee-gR0" userLabel="Label Artist" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="31" width="34.5" height="19"/>
+                                            <rect key="frame" x="-8" y="23" width="34.5" height="19"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="17"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -78,8 +78,8 @@
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="S16-ee-gR0" firstAttribute="bottom" secondItem="uG3-AQ-TCF" secondAttribute="bottom" id="OYs-TH-xu4"/>
-                                    <constraint firstItem="S16-ee-gR0" firstAttribute="leading" secondItem="uG3-AQ-TCF" secondAttribute="leading" id="U1M-Li-4Ql"/>
+                                    <constraint firstItem="S16-ee-gR0" firstAttribute="bottom" secondItem="uG3-AQ-TCF" secondAttribute="bottom" constant="-8" id="OYs-TH-xu4"/>
+                                    <constraint firstItem="S16-ee-gR0" firstAttribute="leading" secondItem="uG3-AQ-TCF" secondAttribute="leading" constant="-8" id="U1M-Li-4Ql"/>
                                     <constraint firstItem="uG3-AQ-TCF" firstAttribute="top" secondItem="0Gk-K1-eZE" secondAttribute="top" id="XoQ-o7-9PJ"/>
                                     <constraint firstAttribute="trailing" secondItem="uG3-AQ-TCF" secondAttribute="trailing" id="bJC-5u-nz5"/>
                                     <constraint firstItem="uG3-AQ-TCF" firstAttribute="leading" secondItem="0Gk-K1-eZE" secondAttribute="leading" id="sZV-oS-Zc8"/>

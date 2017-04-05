@@ -19,8 +19,8 @@ class InsetLabel: UILabel {
     */
 
     let topInset = CGFloat(8)
-    let bottomInset = CGFloat(0)
-    let leftInset = CGFloat(0)
+    let bottomInset = CGFloat(8)
+    let leftInset = CGFloat(8)
     let rightInset = CGFloat(8)
     
     override func drawText(in rect: CGRect) {
