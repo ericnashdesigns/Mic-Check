@@ -184,8 +184,8 @@
     "xPathPrice": "(//div[contains(@class, 'faq_main')])[1]/span[@class='content']/p[1]/text()[preceding-sibling::br and last()]",
     "testUrlEvent": "http://www.thechapelsf.com/event/875085-afrolicious-san-francisco/",
     "testDate": "07-23-2015",
-    "testArtist": "Bayonics",
-    "testImgArtist": "bayonics",
+    "testArtist": "Colony House",
+    "testImgArtist": "colony.house",
     "testPrice": "$13",
     "testVIDArtist": "uA0Xja6xem8",
 

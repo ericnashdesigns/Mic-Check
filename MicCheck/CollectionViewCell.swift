@@ -11,6 +11,6 @@ import UIKit
 class CollectionViewCell: UICollectionViewCell {
 
     @IBOutlet var imgViewArtist: UIImageView!
-    @IBOutlet var labelArtist: UILabel!
+    @IBOutlet var labelArtistAndVenue: UILabel!
     
 }

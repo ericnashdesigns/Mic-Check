@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UIImageColors
 
 private let reuseIdentifier = "IDcell"
 
@@ -15,7 +16,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     var lineUp: EventLineup?
     var eventsLoaded: Bool = false // keeps track of when everything is loaded
     let cellSpacingsInStoryboard: CGFloat = 8 * 2 // spacing * 2 edges
-
+    var colorsFromFirstArtistImage: UIImageColors? = nil  // colors from the first artist image
+    let backgroundColorDarker = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
+    
     var gradientLayerAdded: CALayer?  // reference gradient later when changing size on rotations
     
     @IBOutlet var kenBurnsView: JBKenBurnsView!
@@ -31,7 +34,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
         // if I don't use this, the collectionview will be too low on the screen.
         self.automaticallyAdjustsScrollViewInsets = false
-        
+
+        // create the array of ken burns images to iterate through
         let images = [
             UIImage(named: "empty.stage")!,
             UIImage(named: "guitarist.mountain.oasis")!,
@@ -39,69 +43,65 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             UIImage(named: "edm")!,
             UIImage(named: "jazz.horns")!
         ]
-    
         self.kenBurnsView.animateWithImages(images, imageAnimationDuration: 5, initialDelay: 0, shouldLoop: true, randomFirstImage: true)
 
-        print(" CollectionViewController – 1 of 4: Main Queue - Starting EventLineup() Instance")
+        print(" CollectionViewController.swift – 1 of 5: Main Queue - Starting EventLineup() Instance")
         
-        // create the model with placeholder data
+        // create the model, starting with placeholder data
         self.lineUp = EventLineup.sharedInstance
 
-        // Add background Color
-        let backgroundColor = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
-        self.collectionView?.backgroundColor = backgroundColor
-        // Create the gradient
-//        let topColor = UIColor(red: (62/255.0), green: (70/255.0), blue: (76/255.0), alpha: 1)
-//        let bottomColor = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
-//        //let bottomColor = UIColor.orange
-//        let gradientColors: [CGColor] = [topColor.cgColor, bottomColor.cgColor]
-//        let gradientLocations: [Float] = [0.0, 1.0]
-//        let gradientLayer: CAGradientLayer = CAGradientLayer()
-//        gradientLayer.colors = gradientColors
-//        gradientLayer.locations = gradientLocations as [NSNumber]?
-//        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-//        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-//        gradientLayer.frame.size = self.view.frame.size
-//        //gradientLayer.frame.size.height = self.view.frame.size.height / 2.0
-//        gradientLayer.frame.size.height = self.view.frame.size.height
-//        
-//        gradientLayer.frame.origin = CGPoint(x: 0.0, y: 0.0)
-//        self.collectionView?.backgroundColor = UIColor.clear
-//        self.view.layer.insertSublayer(gradientLayer, at: 0)
-//        gradientLayerAdded = self.view.layer.sublayers?.first
-        
+        // Add background color to the collectionView
+        self.collectionView?.backgroundColor = backgroundColorDarker
+
         // start cranking through the events in a background thread
         DispatchQueue.global(qos: .userInitiated).async {
             
-            print(" CollectionViewController – 2 of 4: Global Queue - Starting filterTodaysEvents()")
+            print(" CollectionViewController.swift – 2 of 5: Global Queue - Starting filterTodaysEvents()")
             self.lineUp?.filterTodaysEvents() // this filter will return nothing if in test mode
 
-            print(" CollectionViewController – 3 of 4: Global Queue - Finish filterTodaysEvents(), Starting getColorsForArtistImages()")
-            // I updated getColorsForArtistImages to run in a separate thread and (hopefully) will just chug in the background
-            self.lineUp?.getColorsForArtistImages()
+            print(" CollectionViewController.swift – 3 of 5: Global Queue - Finish filterTodaysEvents(), Starting getColorsForArtistImage()")
+
+            // get the colors for the first image since we'll need them for the main UI thread
+            self.colorsFromFirstArtistImage = self.lineUp?.events[0].getColorsForArtistImage()
+
+            print(" CollectionViewController.swift – 4 of 5: Global Queue - Finish getColorsForArtistImage(), Starting Main Thread")
+
+            // create a blurred background image of an empty stage using artist colors
+            let imageStage = UIImage(named: "empty.stage")
+            let blurRadius = 5
+            let imageToBlur = CIImage(image: imageStage!)
+            let blurfilter = CIFilter(name: "CIGaussianBlur")
+            blurfilter?.setValue(imageToBlur, forKey: "inputImage")
+            blurfilter?.setValue(blurRadius, forKey: "inputRadius")
+            let resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
+            let blurredImage = UIImage(ciImage: resultImage)
+            
+            // the .multiply blendMode is giving me some trouble when the background color is really dark.
+            // essentially, it blocks the underlying gradient from appearing.
+            // maybe I could check to see if background color is dark and if it is, just do a .hue blendMode instead
+            let imgBlended = UIImage.blend(image: blurredImage, color: (self.colorsFromFirstArtistImage?.backgroundColor)!, mode: .multiply)
             
             DispatchQueue.main.async {
 
-                print(" CollectionViewController – 4 of 4: Main Queue - Finish getColorsForArtistImages(), Starting reloadData()")
+                print(" CollectionViewController.swift – 5 of 5: Main Queue – Starting reloadData()")
+
+                // set flag so that I'll know how to let UI respond later
                 self.eventsLoaded = true
-                
+
+                // show only events filtered for today
                 self.collectionView?.reloadData()
 
-                //self.collectionView?.bringSubview(toFront: self.kenBurnsView)
+                // move the ken burns animations to the back
                 self.kenBurnsView.stopAnimation()
                 self.collectionView?.sendSubview(toBack: self.kenBurnsView)
                 self.kenBurnsView.alpha = 0
 
-                let topView = UIView(frame: CGRect(x: 0, y: -(self.collectionView?.bounds.height)! / 2.0,
+                // create a gradient background just behind the CollectionViewHeader and the first collectionViewCell
+                let viewBackgroundGradient = UIView(frame: CGRect(x: 0, y: -(self.collectionView?.bounds.height)! / 2.0,
                                                    width: (self.collectionView?.bounds.width)!, height: (self.collectionView?.bounds.height)!))
-                
-                let coloredBackground = self.lineUp?.events[0].getColorsForArtistImage()
 
-
-                // Create the gradient
-                var newGradientLayerAdded: CALayer?  // reference gradient later when changing size on rotations
-                let topColor = coloredBackground?.primaryColor
-                let bottomColor = coloredBackground?.secondaryColor
+                let topColor = self.colorsFromFirstArtistImage?.primaryColor
+                let bottomColor = self.colorsFromFirstArtistImage?.secondaryColor
                 let gradientColors: [CGColor] = [topColor!.cgColor, bottomColor!.cgColor]
                 let gradientLocations: [Float] = [0.0, 1.0]
                 let gradientLayer: CAGradientLayer = CAGradientLayer()
@@ -109,62 +109,38 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 gradientLayer.locations = gradientLocations as [NSNumber]?
                 gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
                 gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-                gradientLayer.frame.size = topView.frame.size
-                //gradientLayer.frame.size.height = self.view.frame.size.height / 2.0
-                //gradientLayer.frame.size.height = topView.frame.size.height
-                
+                gradientLayer.frame.size = viewBackgroundGradient.frame.size
                 gradientLayer.frame.origin = CGPoint(x: 0.0, y: 0.0)
-                topView.backgroundColor = UIColor.clear
-                topView.layer.insertSublayer(gradientLayer, at: 0)
-                //newGradientLayerAdded = topView.layer.sublayers?.first
-                //topView.sendSubview(toBack: <#T##UIView#>)
-
-//                topView.backgroundColor = coloredBackground?.primaryColor
+                viewBackgroundGradient.backgroundColor = UIColor.clear
+                viewBackgroundGradient.layer.insertSublayer(gradientLayer, at: 0)
                 
-                
-                // add the border
-                var borderColor = coloredBackground?.primaryColor!
+                // add a bottom border to the background, using the lighter of the two colorsFromFirstArtistImage
+                var borderColor = self.colorsFromFirstArtistImage?.primaryColor!
                 if (borderColor?.isDark())! {
-                    //borderColor = UIColor.white.withAlphaComponent(0.75)
-                    borderColor = coloredBackground?.backgroundColor!
+                    borderColor = self.colorsFromFirstArtistImage?.backgroundColor!
                 }
-                
-                topView.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 1.0)
+                viewBackgroundGradient.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 1.0)
 
-                let imageStage = UIImage(named: "empty.stage")
                 
-                let blurRadius = 5
-                var imageToBlur = CIImage(image: imageStage!)
-                var blurfilter = CIFilter(name: "CIGaussianBlur")
-                blurfilter?.setValue(imageToBlur, forKey: "inputImage")
-                blurfilter?.setValue(blurRadius, forKey: "inputRadius")
-                var resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
-                var blurredImage = UIImage(ciImage: resultImage)
-                
-                // the .multiply blendMode is giving me some troubel when the primary color is really dark.  
-                // essentially, it blocks the underlying gradient from appearing.  
-                // maybe I could check to see if primary color is dark or not and if it is, just do a .hue blendMode
-                let imgBlended = UIImage.blend(image: blurredImage, color: (coloredBackground?.backgroundColor)!, mode: .multiply)
                 let imageStageView = UIImageView(image: imgBlended!)
-                //let imageStageView = UIImageView(image: imageStage!)
                 imageStageView.clipsToBounds = true
                 imageStageView.contentMode = .center
-                imageStageView.frame = CGRect(x: 0, y: topView.frame.size.height / 2.0, width: topView.frame.size.width, height: topView.frame.size.height / 2.0)
+                imageStageView.frame = CGRect(x: 0, y: viewBackgroundGradient.frame.size.height / 2.0, width: viewBackgroundGradient.frame.size.width, height: viewBackgroundGradient.frame.size.height / 2.0)
 
-                // need darker, more opaque background image if the gradient colors are too light
+                // use a more opaque background image if the gradient colors are not dark
                 imageStageView.alpha = 0.35
-                if (!(coloredBackground?.primaryColor?.isDark())! && !(coloredBackground?.secondaryColor?.isDark())!) {
-                    //borderColor = UIColor.white.withAlphaComponent(0.75)
-                    imageStageView.alpha = 0.70
+                if (!(self.colorsFromFirstArtistImage?.primaryColor?.isDark())! && !(self.colorsFromFirstArtistImage?.secondaryColor?.isDark())!) {
+                    print(" CollectionViewController.swift – Light background colors.  Using more opaque imageStageView")
+                    imageStageView.alpha = 0.80
                 }                
-                
 
-                topView.addSubview(imageStageView)
-
-                self.collectionView?.addSubview(topView)
-                self.collectionView?.sendSubview(toBack: topView)
+                // send our newly constructed background to the back of the stack
+                viewBackgroundGradient.addSubview(imageStageView)
+                self.collectionView?.addSubview(viewBackgroundGradient)
+                self.collectionView?.sendSubview(toBack: viewBackgroundGradient)
                 
-                
+                // chug through the rest of the artist images.  runs in a separate background thread in global queue
+                self.lineUp?.getColorsForArtistImages()
 
             } // end Dispatch.main.sync
 
@@ -259,45 +235,40 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             } else {
                 headerView.isHidden = false
 
-                // do color processing for the first event and assign the background color to the header
-
-                if let coloredBackground = self.lineUp?.events[0].getColorsForArtistImage() {
-
-                    print(" CollectionViewController.swift - Header Formatting: ArtistImage Colors Were Used")
-                    //headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor
-                    //headerView.labelEventCount.textColor = coloredBackground.secondaryColor.withAlphaComponent(0.25)
-                    //headerView.labelEventCount.textColor = coloredBackground.secondaryColor.withAlphaComponent(0.75)
-                    //headerView.viewColoredBackground.backgroundColor = coloredBackground.backgroundColor.withAlphaComponent(0.25)
-                    //let imgBlended = UIImage.blend(image: headerView.imgViewAppIcon.image!, color: (coloredBackground.secondaryColor)!, mode: .overlay)
-                    //headerView.imgViewAppIcon.image = imgBlended
-                    //headerView.labelVenueList.textColor = coloredBackground.primaryColor
-                    
-                    
-                    //headerView.labelVenueList.textColor = UIColor.white
-
-                    
-                    // add the border
-                    var borderColor = coloredBackground.primaryColor!
-                    if borderColor.isDark() {
-                        //borderColor = UIColor.white.withAlphaComponent(0.75)
-                        borderColor = coloredBackground.backgroundColor!                        
-                    }
-                    
-                    //headerView.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.black, thickness: 2.0)
-                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
-                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
-                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
-                    headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
-
-                    
-                    
-                } else {
-
-                    print(" CollectionViewController.swift - Header Formatting: Couldn't Get ImageColors.  Using Red")
-                    headerView.viewColoredBackground.backgroundColor = UIColor(red: (0.95), green: (0.26), blue: (0.21), alpha: 1)
-
-                } // end else
-
+                print(" CollectionViewController.swift - Header Formatting: ArtistImage Colors Were Used")
+                
+                // add the border to the app icon, using lightest of two colorsFromFirstArtistImage
+                var borderColor = self.colorsFromFirstArtistImage!.primaryColor!
+                if borderColor.isDark() {
+                    borderColor = colorsFromFirstArtistImage!.backgroundColor!
+                }
+                
+                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
+                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
+                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
+                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
+                
+                // Trying to decide if I want a gradient on the App icon
+                // var newGradientLayerAdded: CALayer?  // reference gradient later when changing size on rotations
+                // let topColor = coloredBackground.secondaryColor
+                // let bottomColor = coloredBackground.primaryColor
+                // let gradientColors: [CGColor] = [topColor!.cgColor, bottomColor!.cgColor]
+                // let gradientLocations: [Float] = [0.0, 1.0]
+                // let gradientLayer: CAGradientLayer = CAGradientLayer()
+                // gradientLayer.colors = gradientColors
+                // gradientLayer.locations = gradientLocations as [NSNumber]?
+                // gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+                // gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+                // gradientLayer.frame.size = headerView.viewColoredBackground.frame.size
+                //gradientLayer.frame.origin = CGPoint(x: 0.0, y: 0.0)
+                //headerView.viewColoredBackground.backgroundColor = coloredBackground.detailColor.withAlphaComponent(0.15)
+                //headerView.viewColoredBackground.backgroundColor = UIColor.clear
+                //headerView.viewColoredBackground.layer.insertSublayer(gradientLayer, at: 0)
+                
+                //headerView.viewColoredBackground.backgroundColor = borderColor.withAlphaComponent(0.15)
+                //headerView.viewColoredBackground.backgroundColor = self.colorsFromFirstArtistImage?.detailColor.withAlphaComponent(0.15)
+                headerView.viewColoredBackground.backgroundColor = backgroundColorDarker
+                
                 // update the venues
                 headerView.labelVenueList.text = ""
                 headerView.labelVenueList.numberOfLines = 0
@@ -309,13 +280,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                         if venueCount == 6 {
                             headerView.labelVenueList.text = headerView.labelVenueList.text! + "& More"
                             break
-                        }
+                        } // end if
                         
                         headerView.labelVenueList.text = headerView.labelVenueList.text! + currentEvent.venue! + "\r"
                         headerView.labelVenueList.numberOfLines += 1
                         venueCount += 1
-                    }
-                }
+                    } // end if
+                } // end for
                 
                 // when there's no events today, a single blank event gets added to the events array
                 // with the venue set to "noVenuesToday"
@@ -329,8 +300,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 let attrString = NSMutableAttributedString(string: headerView.labelVenueList.text!)
                 attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
                 headerView.labelVenueList.attributedText = attrString
-                
-                
+                                
                 // update the count
                 headerView.labelEventCount.text =  "\(self.lineUp!.events.count)"
                 
@@ -395,10 +365,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         // Configure the cell
         cell.imgViewArtist.image = self.lineUp?.events[indexPath.row].imgArtist
 
-        cell.labelArtist.text = self.lineUp?.events[indexPath.row].artist
+        cell.labelArtistAndVenue.text = (self.lineUp?.events[indexPath.row].artist)! + " / " + (self.lineUp?.events[indexPath.row].venue)!
 
-        let backgroundColor = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
-        cell.labelArtist.backgroundColor = backgroundColor
+        cell.labelArtistAndVenue.backgroundColor = backgroundColorDarker
         
         // add the border
         let coloredBackground = self.lineUp?.events[0].getColorsForArtistImage()

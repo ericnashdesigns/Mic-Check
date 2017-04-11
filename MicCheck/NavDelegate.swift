@@ -137,8 +137,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 
                 UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
                     currentDataViewController.labelArtist.alpha = 1.0
-                    currentDataViewController.labelVenue.alpha = 1.0
-                    currentDataViewController.labelPrice.alpha = 1.0
+                    currentDataViewController.labelVenueAndPrice.alpha = 1.0
                     currentDataViewController.labelDescription.alpha = 1.0
                     currentDataViewController.viewVideoPlayerTopLeft.alpha = 1.0
                     currentDataViewController.viewVideoPlayerTopRight.alpha = 1.0
@@ -147,8 +146,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                     maskLayer.shadowOffset = CGSize(width: 0, height: -shadowSize)
                     
                     currentDataViewController.labelArtist.frame.origin.y -= controlsDeltaY
-                    currentDataViewController.labelVenue.frame.origin.y -= controlsDeltaY
-                    currentDataViewController.labelPrice.frame.origin.y -= controlsDeltaY
+                    currentDataViewController.labelVenueAndPrice.frame.origin.y -= controlsDeltaY
                     currentDataViewController.labelDescription.frame.origin.y -= controlsDeltaY
                     currentDataViewController.viewVideoPlayerTopLeft.frame.origin.y -= controlsDeltaY
                     currentDataViewController.viewVideoPlayerTopRight.frame.origin.y -= controlsDeltaY
@@ -224,8 +222,7 @@ private extension DataViewController {
         //let currentDataViewController = self.pageViewController?.viewControllers?.first as! DataViewController
         self.imgViewArtist.alpha = 0.0
         self.labelArtist.alpha = 0.0
-        self.labelVenue.alpha = 0.0
-        self.labelPrice.alpha = 0.0
+        self.labelVenueAndPrice.alpha = 0.0
         self.labelDescription.alpha = 0.0
         self.viewVideoPlayerTopLeft.alpha = 0.0
         self.viewVideoPlayerTopRight.alpha = 0.0

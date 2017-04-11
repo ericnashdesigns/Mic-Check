@@ -22,8 +22,7 @@ class DataViewController: UIViewController {
     @IBOutlet weak var labelIndexOfCount: UILabel!
     
     @IBOutlet weak var labelArtist: UILabel!
-    @IBOutlet weak var labelVenue: UILabel!
-    @IBOutlet weak var labelPrice: UILabel!
+    @IBOutlet weak var labelVenueAndPrice: UILabel!
     @IBOutlet weak var labelDescription: UILabel!
     @IBOutlet weak var imgViewArtist: UIImageView!
 
@@ -58,13 +57,13 @@ class DataViewController: UIViewController {
         
         self.labelArtist.text = dataArtist
         self.imgViewArtist.image =  dataImgArtist
-        self.labelVenue.text = dataVenue
-        self.labelPrice.text = dataPrice
-
+        self.labelVenueAndPrice.text = dataVenue + " / " + dataPrice
+        
+        
         // setup the mask for the artist image
         let shadowSize: CGFloat = 30.0
         let maskLayer = CAGradientLayer()
-        maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: imgViewArtist.frame.height)
+        maskLayer.frame = CGRect(x: 0, y: -shadowSize, width: imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: imgViewArtist.frame.height)
         maskLayer.shadowRadius = shadowSize
         maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
         maskLayer.shadowOpacity = 1;
@@ -85,8 +84,7 @@ class DataViewController: UIViewController {
                     self.viewContainer.backgroundColor = colorsFromArtistImage.backgroundColor
                     self.navigationController!.navigationBar.tintColor = colorsFromArtistImage.secondaryColor;
                     self.labelArtist.textColor = colorsFromArtistImage.primaryColor
-                    self.labelVenue.textColor = colorsFromArtistImage.secondaryColor
-                    self.labelPrice.textColor = colorsFromArtistImage.detailColor
+                    self.labelVenueAndPrice.textColor = colorsFromArtistImage.secondaryColor
                     self.labelDescription.textColor = colorsFromArtistImage.detailColor
                     self.labelNoVideosFound.textColor = colorsFromArtistImage.detailColor
 

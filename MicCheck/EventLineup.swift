@@ -335,10 +335,10 @@ class EventLineup {
             
             for event in self.events {
                 
-                if event.colorsArtistimageColors == nil {
+                if event.colorsFromArtistImage == nil {
                     
-                    event.colorsArtistimageColors = event.getColorsForArtistImage()
-                    print("  EventLineup.swift – getColorsForArtistImages() Run for: \(event.artist)")
+                    event.colorsFromArtistImage = event.getColorsForArtistImage()
+                    //print("  EventLineup.swift – getColorsForArtistImages() Run for: \(event.artist)")
                     
                 } // end if
                 

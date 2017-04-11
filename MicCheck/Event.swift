@@ -46,7 +46,7 @@ class Event {
     let dateFormat: String?
     let xPathDate: String?
     
-    var colorsArtistimageColors: UIImageColors? = nil
+    var colorsFromArtistImage: UIImageColors? = nil
     
     init(Dictionary: NSDictionary) {
         
@@ -227,20 +227,22 @@ class Event {
     func getColorsForArtistImage() -> UIImageColors? {
         
         // if the artist image colors are already populated, then no need to run through it again
-        if self.colorsArtistimageColors != nil {
-            //print("   Event.swift - getColorsForArtistImage() Already Populated \r\n")
-            return colorsArtistimageColors
+        if self.colorsFromArtistImage != nil {
+            print("   Event.swift - getColorsForArtistImage() Already Populated for \(self.artist)")
+            return colorsFromArtistImage
         }
         
-        self.colorsArtistimageColors = self.imgArtist?.getColors()
+        self.colorsFromArtistImage = self.imgArtist?.getColors()
         //print("   Event.swift – getColorsForArtistImage() Finished \r\n")
+
+        print("   Event.swift – \(self.artist) Colors ")
+        print("   Event.swift – - - - - - - - - - - - ")
+        print("   Event.swift – Primary Color: \(self.colorsFromArtistImage!.primaryColor.hexString!)")
+        print("   Event.swift – Secondary Color: \(self.colorsFromArtistImage!.secondaryColor.hexString!)")
+        print("   Event.swift – Background Color: \(self.colorsFromArtistImage!.backgroundColor.hexString!)")
+        print("   Event.swift – Detail Color: \(self.colorsFromArtistImage!.detailColor.hexString!)")
         
-        print("  Event.swift – Primary Color: \(self.colorsArtistimageColors?.primaryColor.hexString!)")
-        print("  Event.swift – Secondary Color: \(self.colorsArtistimageColors?.secondaryColor.hexString!)")
-        print("  Event.swift – Background Color \(self.colorsArtistimageColors?.backgroundColor.hexString!)")
-        print("  Event.swift – Detail Color \(self.colorsArtistimageColors?.detailColor.hexString!)")
-        
-        return colorsArtistimageColors
+        return colorsFromArtistImage
         
     }
     
