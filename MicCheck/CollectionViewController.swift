@@ -18,6 +18,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     let cellSpacingsInStoryboard: CGFloat = 8 * 2 // spacing * 2 edges
     var colorsFromFirstArtistImage: UIImageColors? = nil  // colors from the first artist image
     let backgroundColorDarker = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
+    var dateToday: String = ""
     
     var gradientLayerAdded: CALayer?  // reference gradient later when changing size on rotations
     
@@ -46,6 +47,23 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         self.kenBurnsView.animateWithImages(images, imageAnimationDuration: 5, initialDelay: 0, shouldLoop: true, randomFirstImage: true)
 
         print(" CollectionViewController.swift – 1 of 5: Main Queue - Starting EventLineup() Instance")
+
+        // get todays date
+        let currentDate = NSDate()
+
+        let dayFormatter = DateFormatter()
+        dayFormatter.dateFormat = "EEEE"
+        let convertedDay = dayFormatter.string(from: currentDate as Date).uppercased()
+
+        let monthFormatter = DateFormatter()
+        monthFormatter.dateFormat = "MMMM"
+        let convertedMonth = monthFormatter.string(from: currentDate as Date).uppercased()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d"
+        let convertedDate = dateFormatter.string(from: currentDate as Date).uppercased()
+
+        dateToday = convertedDay + ", " + convertedMonth + " " + convertedDate + "\r\n"
         
         // create the model, starting with placeholder data
         self.lineUp = EventLineup.sharedInstance
@@ -269,9 +287,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 //headerView.viewColoredBackground.backgroundColor = self.colorsFromFirstArtistImage?.detailColor.withAlphaComponent(0.15)
                 headerView.viewColoredBackground.backgroundColor = backgroundColorDarker
                 
-                // update the venues
-                headerView.labelVenueList.text = ""
-                headerView.labelVenueList.numberOfLines = 0
+                // update the venues.  I don't think I should do this every time the header renders, so maybe I'll move it up later.
+                headerView.labelVenueList.text = dateToday
+                headerView.labelVenueList.numberOfLines = 1
                 var venueCount = 0
                 
                 for currentEvent in (self.lineUp?.events)! {
