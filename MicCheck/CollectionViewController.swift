@@ -50,20 +50,21 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
         // get todays date
         let currentDate = NSDate()
-
+        
         let dayFormatter = DateFormatter()
-        dayFormatter.dateFormat = "EEEE"
+        dayFormatter.dateFormat = "E"
         let convertedDay = dayFormatter.string(from: currentDate as Date).uppercased()
+        
 
         let monthFormatter = DateFormatter()
-        monthFormatter.dateFormat = "MMMM"
+        monthFormatter.dateFormat = "M"
         let convertedMonth = monthFormatter.string(from: currentDate as Date).uppercased()
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d"
         let convertedDate = dateFormatter.string(from: currentDate as Date).uppercased()
 
-        dateToday = convertedDay + ", " + convertedMonth + " " + convertedDate + "\r\n"
+        dateToday = convertedDay + " " + convertedMonth + "/" + convertedDate
         
         // create the model, starting with placeholder data
         self.lineUp = EventLineup.sharedInstance
@@ -288,8 +289,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 headerView.viewColoredBackground.backgroundColor = backgroundColorDarker
                 
                 // update the venues.  I don't think I should do this every time the header renders, so maybe I'll move it up later.
-                headerView.labelVenueList.text = dateToday
-                headerView.labelVenueList.numberOfLines = 1
+                headerView.labelVenueList.text = ""
+                headerView.labelVenueList.numberOfLines = 0
                 var venueCount = 0
                 
                 for currentEvent in (self.lineUp?.events)! {
@@ -319,8 +320,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
                 headerView.labelVenueList.attributedText = attrString
                                 
-                // update the count
-                headerView.labelEventCount.text =  "\(self.lineUp!.events.count)"
+                // update todays date
+                headerView.labelTodaysDate.text = dateToday
                 
                 
             } // end else

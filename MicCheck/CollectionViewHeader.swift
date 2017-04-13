@@ -13,7 +13,7 @@ class CollectionViewHeader: UICollectionReusableView {
     @IBOutlet var viewColoredBackground: UIView!
     @IBOutlet var imgViewAppIcon: UIImageView!
 
-    @IBOutlet var labelEventCount: UILabel!
+    @IBOutlet var labelTodaysDate: UILabel!
     @IBOutlet var labelVenueList: UILabel!
 
 
