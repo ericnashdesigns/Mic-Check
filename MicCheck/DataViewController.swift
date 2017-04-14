@@ -9,6 +9,7 @@
 import UIKit
 import youtube_ios_player_helper
 import UIImageColors
+import KenBurns
 
 class DataViewController: UIViewController {
 
@@ -88,6 +89,21 @@ class DataViewController: UIViewController {
                     self.labelDescription.textColor = colorsFromArtistImage.detailColor
                     self.labelNoVideosFound.textColor = colorsFromArtistImage.detailColor
 
+                    let ken = KenBurnsImageView()
+                    ken.setImage(self.imgViewArtist.image!)
+                    ken.zoomIntensity = 0.5
+                    ken.setDuration(min: 10, max: 13)
+                    ken.frame.size = self.imgViewArtist.frame.size
+                    
+                    self.imgViewArtist.addSubview(ken)
+
+                    
+                    self.imgViewArtist.bringSubview(toFront: ken)
+                    
+                    ken.startAnimating()
+                    
+                    
+                    
                 } // end Dispatch.main
                 
             } else {
@@ -182,6 +198,15 @@ class DataViewController: UIViewController {
         
     } // end viewWillAppear()
 
+//    override func viewDidAppear(_ animated: Bool) {
+////        let imageViewArtist = KenBurnsImageView()
+////        //let ken = KenBurnsImageView()
+////        imageViewArtist.setImage(self.imgViewArtist.image!)
+////        imageViewArtist.zoomIntensity = 1.5
+////        imageViewArtist.setDuration(min: 5, max: 13)
+////        imageViewArtist.startAnimating()
+//
+//    }
     
     func loadVideoThumbs(strVIDs: Array<String>?) {
         

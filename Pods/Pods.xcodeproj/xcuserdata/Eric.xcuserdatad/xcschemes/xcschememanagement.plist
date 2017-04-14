@@ -4,7 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>CalmParametricAnimations.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Kanna.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>KenBurns.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -20,6 +30,11 @@
 			<false/>
 		</dict>
 		<key>Pods-MicCheckUITests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,12 +62,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0F07FF4BC7B5A76995A33DF68DFC9930</key>
+		<key>2330BB08191D157587FE8B519FF19032</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2616E5E27143307C8C595809BDF49760</key>
+		<key>348A93F20D08AE39801C2FD8A7245BAC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,12 +77,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AD6AC58233026634D3CC3339861C8AC1</key>
+		<key>6A35F6B096E76AB3C77E0FB8A6F1B224</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C043AFEA127D064CAE32118D907955BC</key>
+		<key>83F0AD0F09A0ED4F4EA20F27AE55741E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B1C284E9DA929588F2BFAB302DF7395A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F33037D12622542D2363D8900D932C31</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F8D736ECEA8F46FA64703CC6E5385973</key>
 		<dict>
 			<key>primary</key>
 			<true/>

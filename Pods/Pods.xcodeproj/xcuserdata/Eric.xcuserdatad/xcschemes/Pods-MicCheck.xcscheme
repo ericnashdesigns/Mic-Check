@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0820"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0F07FF4BC7B5A76995A33DF68DFC9930"
+               BlueprintIdentifier = "6A35F6B096E76AB3C77E0FB8A6F1B224"
                BuildableName = "Pods_MicCheck.framework"
                BlueprintName = "Pods-MicCheck"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0F07FF4BC7B5A76995A33DF68DFC9930"
+            BlueprintIdentifier = "6A35F6B096E76AB3C77E0FB8A6F1B224"
             BuildableName = "Pods_MicCheck.framework"
             BlueprintName = "Pods-MicCheck"
             ReferencedContainer = "container:Pods.xcodeproj">
