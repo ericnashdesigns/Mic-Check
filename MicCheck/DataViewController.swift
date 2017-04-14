@@ -127,9 +127,12 @@ class DataViewController: UIViewController {
                 
                 // To update anything on the main thread, just jump back on like so.
                 DispatchQueue.main.async {
-                    
+
+                    // populate the label with the description, otherwise, just hide it.  Not sure how this affects constraints.
                     if strDescription != nil && strDescription != "" {
                         self.labelDescription.text = strDescription
+                    } else {
+                        self.labelDescription.isHidden = true
                     }
 
                 } // end Dispatch.main.sync
