@@ -92,7 +92,25 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
         return .mid
     }
+    
+    // The kenburns animation seemed to cause a performance lag as I paged, so trying to turning it on/off improves
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
 
+        // begin kenBurns animation as soon as the new page is in place
+        let currentViewController = self.pageViewController!.viewControllers![0] as! DataViewController
+        currentViewController.startKenBurnsAnimation()
+        
+    }
+
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+
+        let currentViewController = self.pageViewController!.viewControllers![0] as! DataViewController
+        
+        // end kenBurns animation as soon as the another new page is swiped into place
+        currentViewController.stopKenBurnsAnimation()
+        
+    }
 
 }
 

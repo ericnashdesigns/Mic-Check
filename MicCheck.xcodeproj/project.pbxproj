@@ -167,11 +167,11 @@
 		0721B94E1E0A5E1A004BEB19 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0721B90D1E0A599D004BEB19 /* RootViewController.swift */,
-				0712CF011E5D6BE3005E78C8 /* CollectionViewHeader.swift */,
 				075F17CF1E3F16B10065CA26 /* CollectionViewController.swift */,
+				0712CF011E5D6BE3005E78C8 /* CollectionViewHeader.swift */,
 				075F17CD1E3F12BF0065CA26 /* CollectionViewCell.swift */,
 				0712CF051E648FE8005E78C8 /* NavDelegate.swift */,
+				0721B90D1E0A599D004BEB19 /* RootViewController.swift */,
 				0721B90F1E0A599D004BEB19 /* DataViewController.swift */,
 			);
 			name = Controller;

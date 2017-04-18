@@ -15,7 +15,7 @@ class EventLineup {
     static let sharedInstance = EventLineup()
     
     // a toggle for testing UIvard interactions without making calls to external websites
-    let testMode: Bool = true
+    let testMode: Bool = false
     
     // Array for the Events.  They may be real Events or test events, depending on testMode
     var events: [Event] = []

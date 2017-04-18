@@ -156,6 +156,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                     
                     // clean up & revert all the temporary things
                     imageView.removeFromSuperview()
+                    currentDataViewController.startKenBurnsAnimation()
                     print(" NavDelegate.swift – moveFromCollectionView() finished animation")
                     //collectionVC.collectionView?.deselectRowAtIndexPath(indexPath, animated: false)
                     

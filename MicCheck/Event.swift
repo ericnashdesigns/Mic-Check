@@ -106,6 +106,7 @@ class Event {
             // make sure we got data
             guard let data = data else {
                 print("   Event.swift - Wikipedia data was not received")
+                completionHandler(nil, error as NSError?)
                 return
             }
             
@@ -116,7 +117,7 @@ class Event {
             if let parsedDescription = json[2][0].string {
                 
                 self.descriptionArtist = parsedDescription
-                //print("   Event.swift - descriptionArtist Added: \(self.descriptionArtist!)")
+                print("   Event.swift - descriptionArtist Added: \(self.descriptionArtist!)")
                 
                 completionHandler(self.descriptionArtist, nil)
                 return
@@ -124,6 +125,7 @@ class Event {
             } else {
                 
                 print("   Event.swift - Could not get the descriptionArtist from the Wikipedia JSON")
+                completionHandler(nil, error as NSError?)
                 return
                 
             } // end if

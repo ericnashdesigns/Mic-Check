@@ -14,23 +14,6 @@ import KenBurns
 class DataViewController: UIViewController {
 
     let lineUp = EventLineup.sharedInstance
-    
-    @IBOutlet var viewContainer: UIView!
-    
-    @IBOutlet weak var labelDay: UILabel!
-    @IBOutlet weak var labelMonth: UILabel!
-    @IBOutlet weak var labelDate: UILabel!
-    @IBOutlet weak var labelIndexOfCount: UILabel!
-    
-    @IBOutlet weak var labelArtist: UILabel!
-    @IBOutlet weak var labelVenueAndPrice: UILabel!
-    @IBOutlet weak var labelDescription: UILabel!
-    @IBOutlet weak var imgViewArtist: UIImageView!
-
-    @IBOutlet var labelNoVideosFound: UILabel!
-    @IBOutlet var viewVideoPlayerTopLeft: YTPlayerView!
-    @IBOutlet var viewVideoPlayerTopRight: YTPlayerView!
-    
     var dataArtist: String = ""
     var dataImgArtist: UIImage!
     var dataVenue: String = ""
@@ -40,6 +23,16 @@ class DataViewController: UIViewController {
     var dataColorsImgArtist: UIImageColors?
     var swipeDirection: String = ""
     
+    @IBOutlet var viewContainer: UIView!
+    @IBOutlet weak var imgViewArtist: UIImageView!
+    let kenBurnsImageView = KenBurnsImageView()
+    @IBOutlet weak var labelArtist: UILabel!
+    @IBOutlet weak var labelVenueAndPrice: UILabel!
+    @IBOutlet weak var labelDescription: UILabel!
+    @IBOutlet var labelNoVideosFound: UILabel!
+    @IBOutlet var viewVideoPlayerTopLeft: YTPlayerView!
+    @IBOutlet var viewVideoPlayerTopRight: YTPlayerView!
+
     // viewDidLoad is things you have to do once.  it occures before viewWillAppear
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,8 +51,10 @@ class DataViewController: UIViewController {
         
         self.labelArtist.text = dataArtist
         self.imgViewArtist.image =  dataImgArtist
-        self.labelVenueAndPrice.text = dataVenue + " / " + dataPrice
-        
+        self.labelVenueAndPrice.text = dataVenue
+        if dataPrice != "" {
+            self.labelVenueAndPrice.text = dataVenue + " / " + dataPrice
+        }
         
         // setup the mask for the artist image
         let shadowSize: CGFloat = 30.0
@@ -88,21 +83,6 @@ class DataViewController: UIViewController {
                     self.labelVenueAndPrice.textColor = colorsFromArtistImage.secondaryColor
                     self.labelDescription.textColor = colorsFromArtistImage.detailColor
                     self.labelNoVideosFound.textColor = colorsFromArtistImage.detailColor
-
-                    let ken = KenBurnsImageView()
-                    ken.setImage(self.imgViewArtist.image!)
-                    ken.zoomIntensity = 0.5
-                    ken.setDuration(min: 10, max: 13)
-                    ken.frame.size = self.imgViewArtist.frame.size
-                    
-                    self.imgViewArtist.addSubview(ken)
-
-                    
-                    self.imgViewArtist.bringSubview(toFront: ken)
-                    
-                    ken.startAnimating()
-                    
-                    
                     
                 } // end Dispatch.main
                 
@@ -131,8 +111,13 @@ class DataViewController: UIViewController {
                     // populate the label with the description, otherwise, just hide it.  Not sure how this affects constraints.
                     if strDescription != nil && strDescription != "" {
                         self.labelDescription.text = strDescription
+                        print(" DataViewController.swift – Show description")
                     } else {
+                        
+                        // I'm using a StackView with ContentHugging Priorities to get the artistImage and other fields to adjust to the vacant space when description isn't available.
                         self.labelDescription.isHidden = true
+                        print(" DataViewController.swift – Hide description")
+
                     }
 
                 } // end Dispatch.main.sync
@@ -200,16 +185,6 @@ class DataViewController: UIViewController {
         }
         
     } // end viewWillAppear()
-
-//    override func viewDidAppear(_ animated: Bool) {
-////        let imageViewArtist = KenBurnsImageView()
-////        //let ken = KenBurnsImageView()
-////        imageViewArtist.setImage(self.imgViewArtist.image!)
-////        imageViewArtist.zoomIntensity = 1.5
-////        imageViewArtist.setDuration(min: 5, max: 13)
-////        imageViewArtist.startAnimating()
-//
-//    }
     
     func loadVideoThumbs(strVIDs: Array<String>?) {
         
@@ -258,5 +233,24 @@ class DataViewController: UIViewController {
         } // end for
         
     } // end loadVideoThumbs()
+    
+    func startKenBurnsAnimation() {
+
+        kenBurnsImageView.setImage(self.imgViewArtist.image!)
+        kenBurnsImageView.zoomIntensity = 0.5
+        kenBurnsImageView.setDuration(min: 10, max: 13)
+        kenBurnsImageView.frame.size = self.imgViewArtist.frame.size
+
+        self.imgViewArtist.addSubview(kenBurnsImageView)
+
+        self.imgViewArtist.bringSubview(toFront: kenBurnsImageView)
+        
+        kenBurnsImageView.startAnimating()
+        
+    } // end newKenBurnsImageView()
+    
+    func stopKenBurnsAnimation() {
+        kenBurnsImageView.stopAnimating()
+    }
     
 }

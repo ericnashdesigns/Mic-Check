@@ -6,9 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -225,79 +223,72 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qb7-ke-a1S">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="444.5"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="qb7-ke-a1S">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="443.5"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Artist" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ">
-                                <rect key="frame" x="20" y="436" width="335" height="60"/>
-                                <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="54"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue / Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caz-Gf-Mub" userLabel="Label Venue and Price">
-                                <rect key="frame" x="20" y="503" width="335" height="19"/>
-                                <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gym-Z5-mpf" userLabel="View Video Top Left" customClass="YTPlayerView">
-                                <rect key="frame" x="20" y="558" width="157.5" height="89"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yPa-do-MEU">
+                                <rect key="frame" x="20" y="403.5" width="335" height="243.5"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Artist.DONE" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="229.5" height="60"/>
+                                        <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="54"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue / Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caz-Gf-Mub" userLabel="Label Venue and Price">
+                                        <rect key="frame" x="0.0" y="68" width="80" height="19"/>
+                                        <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No description available" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description">
+                                        <rect key="frame" x="0.0" y="95" width="183" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DNp-5y-Cfm">
+                                        <rect key="frame" x="0.0" y="123.5" width="335" height="92"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gym-Z5-mpf" userLabel="View Video Top Left" customClass="YTPlayerView">
+                                                <rect key="frame" x="0.0" y="0.0" width="163.5" height="92"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="gym-Z5-mpf" secondAttribute="height" multiplier="16:9" id="nPj-XE-i3e"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hxj-65-G1j" userLabel="View Video Top RIght" customClass="YTPlayerView">
+                                                <rect key="frame" x="171.5" y="0.0" width="163.5" height="92"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Hxj-65-G1j" secondAttribute="height" multiplier="16:9" id="hMi-Nw-fsm"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No videos found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5d-s1-TZT" userLabel="Label No Videos Found">
+                                        <rect key="frame" x="0.0" y="223.5" width="125.5" height="20"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="gym-Z5-mpf" secondAttribute="height" multiplier="16:9" id="nPj-XE-i3e"/>
+                                    <constraint firstAttribute="trailing" secondItem="DNp-5y-Cfm" secondAttribute="trailing" id="4S3-4w-CUu"/>
+                                    <constraint firstItem="DNp-5y-Cfm" firstAttribute="leading" secondItem="yPa-do-MEU" secondAttribute="leading" id="4op-R4-7Gg"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hxj-65-G1j" userLabel="View Video Top RIght" customClass="YTPlayerView">
-                                <rect key="frame" x="197.5" y="558" width="157.5" height="89"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="Hxj-65-G1j" secondAttribute="height" multiplier="16:9" id="hMi-Nw-fsm"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No description available" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description">
-                                <rect key="frame" x="20" y="530" width="335" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No videos found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5d-s1-TZT" userLabel="Label No Videos Found">
-                                <rect key="frame" x="20" y="558" width="335" height="20"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.97826086960000003" green="0.91848131079999995" blue="0.73914263440000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="qb7-ke-a1S" secondAttribute="trailing" id="0nj-Cf-kKm"/>
-                            <constraint firstItem="caz-Gf-Mub" firstAttribute="top" secondItem="cF2-Le-7mQ" secondAttribute="bottom" constant="7" id="5bX-n9-aYc"/>
-                            <constraint firstAttribute="trailing" secondItem="G5d-s1-TZT" secondAttribute="trailing" constant="20" symbolic="YES" id="A5p-04-aqu"/>
-                            <constraint firstItem="EPS-s9-h4K" firstAttribute="top" secondItem="Hxj-65-G1j" secondAttribute="bottom" constant="20" id="Acu-JR-Lhi"/>
-                            <constraint firstItem="Hxj-65-G1j" firstAttribute="leading" secondItem="gym-Z5-mpf" secondAttribute="trailing" constant="20" id="CEW-Bh-OUY"/>
-                            <constraint firstAttribute="centerXWithinMargins" secondItem="gym-Z5-mpf" secondAttribute="trailing" constant="3" id="CX2-kx-VpZ"/>
-                            <constraint firstItem="G5d-s1-TZT" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="Gly-eN-wUe"/>
-                            <constraint firstItem="Hxj-65-G1j" firstAttribute="trailing" secondItem="caz-Gf-Mub" secondAttribute="trailing" id="LEo-IP-XMk"/>
-                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="PnF-O8-Bso"/>
-                            <constraint firstItem="EPS-s9-h4K" firstAttribute="top" secondItem="gym-Z5-mpf" secondAttribute="bottom" constant="20" id="T1o-K0-wfl"/>
-                            <constraint firstAttribute="trailing" secondItem="gDj-M6-bfC" secondAttribute="trailing" constant="20" symbolic="YES" id="UFy-FX-AsK"/>
-                            <constraint firstItem="gDj-M6-bfC" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="VwC-j7-nDd"/>
-                            <constraint firstAttribute="centerY" secondItem="qb7-ke-a1S" secondAttribute="bottom" multiplier="0.75" id="Zkm-uY-Xov"/>
-                            <constraint firstItem="qb7-ke-a1S" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" id="aZK-s2-jJ9"/>
-                            <constraint firstAttribute="trailing" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="20" symbolic="YES" id="cCk-mG-gz5"/>
-                            <constraint firstItem="gym-Z5-mpf" firstAttribute="top" secondItem="gDj-M6-bfC" secondAttribute="bottom" constant="7" id="cGD-ZC-kdG"/>
-                            <constraint firstItem="caz-Gf-Mub" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="ga4-KN-tYA"/>
-                            <constraint firstItem="qb7-ke-a1S" firstAttribute="top" secondItem="ZwX-cT-FIQ" secondAttribute="top" id="ldw-zr-f31"/>
-                            <constraint firstItem="G5d-s1-TZT" firstAttribute="top" secondItem="gDj-M6-bfC" secondAttribute="bottom" constant="7" id="pfB-GX-j4h"/>
-                            <constraint firstAttribute="trailing" secondItem="caz-Gf-Mub" secondAttribute="trailing" constant="20" symbolic="YES" id="rOT-rJ-NeW"/>
-                            <constraint firstItem="gDj-M6-bfC" firstAttribute="top" secondItem="caz-Gf-Mub" secondAttribute="bottom" constant="8" id="rpb-e4-8ux"/>
-                            <constraint firstItem="Hxj-65-G1j" firstAttribute="top" secondItem="gDj-M6-bfC" secondAttribute="bottom" constant="7" id="uLJ-EP-9Cb"/>
-                            <constraint firstItem="gym-Z5-mpf" firstAttribute="leading" secondItem="caz-Gf-Mub" secondAttribute="leading" id="uot-Vc-Atq"/>
+                            <constraint firstAttribute="trailing" secondItem="yPa-do-MEU" secondAttribute="trailing" constant="20" symbolic="YES" id="6Y4-03-wrz"/>
+                            <constraint firstItem="qb7-ke-a1S" firstAttribute="bottom" secondItem="yPa-do-MEU" secondAttribute="top" priority="750" constant="40" id="BZK-Th-2zd"/>
+                            <constraint firstItem="qb7-ke-a1S" firstAttribute="top" secondItem="ZwX-cT-FIQ" secondAttribute="top" id="QGI-T5-HLJ"/>
+                            <constraint firstItem="qb7-ke-a1S" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" id="UpN-v8-Abu"/>
+                            <constraint firstAttribute="trailing" secondItem="qb7-ke-a1S" secondAttribute="trailing" id="WoO-M2-lAa"/>
+                            <constraint firstItem="yPa-do-MEU" firstAttribute="leading" secondItem="ZwX-cT-FIQ" secondAttribute="leading" constant="20" symbolic="YES" id="bpN-3t-Gho"/>
+                            <constraint firstItem="EPS-s9-h4K" firstAttribute="top" secondItem="yPa-do-MEU" secondAttribute="bottom" constant="20" id="r3N-8E-SaO"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="CX2-kx-VpZ"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="imgViewArtist" destination="qb7-ke-a1S" id="ARk-f4-3Xc"/>
