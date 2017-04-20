@@ -97,7 +97,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
 
-        // begin kenBurns animation as soon as the new page is in place
+        // Begin kenBurns animation just after the summoned DataViewController is in place
         let currentViewController = self.pageViewController!.viewControllers![0] as! DataViewController
         currentViewController.startKenBurnsAnimation()
      
@@ -108,7 +108,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
         let currentViewController = self.pageViewController!.viewControllers![0] as! DataViewController
         
-        // end kenBurns animation as soon as the another new page is swiped into place
+        // end kenBurns animation as soon as another DataViewController is summoned
         currentViewController.stopKenBurnsAnimation()
         
     }

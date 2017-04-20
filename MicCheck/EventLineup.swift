@@ -15,7 +15,7 @@ class EventLineup {
     static let sharedInstance = EventLineup()
     
     // a toggle for testing UIvard interactions without making calls to external websites
-    let testMode: Bool = false
+    let testMode: Bool = true
     
     // Array for the Events.  They may be real Events or test events, depending on testMode
     var events: [Event] = []
@@ -355,25 +355,28 @@ class EventLineup {
     // **************************************************
     func getArtistDescriptions() {
 
-        // if we're not in testMode then chug through the descriptions for all events
-        guard testMode == true else {
-
-            DispatchQueue.global(qos: .userInitiated).async {
-                
-                for event in self.events {
-                                        
-                    event.descriptionArtist = event.getDescriptionForArtist2()
-                    print("  EventLineup.swift – getArtistDescription() Run for: \(event.artist)")
-                    
-                    
-                } // end for
-                
-                print("  EventLineup.swift – getArtistDescriptions() Finished \r\n ")
-                
-            } // end Dispatch.global
-        
+        // if testMode is true, then there's no need to do more processessing
+        guard (testMode == false) else {
+            
+            print("  EventLineup.swift - getArtistDescriptions() - In Test Mode...No Filtering")
+            print("  = = = = = = = = = = = =")
+            
             return
-        }
+        } // end guard
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            
+            for event in self.events {
+                                    
+                event.descriptionArtist = event.getArtistDescription()
+                
+            } // end for
+            
+            print("  EventLineup.swift – getArtistDescriptions() Finished \r\n ")
+            
+        } // end Dispatch.global
+    
+        return
     }
     
     // MARK: Verfied URLs

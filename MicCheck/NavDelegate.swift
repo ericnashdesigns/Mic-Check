@@ -189,12 +189,16 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     
     private func moveFromRootView(rootVC: RootViewController, toCollection collectionVC: CollectionViewController, withContext context: UIViewControllerContextTransitioning) {
         
+        // Access the DataViewController within the rootVC
+        let currentDataViewController = rootVC.pageViewController?.viewControllers?.first as! DataViewController
+
+        // end kenBurns animation as soon as another DataViewController is summoned
+        currentDataViewController.stopKenBurnsAnimation()
+        
         context.containerView.addSubview(collectionVC.view)
         // make the destination invisible so we can fade it in later
         collectionVC.view.alpha = 0.0
         
-        // Access the DataViewController within the rootVC
-        let currentDataViewController = rootVC.pageViewController?.viewControllers?.first as! DataViewController
         
         // Access the coordinates of the selected cell
         let imageView = createTransitionImageViewWithFrame(frame: currentDataViewController.imgViewArtist.frame)

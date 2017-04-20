@@ -232,10 +232,11 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="qb7-ke-a1S">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="512.5"/>
                                             </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist.DONE" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ">
-                                                <rect key="frame" x="0.0" y="452.5" width="375" height="60"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist.DONE" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="452.5" width="229.5" height="60"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="54"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -246,22 +247,21 @@
                                             <constraint firstItem="qb7-ke-a1S" firstAttribute="top" secondItem="cgC-uX-WYe" secondAttribute="top" id="R9p-xh-snP"/>
                                             <constraint firstAttribute="bottom" secondItem="cF2-Le-7mQ" secondAttribute="bottom" id="eMt-UG-AA9"/>
                                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="cgC-uX-WYe" secondAttribute="leading" id="fq5-xo-Ii4"/>
-                                            <constraint firstAttribute="trailing" secondItem="cF2-Le-7mQ" secondAttribute="trailing" id="hMY-Mq-ddL"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue / Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caz-Gf-Mub" userLabel="Label Venue and Price">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue / Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caz-Gf-Mub" userLabel="Label Venue and Price" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="520.5" width="375" height="7"/>
                                         <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No description available" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No description available" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="535.5" width="375" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DNp-5y-Cfm">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DNp-5y-Cfm" userLabel="Stack View Videos">
                                         <rect key="frame" x="0.0" y="564" width="375" height="103"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="gym-Z5-mpf" userLabel="View Video Top Left" customClass="YTPlayerView">
@@ -290,7 +290,6 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="DNp-5y-Cfm" secondAttribute="trailing" id="4S3-4w-CUu"/>
-                                    <constraint firstItem="DNp-5y-Cfm" firstAttribute="leading" secondItem="yPa-do-MEU" secondAttribute="leading" id="4op-R4-7Gg"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">

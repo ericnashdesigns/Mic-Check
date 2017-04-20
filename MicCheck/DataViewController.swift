@@ -83,7 +83,7 @@ class DataViewController: UIViewController {
                     if (self.navigationController != nil) {
                         self.navigationController?.navigationBar.tintColor = colorsFromArtistImage.secondaryColor;
                     }
-                    self.labelArtist.textColor = colorsFromArtistImage.primaryColor
+                    //self.labelArtist.textColor = colorsFromArtistImage.primaryColor
                     self.labelVenueAndPrice.textColor = colorsFromArtistImage.secondaryColor
                     self.labelDescription.textColor = colorsFromArtistImage.detailColor
                     self.labelNoVideosFound.textColor = colorsFromArtistImage.detailColor
@@ -121,11 +121,6 @@ class DataViewController: UIViewController {
                 print(" DataViewController.swift - No Description Available for Formatting ")
                 
             } // end else
-            
-
-            // EXPERIMENT: Ever since I started using Stackview for sizing description, I've been getting problems with other parts of my code that need layout.
-            // Specifically, the transition to DataViewController from CollectionViewController.  I think the problem may be that the layout doesn't have descriptions
-            // retuned in time to update the layout accordingly.
             
         } // end Dispatch.global
 
@@ -272,19 +267,11 @@ class DataViewController: UIViewController {
     func startKenBurnsAnimation() {
 
         kenBurnsImageView.setImage(self.imgViewArtist.image!)
-        kenBurnsImageView.zoomIntensity = 0.5
+        kenBurnsImageView.zoomIntensity = 0.25
         kenBurnsImageView.setDuration(min: 10, max: 13)
         kenBurnsImageView.frame.size = self.imgViewArtist.frame.size
 
         self.imgViewArtist.addSubview(kenBurnsImageView)
-
-        // EXPERIMENT: Seeing if I can get the kenBurns view to not jump when transitioning from CollectionViewController
-        // It didn't work
-        //kenBurnsImageView.leadingAnchor.constraint(equalTo: self.imgViewArtist.leadingAnchor).isActive = true
-        //kenBurnsImageView.trailingAnchor.constraint(equalTo: self.imgViewArtist.trailingAnchor).isActive = true
-        //kenBurnsImageView.topAnchor.constraint(equalTo: self.imgViewArtist.topAnchor).isActive = true
-        //kenBurnsImageView.bottomAnchor.constraint(equalTo: self.imgViewArtist.bottomAnchor).isActive = true
-        
         self.imgViewArtist.bringSubview(toFront: kenBurnsImageView)
         
         kenBurnsImageView.startAnimating()
