@@ -15,6 +15,7 @@ class DataViewController: UIViewController {
 
     let lineUp = EventLineup.sharedInstance
     var dataArtist: String = ""
+    var dataDescriptionArtist: String = ""
     var dataImgArtist: UIImage!
     var dataVenue: String = ""
     var dataPrice: String = ""
@@ -25,6 +26,7 @@ class DataViewController: UIViewController {
     
     @IBOutlet var viewContainer: UIView!
     @IBOutlet weak var imgViewArtist: UIImageView!
+    @IBOutlet weak var stackViewLabels: UIStackView!
     let kenBurnsImageView = KenBurnsImageView()
     @IBOutlet weak var labelArtist: UILabel!
     @IBOutlet weak var labelVenueAndPrice: UILabel!
@@ -78,7 +80,9 @@ class DataViewController: UIViewController {
                 DispatchQueue.main.async {
                     
                     self.viewContainer.backgroundColor = colorsFromArtistImage.backgroundColor
-                    self.navigationController!.navigationBar.tintColor = colorsFromArtistImage.secondaryColor;
+                    if (self.navigationController != nil) {
+                        self.navigationController?.navigationBar.tintColor = colorsFromArtistImage.secondaryColor;
+                    }
                     self.labelArtist.textColor = colorsFromArtistImage.primaryColor
                     self.labelVenueAndPrice.textColor = colorsFromArtistImage.secondaryColor
                     self.labelDescription.textColor = colorsFromArtistImage.detailColor
@@ -88,43 +92,73 @@ class DataViewController: UIViewController {
                 
             } else {
 
-                // Assign some colors
                 print(" DataViewController.swift - No Artist Image Colors Available for Formatting ")
                 
             } // end else
+
             
-        } // end Dispatch.global
-
-        // Grab a description of the artist from the Wikipedia API asynchronously.  When it's finished, use it in our UI
-        // closures have a syntax: { (parameters) -> return type in statements }
-        // you can tack closures at the end of the function call and it will be passed to the function just like a parameter
-        currentEvent.getDescriptionForArtist() { (strDescription, error) -> Void in
-
-            if error != nil{
-                print(error as Any)
-            }
-            else {
+            
+            if let artistDescription = currentEvent.getArtistDescription() {
                 
                 // To update anything on the main thread, just jump back on like so.
                 DispatchQueue.main.async {
-
-                    // populate the label with the description, otherwise, just hide it.  Not sure how this affects constraints.
-                    if strDescription != nil && strDescription != "" {
-                        self.labelDescription.text = strDescription
+                    
+                    if artistDescription != "" {
+                        self.labelDescription.text = artistDescription
                         print(" DataViewController.swift – Show description")
                     } else {
                         
                         // I'm using a StackView with ContentHugging Priorities to get the artistImage and other fields to adjust to the vacant space when description isn't available.
                         self.labelDescription.isHidden = true
                         print(" DataViewController.swift – Hide description")
-
+                        
                     }
-
-                } // end Dispatch.main.sync
+                    
+                } // end Dispatch.main
                 
-            } // end if
+            } else {
+                
+                print(" DataViewController.swift - No Description Available for Formatting ")
+                
+            } // end else
             
-        }
+
+            // EXPERIMENT: Ever since I started using Stackview for sizing description, I've been getting problems with other parts of my code that need layout.
+            // Specifically, the transition to DataViewController from CollectionViewController.  I think the problem may be that the layout doesn't have descriptions
+            // retuned in time to update the layout accordingly.
+            
+        } // end Dispatch.global
+
+        // Grab a description of the artist from the Wikipedia API asynchronously.  When it's finished, use it in our UI
+        // closures have a syntax: { (parameters) -> return type in statements }
+        // you can tack closures at the end of the function call and it will be passed to the function just like a parameter
+//        currentEvent.getDescriptionForArtist() { (strDescription, error) -> Void in
+//
+//            if error != nil{
+//                print(error as Any)
+//            }
+//            else {
+//                
+//                // To update anything on the main thread, just jump back on like so.
+//                DispatchQueue.main.async {
+//                    
+//                    // populate the label with the description, otherwise, just hide it.  Not sure how this affects constraints.
+//                    if strDescription != nil && strDescription != "" {
+//                        self.labelDescription.text = strDescription
+//                        print(" DataViewController.swift – Show description")
+//                    } else {
+//                        
+//                        // I'm using a StackView with ContentHugging Priorities to get the artistImage and other fields to adjust to the vacant space when description isn't available.
+//                        self.labelDescription.isHidden = true
+//                        print(" DataViewController.swift – Hide description")
+//
+//                    }
+//
+//                } // end Dispatch.main.sync
+//                
+//            } // end if
+//            
+//        }
         
     
         // fetch the artist videos and load them into the Event object
@@ -140,7 +174,8 @@ class DataViewController: UIViewController {
 
                     // load the video thumbs onto the page
                     self.loadVideoThumbs(strVIDs: strVIDs)
-                
+
+                    print(" DataViewController.swift – Video Thumbs Loaded")
                 } // end Dispatch.main.sync
                 
             } // end if
@@ -151,13 +186,13 @@ class DataViewController: UIViewController {
 //        self.labelVenue.alpha = 0
 //        self.labelPrice.alpha = 0
         
-        let labelAnimationOffsetBegin: CGFloat = 100
-        if self.swipeDirection == "up" {
+//        let labelAnimationOffsetBegin: CGFloat = 100
+//        if self.swipeDirection == "up" {
 
-            print(" DataViewController.swift – swipe direction UP")
+            //print(" DataViewController.swift – swipe direction UP")
             
-            UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
-                
+//            UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+//                
 //                self.labelArtist.center.y += labelAnimationOffsetBegin
 //                self.labelArtist.alpha = 1
 //                self.labelVenue.center.y += labelAnimationOffsetBegin
@@ -165,13 +200,13 @@ class DataViewController: UIViewController {
 //                self.labelPrice.center.y += labelAnimationOffsetBegin
 //                self.labelPrice.alpha = 1
                 
-            }, completion: nil)
+//            }, completion: nil)
             
-        } else if self.swipeDirection == "down" {
+//        } else if self.swipeDirection == "down" {
 
-            print(" DataViewController.swift – swipe direction DOWN")
+            //print(" DataViewController.swift – swipe direction DOWN")
             
-            UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+//            UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
 
 //                self.labelArtist.center.y -= labelAnimationOffsetBegin
 //                self.labelArtist.alpha = 1
@@ -180,9 +215,9 @@ class DataViewController: UIViewController {
 //                self.labelPrice.center.y -= labelAnimationOffsetBegin
 //                self.labelPrice.alpha = 1
                 
-            }, completion: nil)
-            
-        }
+//            }, completion: nil)
+        
+//        }
         
     } // end viewWillAppear()
     
@@ -243,6 +278,13 @@ class DataViewController: UIViewController {
 
         self.imgViewArtist.addSubview(kenBurnsImageView)
 
+        // EXPERIMENT: Seeing if I can get the kenBurns view to not jump when transitioning from CollectionViewController
+        // It didn't work
+        //kenBurnsImageView.leadingAnchor.constraint(equalTo: self.imgViewArtist.leadingAnchor).isActive = true
+        //kenBurnsImageView.trailingAnchor.constraint(equalTo: self.imgViewArtist.trailingAnchor).isActive = true
+        //kenBurnsImageView.topAnchor.constraint(equalTo: self.imgViewArtist.topAnchor).isActive = true
+        //kenBurnsImageView.bottomAnchor.constraint(equalTo: self.imgViewArtist.bottomAnchor).isActive = true
+        
         self.imgViewArtist.bringSubview(toFront: kenBurnsImageView)
         
         kenBurnsImageView.startAnimating()
@@ -251,6 +293,7 @@ class DataViewController: UIViewController {
     
     func stopKenBurnsAnimation() {
         kenBurnsImageView.stopAnimating()
+        
     }
     
 }

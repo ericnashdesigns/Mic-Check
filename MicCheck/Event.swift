@@ -24,6 +24,7 @@ class Event {
     
     let testUrlEvent: String?
     let testArtist: String?
+    let testArtistDescription: String?
     let testImgArtist: String?
     let testPrice: String?
     
@@ -63,6 +64,7 @@ class Event {
         
         testUrlEvent            = Dictionary["testUrlEvent"]            as? String
         testArtist              = Dictionary["testArtist"]              as? String
+        testArtistDescription   = Dictionary["testArtistDescription"]   as? String
         testImgArtist           = Dictionary["testImgArtist"]           as? String
         testPrice               = Dictionary["testPrice"]               as? String
         
@@ -135,6 +137,58 @@ class Event {
         task.resume()
         return
 
+    }
+
+    func getDescriptionForArtist2() -> String {
+        // if the artist description is already populated, then no need to run through the Wikipedia API
+        if self.descriptionArtist != self.testArtistDescription {
+            print("   Event.swift - description already populated")
+            return self.descriptionArtist!
+        }
+        
+        var urlString = "https://en.wikipedia.org/w/api.php?action=opensearch&search=\(self.artist)&limit=1&format=json"
+        urlString = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+        
+        // Create a URL Object using the string above
+        let targetURL = URL(string: urlString)
+        
+        // Create the Async Request
+        let task = URLSession.shared.dataTask(with: targetURL!) { data, response, error in
+            // check for any errors
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            // make sure we got data
+            guard let data = data else {
+                print("   Event.swift - Wikipedia data was not received")
+                return
+            }
+            
+            // parse the result as JSON, since that's what the API provides
+            let json = JSON(data: data)
+            
+            //Getting a string from JSON
+            if let parsedDescription = json[2][0].string {
+                
+                // Add parsed description to the event object
+                self.descriptionArtist = parsedDescription
+                print("   Event.swift - descriptionArtist Added: \(self.descriptionArtist!)")
+                
+                return
+                
+            } else {
+                
+                print("   Event.swift - Could not get the descriptionArtist from the Wikipedia JSON")
+                return
+                
+            } // end if
+            
+        } // end URLSession.shared.dataTask completionHandler
+        
+        task.resume()
+        return self.descriptionArtist!
+        
     }
     
     
@@ -248,6 +302,21 @@ class Event {
         
     }
     
+    func getArtistDescription() -> String? {
+
+        if self.descriptionArtist != nil {
+            print("   Event.swift - getArtistDescription() Already Populated for \(self.artist)")
+            return descriptionArtist
+        }
+        
+        getDescriptionForArtist2()
+        
+//        self.colorsFromArtistImage = self.imgArtist?.getColors()
+        
+        print("   Event.swift – \(self.artist) Description: \(self.descriptionArtist)")
+        
+        return descriptionArtist
+    }
     
 }
 

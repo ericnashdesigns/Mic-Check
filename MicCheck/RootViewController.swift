@@ -100,7 +100,8 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         // begin kenBurns animation as soon as the new page is in place
         let currentViewController = self.pageViewController!.viewControllers![0] as! DataViewController
         currentViewController.startKenBurnsAnimation()
-        
+     
+        print("RootViewController.swift – currentViewController.artistImgView.frame.height : \(currentViewController.imgViewArtist.frame.height)")
     }
 
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {

@@ -59,6 +59,7 @@ class EventLineup {
             event.eventHappeningTonight = true
             event.urlEvent = jsonlineup[index]["testUrlEvent"].string!
             event.artist = jsonlineup[index]["testArtist"].string!
+            event.descriptionArtist = jsonlineup[index]["testArtistDescription"].string!
             event.imgArtist = UIImage(named: jsonlineup[index]["testImgArtist"].string!)
             event.price = jsonlineup[index]["testPrice"].string!
             
@@ -348,6 +349,31 @@ class EventLineup {
             
         } // end Dispatch.global
         
+    }
+
+    // MARK: Getting Descriptions
+    // **************************************************
+    func getArtistDescriptions() {
+
+        // if we're not in testMode then chug through the descriptions for all events
+        guard testMode == true else {
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                
+                for event in self.events {
+                                        
+                    event.descriptionArtist = event.getDescriptionForArtist2()
+                    print("  EventLineup.swift – getArtistDescription() Run for: \(event.artist)")
+                    
+                    
+                } // end for
+                
+                print("  EventLineup.swift – getArtistDescriptions() Finished \r\n ")
+                
+            } // end Dispatch.global
+        
+            return
+        }
     }
     
     // MARK: Verfied URLs

@@ -161,6 +161,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 // chug through the rest of the artist images.  runs in a separate background thread in global queue
                 self.lineUp?.getColorsForArtistImages()
 
+                // chug through the rest of the artist descriptions.  runs in a separate background thread in global queue
+                self.lineUp?.getArtistDescriptions()
+                
             } // end Dispatch.main.sync
 
         } // end Dispatch.global
