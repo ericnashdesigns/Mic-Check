@@ -20,6 +20,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     let backgroundColorDarker = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
     var dateToday: String = ""
     
+    var viewBackgroundGradient: UIView!
+    var imageStageView: UIImageView!
+    var cachedImageViewSize: CGRect!
+    
     var gradientLayerAdded: CALayer?  // reference gradient later when changing size on rotations
     
     @IBOutlet var kenBurnsView: JBKenBurnsView!
@@ -95,6 +99,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             let resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
             let blurredImage = UIImage(ciImage: resultImage)
             
+            
             // the .multiply blendMode is giving me some trouble when the background color is really dark.
             // essentially, it blocks the underlying gradient from appearing.
             // maybe I could check to see if background color is dark and if it is, just do a .hue blendMode instead
@@ -116,7 +121,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 self.kenBurnsView.alpha = 0
 
                 // create a gradient background just behind the CollectionViewHeader and the first collectionViewCell
-                let viewBackgroundGradient = UIView(frame: CGRect(x: 0, y: -(self.collectionView?.bounds.height)! / 2.0,
+                self.viewBackgroundGradient = UIView(frame: CGRect(x: 0, y: -(self.collectionView?.bounds.height)! / 2.0,
                                                    width: (self.collectionView?.bounds.width)!, height: (self.collectionView?.bounds.height)!))
 
                 let topColor = self.colorsFromFirstArtistImage?.primaryColor
@@ -128,35 +133,38 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 gradientLayer.locations = gradientLocations as [NSNumber]?
                 gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
                 gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-                gradientLayer.frame.size = viewBackgroundGradient.frame.size
+                gradientLayer.frame.size = self.viewBackgroundGradient.frame.size
                 gradientLayer.frame.origin = CGPoint(x: 0.0, y: 0.0)
-                viewBackgroundGradient.backgroundColor = UIColor.clear
-                viewBackgroundGradient.layer.insertSublayer(gradientLayer, at: 0)
+                self.viewBackgroundGradient.backgroundColor = UIColor.clear
+                self.viewBackgroundGradient.layer.insertSublayer(gradientLayer, at: 0)
                 
                 // add a bottom border to the background, using the lighter of the two colorsFromFirstArtistImage
                 var borderColor = self.colorsFromFirstArtistImage?.primaryColor!
                 if (borderColor?.isDark())! {
                     borderColor = self.colorsFromFirstArtistImage?.backgroundColor!
                 }
-                viewBackgroundGradient.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 1.0)
-
+                self.viewBackgroundGradient.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 1.0)
                 
-                let imageStageView = UIImageView(image: imgBlended!)
-                imageStageView.clipsToBounds = true
-                imageStageView.contentMode = .center
-                imageStageView.frame = CGRect(x: 0, y: viewBackgroundGradient.frame.size.height / 2.0, width: viewBackgroundGradient.frame.size.width, height: viewBackgroundGradient.frame.size.height / 2.0)
 
+                self.imageStageView = UIImageView(image: imgBlended!)
+                self.imageStageView.clipsToBounds = true
+                self.imageStageView.contentMode = .center
+                self.imageStageView.frame = CGRect(x: 0, y: self.viewBackgroundGradient.frame.size.height / 2.0, width: self.viewBackgroundGradient.frame.size.width, height: self.viewBackgroundGradient.frame.size.height / 2.0)
+                self.cachedImageViewSize = self.imageStageView.frame;
+                
+                
                 // use a more opaque background image if the gradient colors are not dark
-                imageStageView.alpha = 0.35
+                self.imageStageView.alpha = 0.35
                 if (!(self.colorsFromFirstArtistImage?.primaryColor?.isDark())! && !(self.colorsFromFirstArtistImage?.secondaryColor?.isDark())!) {
                     print(" CollectionViewController.swift – Light background colors.  Using more opaque imageStageView")
-                    imageStageView.alpha = 0.80
-                }                
-
+                    self.imageStageView.alpha = 0.80
+                }
+                
+                
                 // send our newly constructed background to the back of the stack
-                viewBackgroundGradient.addSubview(imageStageView)
-                self.collectionView?.addSubview(viewBackgroundGradient)
-                self.collectionView?.sendSubview(toBack: viewBackgroundGradient)
+                self.viewBackgroundGradient.addSubview(self.imageStageView)
+                self.collectionView?.addSubview(self.viewBackgroundGradient)
+                self.collectionView?.sendSubview(toBack: self.viewBackgroundGradient)
                 
                 // chug through the rest of the artist images.  runs in a separate background thread in global queue
                 self.lineUp?.getColorsForArtistImages()
@@ -180,7 +188,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     // MARK: – Sizing
     // Header
@@ -261,14 +268,29 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 
                 // add the border to the app icon, using lightest of two colorsFromFirstArtistImage
                 var borderColor = self.colorsFromFirstArtistImage!.primaryColor!
+                
                 if borderColor.isDark() {
                     borderColor = colorsFromFirstArtistImage!.backgroundColor!
                 }
+                if borderColor.isDark() {
+                    borderColor = colorsFromFirstArtistImage!.secondaryColor!
+                }
+                if borderColor.isDark() {
+                    borderColor = colorsFromFirstArtistImage!.detailColor!
+                }
                 
-                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
-                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
-                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
-                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
+//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
+//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
+//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
+//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
+                
+                // EXPERIMENT: Can't get the icon coloring to work.  Trying a couple different ways. 
+                // This was the first
+//                let imgBlended = UIImage.blend(image: headerView.imgViewAppIcon.image!, color: (self.colorsFromFirstArtistImage?.backgroundColor)!, mode: .overlay)
+                
+                // This was the second.  It also involve adding an extension to UIImage.swift
+                headerView.imgViewAppIcon.image = headerView.imgViewAppIcon.image!.maskWithColor(color: borderColor)
+                
                 
                 // Trying to decide if I want a gradient on the App icon
                 // var newGradientLayerAdded: CALayer?  // reference gradient later when changing size on rotations
@@ -325,6 +347,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                                 
                 // update todays date
                 headerView.labelTodaysDate.text = dateToday
+                headerView.labelTodaysDate.textColor = borderColor
                 
                 
             } // end else
@@ -425,6 +448,21 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         }
         
         return cell
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        // EXPERIMENT: this doesn't quite work right.  I really want the image to expand more when you pull down, but for now it's better than nothing...
+        
+        let y: CGFloat = -scrollView.contentOffset.y
+        if y > 0 {
+
+            let muliplier = y * 5
+            
+            self.imageStageView.frame = CGRect(x: 0, y: scrollView.contentOffset.y + self.view.frame.height / 2.0, width: self.cachedImageViewSize.size.width + muliplier, height: self.cachedImageViewSize.size.height + y)
+            self.imageStageView.center = CGPoint(x: self.view.center.x, y: self.imageStageView.center.y)
+        }
+        
     }
     
     //

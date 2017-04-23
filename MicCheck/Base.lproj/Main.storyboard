@@ -125,7 +125,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="31"/>
                                 </imageView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tTz-qU-Hai" userLabel="Colored Background">
-                                    <rect key="frame" x="8" y="8" width="66" height="66"/>
+                                    <rect key="frame" x="8" y="0.0" width="66" height="66"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="miccheck.icon.clipped" translatesAutoresizingMaskIntoConstraints="NO" id="Bzu-YD-sqB">
                                             <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
@@ -143,7 +143,7 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venues" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvx-re-DEf" userLabel="labelVenueList">
-                                    <rect key="frame" x="94" y="7.5" width="43" height="19"/>
+                                    <rect key="frame" x="114" y="7.5" width="43" height="19"/>
                                     <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="17"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -164,9 +164,9 @@
                                 <constraint firstAttribute="bottom" secondItem="nWl-87-ZQj" secondAttribute="bottom" constant="2" id="WDF-hF-7Cp"/>
                                 <constraint firstItem="nWl-87-ZQj" firstAttribute="top" secondItem="XNP-Ju-KqO" secondAttribute="top" id="b1R-oE-SGV"/>
                                 <constraint firstItem="tTz-qU-Hai" firstAttribute="leading" secondItem="XNP-Ju-KqO" secondAttribute="leading" constant="8" id="dQf-oL-kmS"/>
-                                <constraint firstItem="tTz-qU-Hai" firstAttribute="trailing" secondItem="wvx-re-DEf" secondAttribute="leading" multiplier="0.78" id="seB-2V-Clp"/>
+                                <constraint firstItem="tTz-qU-Hai" firstAttribute="trailing" secondItem="wvx-re-DEf" secondAttribute="leading" multiplier="0.65" id="seB-2V-Clp"/>
                                 <constraint firstAttribute="trailing" secondItem="bL1-RR-YaS" secondAttribute="trailing" id="tn6-9r-Yfh"/>
-                                <constraint firstItem="tTz-qU-Hai" firstAttribute="top" secondItem="XNP-Ju-KqO" secondAttribute="top" constant="8" id="xJl-RU-eE0"/>
+                                <constraint firstItem="tTz-qU-Hai" firstAttribute="top" secondItem="XNP-Ju-KqO" secondAttribute="top" id="xJl-RU-eE0"/>
                                 <constraint firstItem="wvx-re-DEf" firstAttribute="centerY" secondItem="XNP-Ju-KqO" secondAttribute="centerY" id="yfE-Dp-sZR"/>
                             </constraints>
                             <connections>
@@ -250,15 +250,21 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue / Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caz-Gf-Mub" userLabel="Label Venue and Price" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="520.5" width="375" height="7"/>
+                                        <rect key="frame" x="0.0" y="520.5" width="375" height="0.0"/>
                                         <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No description available" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="535.5" width="375" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="5" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="528.5" width="375" height="27.5"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="No description available">
+                                                <attributes>
+                                                    <font key="NSFont" metaFont="system" size="17"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="3" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DNp-5y-Cfm" userLabel="Stack View Videos">

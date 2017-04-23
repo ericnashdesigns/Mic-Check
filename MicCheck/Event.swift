@@ -298,7 +298,7 @@ class Event {
         } // end URLSession.shared.dataTask completionHandler
         
         task.resume()
-        print("   Event.swift – \(self.artist) Description: \(self.descriptionArtist)")
+        print("   Event.swift – \(self.artist) Description: \(String(describing: self.descriptionArtist))")
         return self.descriptionArtist!
 
         

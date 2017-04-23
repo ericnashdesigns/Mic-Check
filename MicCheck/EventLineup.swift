@@ -15,7 +15,7 @@ class EventLineup {
     static let sharedInstance = EventLineup()
     
     // a toggle for testing UIvard interactions without making calls to external websites
-    let testMode: Bool = true
+    let testMode: Bool = false
     
     // Array for the Events.  They may be real Events or test events, depending on testMode
     var events: [Event] = []
@@ -35,7 +35,7 @@ class EventLineup {
             return
         } // end guard
         
-        guard let data = NSData(contentsOf: URL(fileURLWithPath: path)) as? Data else {
+        guard let data = NSData(contentsOf: URL(fileURLWithPath: path)) as Data? else {
             print("  EventLineup.swift - Could not get data from the file.  Make sure there's data in the file")
             return
         } // end guard
@@ -412,7 +412,7 @@ class EventLineup {
         let url = URL(string: urlString!)
         if urlString != nil {
             // create NSURL instance
-            if (NSData(contentsOf: url!) as? Data) != nil  {
+            if (NSData(contentsOf: url!) as Data?) != nil  {
                 // check if your application can open the NSURL instance
                 return true
             }
