@@ -83,61 +83,61 @@ class Event {
         
     }
 
-    func getDescriptionForArtist(completionHandler: @escaping (String?, NSError?) -> Void ) -> Void {
-        // if the artist description is already populated, then no need to run through the Wikipedia API
-        if self.descriptionArtist != nil {
-            print("   Event.swift - description already populated")
-            completionHandler(descriptionArtist, nil)
-            return
-        }
-        
-        var urlString = "https://en.wikipedia.org/w/api.php?action=opensearch&search=\(self.artist)&limit=1&format=json"
-        urlString = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-
-        // Create a URL Object using the string above
-        let targetURL = URL(string: urlString)
-        
-        // Create the Async Request
-        let task = URLSession.shared.dataTask(with: targetURL!) { data, response, error in
-            // check for any errors
-            guard error == nil else {
-                print(error!)
-                completionHandler(nil, error as NSError?)
-                return
-            }
-            // make sure we got data
-            guard let data = data else {
-                print("   Event.swift - Wikipedia data was not received")
-                completionHandler(nil, error as NSError?)
-                return
-            }
-            
-            // parse the result as JSON, since that's what the API provides
-            let json = JSON(data: data)
-            
-            //Getting a string from JSON
-            if let parsedDescription = json[2][0].string {
-                
-                self.descriptionArtist = parsedDescription
-                print("   Event.swift - descriptionArtist Added: \(self.descriptionArtist!)")
-                
-                completionHandler(self.descriptionArtist, nil)
-                return
-                
-            } else {
-                
-                print("   Event.swift - Could not get the descriptionArtist from the Wikipedia JSON")
-                completionHandler(nil, error as NSError?)
-                return
-                
-            } // end if
-            
-        } // end URLSession.shared.dataTask completionHandler
-        
-        task.resume()
-        return
-
-    }
+//    func getDescriptionForArtist(completionHandler: @escaping (String?, NSError?) -> Void ) -> Void {
+//        // if the artist description is already populated, then no need to run through the Wikipedia API
+//        if self.descriptionArtist != nil {
+//            print("   Event.swift - description already populated")
+//            completionHandler(descriptionArtist, nil)
+//            return
+//        }
+//        
+//        var urlString = "https://en.wikipedia.org/w/api.php?action=opensearch&search=\(self.artist)&limit=1&format=json"
+//        urlString = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+//
+//        // Create a URL Object using the string above
+//        let targetURL = URL(string: urlString)
+//        
+//        // Create the Async Request
+//        let task = URLSession.shared.dataTask(with: targetURL!) { data, response, error in
+//            // check for any errors
+//            guard error == nil else {
+//                print(error!)
+//                completionHandler(nil, error as NSError?)
+//                return
+//            }
+//            // make sure we got data
+//            guard let data = data else {
+//                print("   Event.swift - Wikipedia data was not received")
+//                completionHandler(nil, error as NSError?)
+//                return
+//            }
+//            
+//            // parse the result as JSON, since that's what the API provides
+//            let json = JSON(data: data)
+//            
+//            //Getting a string from JSON
+//            if let parsedDescription = json[2][0].string {
+//                
+//                self.descriptionArtist = parsedDescription
+//                print("   Event.swift - descriptionArtist Added: \(self.descriptionArtist!)")
+//                
+//                completionHandler(self.descriptionArtist, nil)
+//                return
+//                
+//            } else {
+//                
+//                print("   Event.swift - Could not get the descriptionArtist from the Wikipedia JSON")
+//                completionHandler(nil, error as NSError?)
+//                return
+//                
+//            } // end if
+//            
+//        } // end URLSession.shared.dataTask completionHandler
+//        
+//        task.resume()
+//        return
+//
+//    }
 
     
     // MARK: YouTube API Functions
@@ -289,6 +289,9 @@ class Event {
                 return
                 
             } else {
+
+                // Set it to blank.  We'll end up hiding the description row in DataViewController.swift
+                self.descriptionArtist = ""
                 
                 print("   Event.swift - Could not get the descriptionArtist from the Wikipedia JSON")
                 return
