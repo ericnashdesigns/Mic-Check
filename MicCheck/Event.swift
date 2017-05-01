@@ -147,7 +147,7 @@ class Event {
         
         // if the video IDs are already populated, then no need to run through the YouTube API
         guard strVIDs.isEmpty else {
-            print("   Event.swift - strVIDs already populated")
+            print("   Event.swift - Videos already populated")
             completionHandler(strVIDs, nil)
             return
         }        
@@ -231,7 +231,7 @@ class Event {
         
         // if the artist image colors are already populated, then no need to run through it again
         if self.colorsFromArtistImage != nil {
-            print("   Event.swift - getColorsForArtistImage() Already Populated for \(self.artist)")
+            print("   Event.swift - Colors for Artist Already Populated")
             return colorsFromArtistImage
         }
         
@@ -253,7 +253,7 @@ class Event {
 
         // if the real description and the test description are different, it means the procedure has already run
         if self.descriptionArtist != self.testArtistDescription {
-            print("   Event.swift - getArtistDescription() Already Populated for \(self.artist)")
+            print("   Event.swift - Description Already Populated")
             return descriptionArtist
         }
         
@@ -293,7 +293,7 @@ class Event {
                 // Set it to blank.  We'll end up hiding the description row in DataViewController.swift
                 self.descriptionArtist = ""
                 
-                print("   Event.swift - Could not get the descriptionArtist from the Wikipedia JSON")
+                print("   Event.swift - Could not get the descriptionArtist for \(self.artist) on the Wikipedia JSON")
                 return
                 
             } // end if

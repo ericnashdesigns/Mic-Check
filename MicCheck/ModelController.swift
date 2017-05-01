@@ -28,7 +28,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     }
 
     // Added the swipe direction parameter so I know which way to move the text
-    func viewControllerAtIndex(_ index: Int, direction: String, storyboard: UIStoryboard) -> DataViewController? {
+    func viewControllerAtIndex(_ index: Int, storyboard: UIStoryboard) -> DataViewController? {
         // Return the data view controller for the given index.
         if (self.lineUp.events.count == 0) || (index >= self.lineUp.events.count) {
             return nil
@@ -47,7 +47,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         dataViewController.dataColorsImgArtist = self.lineUp.events[index].colorsFromArtistImage
         dataViewController.dataDescriptionArtist = self.lineUp.events[index].descriptionArtist!
 
-        dataViewController.swipeDirection = direction
+        //dataViewController.swipeDirection = direction
         
         return dataViewController
     }
@@ -67,14 +67,14 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         }
         
         index -= 1
-        let swipeDirection: String = "up"
+        //let swipeDirection: String = "up"
         
         // if you're at the top and you swipe to go up again, restart at the end
         if index < 0 {
-            return self.viewControllerAtIndex(self.lineUp.events.count - 1, direction: swipeDirection, storyboard: viewController.storyboard!)
+            return self.viewControllerAtIndex(self.lineUp.events.count - 1, storyboard: viewController.storyboard!)
         }
         
-        return self.viewControllerAtIndex(index, direction: swipeDirection, storyboard: viewController.storyboard!)
+        return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
     
     }
 
@@ -85,13 +85,13 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         }
         
         index += 1
-        let swipeDirection: String = "down"
+        //let swipeDirection: String = "down"
         
         // if you're at the bottom and you swipe to go down again, restart at the beginning instead of returning nil
         if index == self.lineUp.events.count {
-            return self.viewControllerAtIndex(0, direction: swipeDirection, storyboard: viewController.storyboard!)
+            return self.viewControllerAtIndex(0, storyboard: viewController.storyboard!)
         }
-        return self.viewControllerAtIndex(index, direction: swipeDirection, storyboard: viewController.storyboard!)
+        return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
     }
 
 }

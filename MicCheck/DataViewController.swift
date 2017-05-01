@@ -49,7 +49,7 @@ class DataViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        print(" DataViewController.swift – viewWillAppear() called")
+        print("  DataViewController.swift – viewWillAppear() called for \(dataArtist)")
         
         self.labelArtist.text = dataArtist
         self.imgViewArtist.image =  dataImgArtist
@@ -105,12 +105,12 @@ class DataViewController: UIViewController {
                     
                     if artistDescription != "" {
                         self.labelDescription.text = artistDescription
-                        print(" DataViewController.swift – Show description")
+                        print("  DataViewController.swift – Show description")
                     } else {
                         
                         // I'm using a StackView with ContentHugging Priorities to get the artistImage and other fields to adjust to the vacant space when description isn't available.
                         self.labelDescription.isHidden = true
-                        print(" DataViewController.swift – Hide description")
+                        print("  DataViewController.swift – Hide description")
                         
                     }
                     
@@ -118,7 +118,7 @@ class DataViewController: UIViewController {
                 
             } else {
                 
-                print(" DataViewController.swift - No Description Available for Formatting ")
+                print("  DataViewController.swift - No Description Available for Formatting ")
                 
             } // end else
             
@@ -170,7 +170,7 @@ class DataViewController: UIViewController {
                     // load the video thumbs onto the page
                     self.loadVideoThumbs(strVIDs: strVIDs)
 
-                    print(" DataViewController.swift – Video Thumbs Loaded")
+                    print("  DataViewController.swift – Video Thumbs Loaded")
                 } // end Dispatch.main.sync
                 
             } // end if
@@ -215,6 +215,77 @@ class DataViewController: UIViewController {
 //        }
         
     } // end viewWillAppear()
+    
+    func animateControls(controlsDeltaY: CGFloat) {
+        
+        let shadowSize: CGFloat = 40.0
+        
+        // debugging
+        // print("\r\n \r\n \(currentDataViewController.dataArtist)")
+        // print(" imgViewArtist.frame.width is : \(currentDataViewController.imgViewArtist.frame.width)")
+        // print(" selectedCell.frame.width is : \(selectedCell.frame.width)")
+        // print(" convertedCoordinateY is : \(convertedCoordinateY!)")
+        // print(" heroFinalHeight / 2 is : \(heroFinalHeight / 2)")
+        // print(" deltaY is : \(deltaY)")
+        if controlsDeltaY == 40.0 {
+            // positive values (20.0) mean swipe down
+            print("  DataViewController.swift – SWIPE DOWN")
+        } else if controlsDeltaY == -40 {
+            // negative values (-20.0) mean swipe up
+            print("  DataViewController.swift – SWIPE UP")
+        }
+        
+        // setup the mask for the artist image intially offset so we can move it in later
+        let maskLayer = CAGradientLayer()
+        maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: self.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: self.imgViewArtist.frame.height)
+        maskLayer.shadowRadius = shadowSize
+        maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
+        maskLayer.shadowOpacity = 1;
+        maskLayer.shadowOffset = CGSize(width: 0, height: 0)
+        maskLayer.shadowColor = UIColor.white.cgColor
+        self.imgViewArtist.layer.mask = maskLayer;
+        
+        // hide controls initially so that we can fade them back in
+        self.labelArtist.alpha = 0.0
+        self.labelVenueAndPrice.alpha = 0.0
+        self.labelDescription.alpha = 0.0
+        self.viewVideoPlayerTopLeft.alpha = 0.0
+        self.viewVideoPlayerTopRight.alpha = 0.0
+
+        // offset the controls initially before we move them later, they won't be offset
+        self.labelArtist.frame.origin.y += controlsDeltaY
+        self.labelVenueAndPrice.frame.origin.y += controlsDeltaY
+        self.labelDescription.frame.origin.y += controlsDeltaY
+        self.viewVideoPlayerTopLeft.frame.origin.y += controlsDeltaY
+        self.viewVideoPlayerTopRight.frame.origin.y += controlsDeltaY
+        
+        // fade the controls, shadow, and move them all into the proper view
+        UIView.animate(withDuration: 0.3, delay: 0.3, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            
+            maskLayer.shadowOffset = CGSize(width: 0, height: -shadowSize)                
+
+            self.labelArtist.alpha = 1.0
+            self.labelVenueAndPrice.alpha = 1.0
+            self.labelDescription.alpha = 1.0
+            self.viewVideoPlayerTopLeft.alpha = 1.0
+            self.viewVideoPlayerTopRight.alpha = 1.0
+            
+            self.labelArtist.frame.origin.y -= controlsDeltaY
+            self.labelVenueAndPrice.frame.origin.y -= controlsDeltaY
+            self.labelDescription.frame.origin.y -= controlsDeltaY
+            self.viewVideoPlayerTopLeft.frame.origin.y -= controlsDeltaY
+            self.viewVideoPlayerTopRight.frame.origin.y -= controlsDeltaY
+            //for view in autoLayoutViews { view.layoutIfNeeded() }
+            
+        }) { finished in
+            
+            self.startKenBurnsAnimation()
+            print("   DataViewController.swift – moveFromCollectionView() finished animation")
+            //collectionVC.collectionView?.deselectRowAtIndexPath(indexPath, animated: false)
+            
+        } // end finished in
+        
+    } // end animateControls()
     
     func loadVideoThumbs(strVIDs: Array<String>?) {
         

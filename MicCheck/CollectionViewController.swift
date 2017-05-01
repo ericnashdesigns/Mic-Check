@@ -267,28 +267,30 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 print(" CollectionViewController.swift - Header Formatting: ArtistImage Colors Were Used")
                 
                 // add the border to the app icon, using lightest of two colorsFromFirstArtistImage
-                var borderColor = self.colorsFromFirstArtistImage!.primaryColor!
+//                var borderColor = self.colorsFromFirstArtistImage!.primaryColor!
                 
-                if borderColor.isDark() {
-                    borderColor = colorsFromFirstArtistImage!.backgroundColor!
-                }
-                if borderColor.isDark() {
-                    borderColor = colorsFromFirstArtistImage!.secondaryColor!
-                }
-                if borderColor.isDark() {
-                    borderColor = colorsFromFirstArtistImage!.detailColor!
-                }
+                // I think I need to clear them first so that the alphas don't add up as they get reused
+                // I wrote this removeAllBorders function but it may be too crappy
+                headerView.viewColoredBackground.layer.removeAllBorders()
                 
-//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
-//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
-//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
-//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
+                var borderColor = UIColor.white.withAlphaComponent(0.10)
+//                if borderColor.isDark() {
+//                    borderColor = colorsFromFirstArtistImage!.backgroundColor!
+//                }
+//                if borderColor.isDark() {
+//                    borderColor = colorsFromFirstArtistImage!.secondaryColor!
+//                }
+//                if borderColor.isDark() {
+//                    borderColor = colorsFromFirstArtistImage!.detailColor!
+//                }
                 
-                // EXPERIMENT: Can't get the icon coloring to work.  Trying a couple different ways. 
-                // This was the first
-//                let imgBlended = UIImage.blend(image: headerView.imgViewAppIcon.image!, color: (self.colorsFromFirstArtistImage?.backgroundColor)!, mode: .overlay)
+                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
+                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
+                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
+                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
                 
-                // This was the second.  It also involve adding an extension to UIImage.swift
+                // EXPERIMENT: Set the app icon to color tint.
+                borderColor = self.colorsFromFirstArtistImage!.primaryColor!
                 headerView.imgViewAppIcon.image = headerView.imgViewAppIcon.image!.maskWithColor(color: borderColor)
                 
                 
@@ -347,7 +349,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                                 
                 // update todays date
                 headerView.labelTodaysDate.text = dateToday
-                headerView.labelTodaysDate.textColor = borderColor
+                //headerView.labelTodaysDate.textColor = borderColor
                 
                 
             } // end else
@@ -407,6 +409,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
     
+        // hide the cell
+        cell.alpha = 0
+        
         // Configure the cell
         cell.imgViewArtist.image = self.lineUp?.events[indexPath.row].imgArtist
 
@@ -415,31 +420,37 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         cell.labelArtistAndVenue.backgroundColor = backgroundColorDarker
         
         // add the border
-        let coloredBackground = self.lineUp?.events[0].getColorsForArtistImage()
+//        let coloredBackground = self.lineUp?.events[indexPath.row].getColorsForArtistImage()
+//        
+//        var borderColor = coloredBackground?.primaryColor!.withAlphaComponent(0.10)
+//        if (borderColor?.isDark())! {
+//            //borderColor = UIColor.white.withAlphaComponent(0.75)
+//            borderColor = UIColor.white.withAlphaComponent(0.10)
+//        }
 
+        // I think I need to clear them first so that the alphas don't add up as they get reused
+        // I wrote this removeAllBorders function but it may be too crappy
+        cell.layer.removeAllBorders()
         
-        var borderColor = coloredBackground?.primaryColor!.withAlphaComponent(0.10)
-        if (borderColor?.isDark())! {
-            //borderColor = UIColor.white.withAlphaComponent(0.75)
-            borderColor = UIColor.white.withAlphaComponent(0.10)
-        }
-
+        let borderColor = UIColor.white.withAlphaComponent(0.10)
 //        cell.labelArtist.layer.addBorder(edge: UIRectEdge.right, color: borderColor!, thickness: 1.0)
         
-        
         //headerView.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.black, thickness: 2.0)
-        cell.layer.addBorder(edge: UIRectEdge.top, color: borderColor!, thickness: 1.0)
-        cell.layer.addBorder(edge: UIRectEdge.right, color: borderColor!, thickness: 1.0)
-        cell.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 1.0)
-        cell.imgViewArtist.layer.addBorder(edge: UIRectEdge.left, color: borderColor!, thickness: 1.0)
+        cell.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
+        cell.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
+        cell.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
+        cell.imgViewArtist.layer.removeAllBorders()
+        cell.imgViewArtist.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
 
         
 //        let tempBorderColor = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
 //        cell.labelArtist.layer.addBorder(edge: UIRectEdge.left, color: tempBorderColor, thickness: 1.0)
 
-        cell.sendSubview(toBack: cell.imgViewArtist)
-        
-                        //self.collectionView?.bringSubview(toFront: self.kenBurnsView)
+        // I'm not sure what this does
+        // cell.sendSubview(toBack: cell.imgViewArtist)
+
+        // fade the cell into view once it's configured
+        UIView.animate(withDuration: 0.5, animations: { cell.alpha = 1 })
         
         if eventsLoaded == false {
             cell.isHidden = true
@@ -460,6 +471,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             let muliplier = y * 5
             
             self.imageStageView.frame = CGRect(x: 0, y: scrollView.contentOffset.y + self.view.frame.height / 2.0, width: self.cachedImageViewSize.size.width + muliplier, height: self.cachedImageViewSize.size.height + y)
+        
             self.imageStageView.center = CGPoint(x: self.view.center.x, y: self.imageStageView.center.y)
         }
         

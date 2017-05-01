@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1421" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bni-mu-vrF">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bni-mu-vrF">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -232,7 +232,7 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="qb7-ke-a1S">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="512.5"/>
                                             </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist.DONE" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist.DONE" lineBreakMode="tailTruncation" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="452.5" width="229.5" height="60"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="54"/>
@@ -247,6 +247,7 @@
                                             <constraint firstItem="qb7-ke-a1S" firstAttribute="top" secondItem="cgC-uX-WYe" secondAttribute="top" id="R9p-xh-snP"/>
                                             <constraint firstAttribute="bottom" secondItem="cF2-Le-7mQ" secondAttribute="bottom" id="eMt-UG-AA9"/>
                                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="cgC-uX-WYe" secondAttribute="leading" id="fq5-xo-Ii4"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="16" id="jjy-wx-yBX"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue / Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caz-Gf-Mub" userLabel="Label Venue and Price" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">

@@ -66,10 +66,6 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             
             // use hero image on DataViewController to determine by how much to move the content
             let currentDataViewController = rootVC.pageViewController?.viewControllers?.first as! DataViewController
-
-            
-            
-            
             
             // cell background -> hero image view transition
             // (don't want to mess with actual views, so creating a new image view just for transition)
@@ -85,33 +81,13 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             let heroFinalHeight = currentDataViewController.imgViewArtist.frame.height
             let deltaY = convertedCoordinateY! - heroFinalHeight / 2.0
             
-            // print("\r\n \r\n \(currentDataViewController.dataArtist)")
-            // print(" imgViewArtist.frame.width is : \(currentDataViewController.imgViewArtist.frame.width)")
-            // print(" selectedCell.frame.width is : \(selectedCell.frame.width)")
-            // print(" convertedCoordinateY is : \(convertedCoordinateY!)")
-            // print(" heroFinalHeight / 2 is : \(heroFinalHeight / 2)")
-            // print(" deltaY is : \(deltaY)")
-            
-            // setup the mask for the artist image
-            let shadowSize: CGFloat = 20.0
-            let maskLayer = CAGradientLayer()
-            maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: currentDataViewController.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: heroFinalHeight)
-            maskLayer.shadowRadius = shadowSize
-            maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
-            maskLayer.shadowOpacity = 1;
-            maskLayer.shadowOffset = CGSize(width: 0, height: 0)
-            maskLayer.shadowColor = UIColor.white.cgColor
-            currentDataViewController.imgViewArtist.layer.mask = maskLayer;
-
-            
             // hide page elements and offset them slightly down the page until we start to transition them back in
             currentDataViewController.hideElementsForPushTransition()
 
             // this appears to be the only way to get the new height of the label so I can derive the height of artist image
             currentDataViewController.labelDescription.text = currentDataViewController.dataDescriptionArtist
 
-            print("NavDelegate.swift – currentDataViewController.labelDescription.text is : \(currentDataViewController.labelDescription.text!)")
-            
+            //print("   NavDelegate.swift – currentDataViewController.labelDescription.text is : \(currentDataViewController.labelDescription.text!)")
             
             UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
                 
@@ -131,59 +107,23 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 
             }) { finished in
                 
-                // now we are ready to show real heroView on top of our imageView
+                // now we are ready to clean up the temporary imageView and show the real heroView on top
                 rootVC.view.sendSubview(toBack: imageView)
-                
-                // rootVC.categoryDescriptionBottomSpacer.constant = originalCategoryDescriptionBottomSpacerConstant
-                currentDataViewController.prepareToCompletePushTransition()
-                
+                imageView.removeFromSuperview()
                 currentDataViewController.imgViewArtist.alpha = 1.0
-                
-                let controlsDeltaY: CGFloat = 20.0
-                currentDataViewController.labelArtist.frame.origin.y += controlsDeltaY
-                currentDataViewController.labelVenueAndPrice.frame.origin.y += controlsDeltaY
-                currentDataViewController.labelDescription.frame.origin.y += controlsDeltaY
-                currentDataViewController.viewVideoPlayerTopLeft.frame.origin.y += controlsDeltaY
-                currentDataViewController.viewVideoPlayerTopRight.frame.origin.y += controlsDeltaY
 
-                
-                UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+                // start the animation of the other controls as a "down" swipe, which uses positive Y coordinates
+                currentDataViewController.animateControls(controlsDeltaY: 40.0)
 
-                    maskLayer.shadowOffset = CGSize(width: 0, height: -shadowSize)
-                    
-                    currentDataViewController.labelArtist.alpha = 1.0
-                    currentDataViewController.labelVenueAndPrice.alpha = 1.0
-                    currentDataViewController.labelDescription.alpha = 1.0
-                    currentDataViewController.viewVideoPlayerTopLeft.alpha = 1.0
-                    currentDataViewController.viewVideoPlayerTopRight.alpha = 1.0
-                    
-                    currentDataViewController.labelArtist.frame.origin.y -= controlsDeltaY
-                    currentDataViewController.labelVenueAndPrice.frame.origin.y -= controlsDeltaY
-                    currentDataViewController.labelDescription.frame.origin.y -= controlsDeltaY
-                    currentDataViewController.viewVideoPlayerTopLeft.frame.origin.y -= controlsDeltaY
-                    currentDataViewController.viewVideoPlayerTopRight.frame.origin.y -= controlsDeltaY
-                    //for view in autoLayoutViews { view.layoutIfNeeded() }
-                    
-                }) { finishedInner in
-                    
-                    print(" imageView.frame.width is : \(imageView.frame.width)")
-                    
-                    
-                    // clean up & revert all the temporary things
-//                    imageView.alpha = 0.5
-                    imageView.removeFromSuperview()
-                    currentDataViewController.startKenBurnsAnimation()
-                    print(" NavDelegate.swift – moveFromCollectionView() finished animation")
-                    //collectionVC.collectionView?.deselectRowAtIndexPath(indexPath, animated: false)
-                    
-                    context.completeTransition(!context.transitionWasCancelled)
-                }
+                context.completeTransition(!context.transitionWasCancelled)
+
+                print("   NavDelegate.swift – moveFromCollectionView() finished animation")
                 
             } // end callback
             
         }  // end if
         
-        print(" NavDelegate.swift – moveFromCollectionView() finished")
+        print("   NavDelegate.swift – moveFromCollectionView() finished")
         
     }
     
@@ -254,22 +194,7 @@ private extension DataViewController {
         // move back button arrow beyond screen
         //backButtonHorizontalSpacer.constant = -70.0
     }
-    
-    func prepareToCompletePushTransition() {
-        
-        //backButtonHorizontalSpacer.constant = 0.0
-        //disableTransparencyAnimatedForViews(visibleCellViews)
-        
-        UIView.animate(withDuration: 0.2, animations: {
-            //self.view.alpha = 1.0
-        }) { finished in
-            
-        }
-    }
-    
-    //    private var visibleCellViews: [UIView] {
-    //        return (tableView.visibleCells() as! [UITableViewCell]).map { $0.contentView }
-    //    }
+
 }
 
 

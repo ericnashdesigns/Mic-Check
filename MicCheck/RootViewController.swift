@@ -13,6 +13,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
     var pageViewController: UIPageViewController?
     //var eventLineUp: EventLineup?
     var eventIndex: Int?
+    var nextEventIndex: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
         // ERic: swapped out the 0 for the monthIndex as an Int
         
-        let startingViewController: DataViewController = self.modelController.viewControllerAtIndex(eventIndex!, direction: "down", storyboard: self.storyboard!)!
+        let startingViewController: DataViewController = self.modelController.viewControllerAtIndex(eventIndex!, storyboard: self.storyboard!)!
         let viewControllers = [startingViewController]
         self.pageViewController!.setViewControllers(viewControllers, direction: .forward, animated: false, completion: {done in })
 
@@ -97,15 +98,35 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
 
-        // Begin kenBurns animation just after the summoned DataViewController is in place
-        let currentViewController = self.pageViewController!.viewControllers![0] as! DataViewController
-        currentViewController.startKenBurnsAnimation()
-     
-        print("RootViewController.swift – currentViewController.artistImgView.frame.height : \(currentViewController.imgViewArtist.frame.height)")
+        // if completed is true (so it completed the transition to the next view controller), set currentIndex equal to nextIndex so you can use currentIndex wherever you need to indicate which page is currently on screen
+        if completed == true {
+            eventIndex = nextEventIndex
+        }
     }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        // the page view controller is about to transition to a new page, so take note
+        // of the index of the page it will display.  (We can't update our currentIndex
+        // yet, because the transition might not be completed - we will check in didFinishAnimating:)
 
+        if let itemController = pendingViewControllers[0] as? DataViewController {
+
+            nextEventIndex = itemController.dataIntEventIndex
+
+            if nextEventIndex! > eventIndex! {
+                print("\r\nRootViewController.swift – Swipe Down")
+                itemController.animateControls(controlsDeltaY: 40.0)
+            } else if nextEventIndex! < eventIndex! {
+                print("\r\nRootViewController.swift – Swipe Up")
+                itemController.animateControls(controlsDeltaY: -40.0)
+            }
+            
+        }
+        
+    }
+    
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-
+        
         let currentViewController = self.pageViewController!.viewControllers![0] as! DataViewController
         
         // end kenBurns animation as soon as another DataViewController is summoned
