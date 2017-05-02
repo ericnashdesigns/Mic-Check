@@ -86,6 +86,8 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
 
             // this appears to be the only way to get the new height of the label so I can derive the height of artist image
             currentDataViewController.labelDescription.text = currentDataViewController.dataDescriptionArtist
+            
+            print("   NavDelegate.swift – currentDataViewController.dataDescriptionArtist: \(currentDataViewController.dataDescriptionArtist)")
 
             //print("   NavDelegate.swift – currentDataViewController.labelDescription.text is : \(currentDataViewController.labelDescription.text!)")
             
@@ -171,30 +173,3 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     }
     
 }
-
-private extension DataViewController {
-    func hideElementsForPushTransition() {
-        
-        // hero view appears with slight delay (not in sync)
-        // so need to hide it explicitly from container view
-        view.alpha = 0.0
-        
-        // hide the elements on the DataViewController
-        //let currentDataViewController = self.pageViewController?.viewControllers?.first as! DataViewController
-        self.imgViewArtist.alpha = 0.0
-        self.labelArtist.alpha = 0.0
-        self.labelVenueAndPrice.alpha = 0.0
-        self.labelDescription.alpha = 0.0
-        self.viewVideoPlayerTopLeft.alpha = 0.0
-        self.viewVideoPlayerTopRight.alpha = 0.0
-        
-        // hide all visible cells
-        //for cell in visibleCellViews { cell.alpha = 0.0 }
-        
-        // move back button arrow beyond screen
-        //backButtonHorizontalSpacer.constant = -70.0
-    }
-
-}
-
-

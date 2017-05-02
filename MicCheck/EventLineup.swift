@@ -355,20 +355,12 @@ class EventLineup {
     // **************************************************
     func getArtistDescriptions() {
 
-        // if testMode is true, then there's no need to do more processessing
-        guard (testMode == false) else {
-            
-            print("  EventLineup.swift - getArtistDescriptions() - In Test Mode...No Filtering")
-            print("  = = = = = = = = = = = =")
-            
-            return
-        } // end guard
-
+        // create a separate thread to chug through and populate the artist descriptions
         DispatchQueue.global(qos: .userInitiated).async {
             
             for event in self.events {
                                     
-                event.descriptionArtist = event.getArtistDescription()
+                event.descriptionArtist = event.getArtistDescription(testMode: self.testMode)
                 
             } // end for
             

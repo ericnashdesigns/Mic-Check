@@ -34,6 +34,8 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
             return nil
         }
 
+        print(" ModelController.swift – viewControllerAtIndex() called")
+        
         // Create a new view controller and pass suitable data.
         let dataViewController = storyboard.instantiateViewController(withIdentifier: "DataViewController") as! DataViewController
 

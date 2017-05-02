@@ -249,8 +249,15 @@ class Event {
         
     }
     
-    func getArtistDescription() -> String? {
+    func getArtistDescription(testMode: Bool) -> String? {
 
+        // if in test mode just return descriptionArtist that has been set to testDescriptionArtist
+        if testMode == true {
+            self.descriptionArtist = self.testArtistDescription
+            print("   Event.swift - Description Already Populated via TestMode")
+            return descriptionArtist
+        }
+        
         // if the real description and the test description are different, it means the procedure has already run
         if self.descriptionArtist != self.testArtistDescription {
             print("   Event.swift - Description Already Populated")

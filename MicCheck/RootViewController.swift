@@ -98,8 +98,42 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
 
-        // if completed is true (so it completed the transition to the next view controller), set currentIndex equal to nextIndex so you can use currentIndex wherever you need to indicate which page is currently on screen
         if completed == true {
+
+            let completedController = self.pageViewController!.viewControllers![0] as! DataViewController
+
+            
+            
+            // animate the proper direction depending on which swipe they took
+            if nextEventIndex! > eventIndex! {
+
+                // if the next items is not the bottom of the pile yet, then user is swiping down
+                if nextEventIndex != 0 {
+                    print("\r\nRootViewController.swift – Swipe Down")
+                    completedController.animateControls(controlsDeltaY: 40.0)
+                    
+                } else {
+                    print("\r\nRootViewController.swift – Swipe Up")
+                    completedController.animateControls(controlsDeltaY: -40.0)
+                }
+                
+                
+            } else if nextEventIndex! < eventIndex! {
+                
+                // if the next items is not the top of the pile yet, then user is swiping up
+                if nextEventIndex != 0 {
+                    print("\r\nRootViewController.swift – Swipe Up")
+                    completedController.animateControls(controlsDeltaY: -40.0)
+                    
+                } else {
+                    print("\r\nRootViewController.swift – Swipe Down")
+                    completedController.animateControls(controlsDeltaY: 40.0)
+                }
+                
+
+            }
+
+            // if completed is true (so it completed the transition to the next view controller), set currentIndex equal to nextIndex so you can use currentIndex wherever you need to indicate which page is currently on screen
             eventIndex = nextEventIndex
         }
     }
@@ -113,14 +147,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
             nextEventIndex = itemController.dataIntEventIndex
 
-            if nextEventIndex! > eventIndex! {
-                print("\r\nRootViewController.swift – Swipe Down")
-                itemController.animateControls(controlsDeltaY: 40.0)
-            } else if nextEventIndex! < eventIndex! {
-                print("\r\nRootViewController.swift – Swipe Up")
-                itemController.animateControls(controlsDeltaY: -40.0)
-            }
-            
+            itemController.hideElementsForPushTransition()
         }
         
     }

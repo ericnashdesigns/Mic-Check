@@ -95,10 +95,8 @@ class DataViewController: UIViewController {
                 print(" DataViewController.swift - No Artist Image Colors Available for Formatting ")
                 
             } // end else
-
             
-            
-            if let artistDescription = currentEvent.getArtistDescription() {
+            if let artistDescription = currentEvent.getArtistDescription(testMode: self.lineUp.testMode) {
                 
                 // To update anything on the main thread, just jump back on like so.
                 DispatchQueue.main.async {
@@ -246,12 +244,8 @@ class DataViewController: UIViewController {
         self.imgViewArtist.layer.mask = maskLayer;
         
         // hide controls initially so that we can fade them back in
-        self.labelArtist.alpha = 0.0
-        self.labelVenueAndPrice.alpha = 0.0
-        self.labelDescription.alpha = 0.0
-        self.viewVideoPlayerTopLeft.alpha = 0.0
-        self.viewVideoPlayerTopRight.alpha = 0.0
-
+        hideElementsForPushTransition()
+        
         // offset the controls initially before we move them later, they won't be offset
         self.labelArtist.frame.origin.y += controlsDeltaY
         self.labelVenueAndPrice.frame.origin.y += controlsDeltaY
@@ -353,5 +347,21 @@ class DataViewController: UIViewController {
         kenBurnsImageView.stopAnimating()
         
     }
-    
+
+    func hideElementsForPushTransition() {
+        
+        // hide the elements on the DataViewController
+//        self.imgViewArtist.alpha = 0.0
+        self.labelArtist.alpha = 0.0
+        self.labelVenueAndPrice.alpha = 0.0
+        self.labelDescription.alpha = 0.0
+        self.viewVideoPlayerTopLeft.alpha = 0.0
+        self.viewVideoPlayerTopRight.alpha = 0.0
+        
+        // hide all visible cells
+        //for cell in visibleCellViews { cell.alpha = 0.0 }
+        
+        // move back button arrow beyond screen
+        //backButtonHorizontalSpacer.constant = -70.0
+    }
 }

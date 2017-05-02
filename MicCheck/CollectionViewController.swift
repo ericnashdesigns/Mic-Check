@@ -49,9 +49,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             UIImage(named: "jazz.horns")!
         ]
         self.kenBurnsView.animateWithImages(images, imageAnimationDuration: 5, initialDelay: 0, shouldLoop: true, randomFirstImage: true)
-
-        print(" CollectionViewController.swift – 1 of 5: Main Queue - Starting EventLineup() Instance")
-
+        
         // get todays date
         let currentDate = NSDate()
         
@@ -69,6 +67,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         let convertedDate = dateFormatter.string(from: currentDate as Date).uppercased()
 
         dateToday = convertedDay + " " + convertedMonth + "/" + convertedDate
+
+        print(" CollectionViewController.swift – 1 of 5: Main Queue - Starting EventLineup() Instance")
         
         // create the model, starting with placeholder data
         self.lineUp = EventLineup.sharedInstance
