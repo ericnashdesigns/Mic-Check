@@ -101,41 +101,27 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         if completed == true {
 
             let completedController = self.pageViewController!.viewControllers![0] as! DataViewController
-
             
-            
-            // animate the proper direction depending on which swipe they took
-            if nextEventIndex! > eventIndex! {
-
-                // if the next items is not the bottom of the pile yet, then user is swiping down
-                if nextEventIndex != 0 {
-                    print("\r\nRootViewController.swift – Swipe Down")
-                    completedController.animateControls(controlsDeltaY: 40.0)
-                    
-                } else {
-                    print("\r\nRootViewController.swift – Swipe Up")
-                    completedController.animateControls(controlsDeltaY: -40.0)
-                }
-                
-                
-            } else if nextEventIndex! < eventIndex! {
-                
-                // if the next items is not the top of the pile yet, then user is swiping up
-                if nextEventIndex != 0 {
-                    print("\r\nRootViewController.swift – Swipe Up")
-                    completedController.animateControls(controlsDeltaY: -40.0)
-                    
-                } else {
-                    print("\r\nRootViewController.swift – Swipe Down")
-                    completedController.animateControls(controlsDeltaY: 40.0)
-                }
-                
-
+            // there's no way to mathematically tell if you're moving up/down using subtraction with 2 elements, so don't animate
+            guard self.modelController.lineUp.events.count > 2 else {
+                return
             }
-
-            // if completed is true (so it completed the transition to the next view controller), set currentIndex equal to nextIndex so you can use currentIndex wherever you need to indicate which page is currently on screen
+            
+            // I'm using (destination - depature) so that positive values mean going downward.             
+            // I'm also adding 1 to everything so that when I use subtraction, I never accidentally subtract 0            
+            let direction = (nextEventIndex! + 1) - (eventIndex! + 1)
+            
+            if (direction == 1 || direction <= -2) { // you're moving down the stack or returning to the top                print("\r\nRootViewController.swift – Swipe Down")
+                completedController.animateControls(controlsDeltaY: 40.0)
+            }
+            else if (direction == -1 || direction >= 2) { // you're moving up the stack or returning to the bottom                print("\r\nRootViewController.swift – Swipe Up")
+                completedController.animateControls(controlsDeltaY: -40.0)
+            }
+            
+            // since completed is true and we're down transitioning to the next view controller, reset eventIndex so there's a frame of reference for the next swipe            
             eventIndex = nextEventIndex
-        }
+            
+        } // end if
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
@@ -143,6 +129,11 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         // of the index of the page it will display.  (We can't update our currentIndex
         // yet, because the transition might not be completed - we will check in didFinishAnimating:)
 
+        // no need to do any animation if there's only two events
+        guard self.modelController.lineUp.events.count > 2 else {
+            return
+        }
+        
         if let itemController = pendingViewControllers[0] as? DataViewController {
 
             nextEventIndex = itemController.dataIntEventIndex
