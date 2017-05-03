@@ -100,6 +100,10 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
         if completed == true {
 
+            // stop animation on previous controller
+//            let previousViewController = previousViewControllers[0] as! DataViewController
+//            previousViewController.stopKenBurnsAnimation()
+            
             let completedController = self.pageViewController!.viewControllers![0] as! DataViewController
             
             // there's no way to mathematically tell if you're moving up/down using subtraction with 2 elements, so don't animate
@@ -112,10 +116,10 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
             let direction = (nextEventIndex! + 1) - (eventIndex! + 1)
             
             if (direction == 1 || direction <= -2) { // you're moving down the stack or returning to the top                print("\r\nRootViewController.swift – Swipe Down")
-                completedController.animateControls(controlsDeltaY: 40.0)
+                completedController.animateControls(controlsDeltaY: 120.0)
             }
             else if (direction == -1 || direction >= 2) { // you're moving up the stack or returning to the bottom                print("\r\nRootViewController.swift – Swipe Up")
-                completedController.animateControls(controlsDeltaY: -40.0)
+                completedController.animateControls(controlsDeltaY: -120.0)
             }
             
             // since completed is true and we're down transitioning to the next view controller, reset eventIndex so there's a frame of reference for the next swipe            
@@ -129,21 +133,33 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         // of the index of the page it will display.  (We can't update our currentIndex
         // yet, because the transition might not be completed - we will check in didFinishAnimating:)
 
+        print("RootViewController.swift – willTransitionTo called")
+
+        // end kenBurns animation as soon as another DataViewController is summoned
+//        let currentViewController = self.pageViewController!.viewControllers![0] as! DataViewController
+//        currentViewController.stopKenBurnsAnimation()
+        
+        
         // no need to do any animation if there's only two events
         guard self.modelController.lineUp.events.count > 2 else {
             return
         }
         
-        if let itemController = pendingViewControllers[0] as? DataViewController {
+        // get pending Controller ready for transition
+        if let pendingController = pendingViewControllers[0] as? DataViewController {
 
-            nextEventIndex = itemController.dataIntEventIndex
-
-            itemController.hideElementsForPushTransition()
+            nextEventIndex = pendingController.dataIntEventIndex
+            pendingController.hideElementsForPushTransition()
         }
         
     }
     
+    // EXPERIMENT: It seems like this method is not getting called, so I put the logic into the willTransitionTo protocol above
+    // Not sure that worked, it maked everything kinda jumpy
+
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+
+        print("RootViewController.swift – willTransition called")
         
         let currentViewController = self.pageViewController!.viewControllers![0] as! DataViewController
         

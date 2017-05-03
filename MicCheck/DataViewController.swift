@@ -58,6 +58,21 @@ class DataViewController: UIViewController {
             self.labelVenueAndPrice.text = dataVenue + " / " + dataPrice
         }
         
+        // EXPERIMENT: I think we need to keep setting the label at this point so that when I do the animation I have the proper size for the label
+        if dataDescriptionArtist != "" {
+            self.labelDescription.text = dataDescriptionArtist
+        } else {
+            
+            // I'm using a StackView with ContentHugging Priorities to get the artistImage and other fields to adjust to the vacant space when description isn't available.
+            // EXPERIMENT: It still doesn't work when the description is null and I'm not in testMode.
+            // Going to try and just leave it null to see how it lays out.
+            self.labelDescription.text = dataDescriptionArtist
+            self.labelDescription.isHidden = true
+            //                        self.labelDescription.sizeToFit()
+            //                        self.labelDescription.numberOfLines = 0
+            
+        }
+        
         // setup the mask for the artist image
         let shadowSize: CGFloat = 30.0
         let maskLayer = CAGradientLayer()
@@ -107,7 +122,12 @@ class DataViewController: UIViewController {
                     } else {
                         
                         // I'm using a StackView with ContentHugging Priorities to get the artistImage and other fields to adjust to the vacant space when description isn't available.
+                        // EXPERIMENT: It still doesn't work when the description is null and I'm not in testMode.  
+                        // Going to try and just leave it null to see how it lays out.
+                        self.labelDescription.text = artistDescription
                         self.labelDescription.isHidden = true
+//                        self.labelDescription.sizeToFit()
+//                        self.labelDescription.numberOfLines = 0
                         print("  DataViewController.swift – Hide description")
                         
                     }
@@ -254,7 +274,7 @@ class DataViewController: UIViewController {
         self.viewVideoPlayerTopRight.frame.origin.y += controlsDeltaY
         
         // fade the controls, shadow, and move them all into the proper view
-        UIView.animate(withDuration: 0.3, delay: 0.3, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             
             maskLayer.shadowOffset = CGSize(width: 0, height: -shadowSize)                
 
@@ -274,7 +294,7 @@ class DataViewController: UIViewController {
         }) { finished in
             
             self.startKenBurnsAnimation()
-            print("   DataViewController.swift – moveFromCollectionView() finished animation")
+            print("   DataViewController.swift – animateControls() finished animation")
             //collectionVC.collectionView?.deselectRowAtIndexPath(indexPath, animated: false)
             
         } // end finished in
