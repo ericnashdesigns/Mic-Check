@@ -92,7 +92,7 @@ class DataViewController: UIViewController {
                         self.navigationController?.navigationBar.tintColor = colorsFromArtistImage.secondaryColor;
                     }
                     //self.labelArtist.textColor = colorsFromArtistImage.primaryColor
-                    self.labelVenueAndPrice.textColor = colorsFromArtistImage.secondaryColor
+                    //self.labelVenueAndPrice.textColor = colorsFromArtistImage.secondaryColor
                     self.labelDescription.textColor = colorsFromArtistImage.detailColor
                     self.labelNoVideosFound.textColor = colorsFromArtistImage.detailColor
                     

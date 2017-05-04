@@ -22,7 +22,7 @@
                 <navigationController id="bni-mu-vrF" sceneMemberID="viewController">
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hv3-bY-y7a">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hv3-bY-y7a">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -233,31 +233,34 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="512.5"/>
                                             </imageView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist.DONE" lineBreakMode="tailTruncation" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="452.5" width="229.5" height="60"/>
+                                                <rect key="frame" x="0.0" y="433.5" width="229.5" height="60"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="54"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue / Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caz-Gf-Mub" userLabel="Label Venue and Price" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="493.5" width="80" height="19"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="qb7-ke-a1S" secondAttribute="trailing" id="0O1-g1-Rit"/>
+                                            <constraint firstItem="caz-Gf-Mub" firstAttribute="bottom" secondItem="qb7-ke-a1S" secondAttribute="bottom" id="HFk-Ou-mBj"/>
                                             <constraint firstItem="qb7-ke-a1S" firstAttribute="leading" secondItem="cgC-uX-WYe" secondAttribute="leading" id="LdU-AJ-YVf"/>
                                             <constraint firstAttribute="bottom" secondItem="qb7-ke-a1S" secondAttribute="bottom" id="LvK-dX-aE8"/>
+                                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="caz-Gf-Mub" secondAttribute="leading" id="OXX-aD-1do"/>
                                             <constraint firstItem="qb7-ke-a1S" firstAttribute="top" secondItem="cgC-uX-WYe" secondAttribute="top" id="R9p-xh-snP"/>
-                                            <constraint firstAttribute="bottom" secondItem="cF2-Le-7mQ" secondAttribute="bottom" id="eMt-UG-AA9"/>
+                                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="bottom" secondItem="caz-Gf-Mub" secondAttribute="top" id="asF-BT-eTp"/>
                                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="cgC-uX-WYe" secondAttribute="leading" id="fq5-xo-Ii4"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="16" id="jjy-wx-yBX"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue / Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caz-Gf-Mub" userLabel="Label Venue and Price" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="520.5" width="375" height="0.0"/>
-                                        <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="5" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="528.5" width="375" height="27.5"/>
+                                        <rect key="frame" x="0.0" y="520.5" width="375" height="35.5"/>
                                         <attributedString key="attributedText">
                                             <fragment content="No description available">
                                                 <attributes>
