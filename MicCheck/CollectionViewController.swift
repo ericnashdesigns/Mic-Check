@@ -290,8 +290,9 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
                 
                 // EXPERIMENT: Set the app icon to color tint.
-                borderColor = self.colorsFromFirstArtistImage!.primaryColor!
-                headerView.imgViewAppIcon.image = headerView.imgViewAppIcon.image!.maskWithColor(color: borderColor)
+                // I'm not sure it will work well in all cases though because it's sometimes too dark
+                // borderColor = self.colorsFromFirstArtistImage!.primaryColor!
+                // headerView.imgViewAppIcon.image = headerView.imgViewAppIcon.image!.maskWithColor(color: borderColor)
                 
                 
                 // Trying to decide if I want a gradient on the App icon
