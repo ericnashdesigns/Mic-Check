@@ -32,8 +32,9 @@ class DataViewController: UIViewController {
     @IBOutlet weak var labelVenueAndPrice: UILabel!
     @IBOutlet weak var labelDescription: UILabel!
     @IBOutlet var labelNoVideosFound: UILabel!
-    @IBOutlet var viewVideoPlayerTopLeft: YTPlayerView!
-    @IBOutlet var viewVideoPlayerTopRight: YTPlayerView!
+    @IBOutlet var viewVideoPlayerLeft: YTPlayerView!
+    @IBOutlet var viewVideoPlayerCenter: YTPlayerView!
+    @IBOutlet var viewVideoPlayerRight: YTPlayerView!
 
     // viewDidLoad is things you have to do once.  it occures before viewWillAppear
     override func viewDidLoad() {
@@ -261,8 +262,10 @@ class DataViewController: UIViewController {
         self.labelArtist.frame.origin.y += controlsDeltaY
         self.labelVenueAndPrice.frame.origin.y += controlsDeltaY
         self.labelDescription.frame.origin.y += controlsDeltaY
-        self.viewVideoPlayerTopLeft.frame.origin.y += controlsDeltaY
-        self.viewVideoPlayerTopRight.frame.origin.y += controlsDeltaY
+        self.viewVideoPlayerLeft.frame.origin.y += controlsDeltaY
+        self.viewVideoPlayerCenter.frame.origin.y += controlsDeltaY
+        self.viewVideoPlayerRight.frame.origin.y += controlsDeltaY
+
         
         // fade the controls, shadow, and move them all into the proper view
         UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
@@ -272,14 +275,16 @@ class DataViewController: UIViewController {
             self.labelArtist.alpha = 1.0
             self.labelVenueAndPrice.alpha = 1.0
             self.labelDescription.alpha = 1.0
-            self.viewVideoPlayerTopLeft.alpha = 1.0
-            self.viewVideoPlayerTopRight.alpha = 1.0
+            self.viewVideoPlayerLeft.alpha = 1.0
+            self.viewVideoPlayerCenter.alpha = 1.0
+            self.viewVideoPlayerRight.alpha = 1.0
             
             self.labelArtist.frame.origin.y -= controlsDeltaY
             self.labelVenueAndPrice.frame.origin.y -= controlsDeltaY
             self.labelDescription.frame.origin.y -= controlsDeltaY
-            self.viewVideoPlayerTopLeft.frame.origin.y -= controlsDeltaY
-            self.viewVideoPlayerTopRight.frame.origin.y -= controlsDeltaY
+            self.viewVideoPlayerLeft.frame.origin.y -= controlsDeltaY
+            self.viewVideoPlayerCenter.frame.origin.y -= controlsDeltaY
+            self.viewVideoPlayerRight.frame.origin.y -= controlsDeltaY
             //for view in autoLayoutViews { view.layoutIfNeeded() }
             
         }) { finished in
@@ -298,9 +303,10 @@ class DataViewController: UIViewController {
         guard (strVIDs?.count)! > 0 else {
             
             // Fade out the the video thumbs
-            self.viewVideoPlayerTopLeft.alpha = 0
-            self.viewVideoPlayerTopRight.alpha = 0
-
+            self.viewVideoPlayerLeft.alpha = 0
+            self.viewVideoPlayerCenter.alpha = 0
+            self.viewVideoPlayerRight.alpha = 0
+            
             // Fade in the "No videos found" label
             labelNoVideosFound.isHidden = false
             labelNoVideosFound.alpha = 0
@@ -321,8 +327,9 @@ class DataViewController: UIViewController {
         ]
 
         // load the video IDs into the YTPlayerViews
-        let viewVideoPlayers = [self.viewVideoPlayerTopLeft,
-                                self.viewVideoPlayerTopRight]
+        let viewVideoPlayers = [self.viewVideoPlayerLeft,
+                                self.viewVideoPlayerCenter,
+                                self.viewVideoPlayerRight]
         var intVIDIndex = 0
 
         for currentViewVideoPlayer in viewVideoPlayers {
@@ -368,8 +375,9 @@ class DataViewController: UIViewController {
         self.labelArtist.alpha = 0.0
         self.labelVenueAndPrice.alpha = 0.0
         self.labelDescription.alpha = 0.0
-        self.viewVideoPlayerTopLeft.alpha = 0.0
-        self.viewVideoPlayerTopRight.alpha = 0.0
+        self.viewVideoPlayerLeft.alpha = 0.0
+        self.viewVideoPlayerCenter.alpha = 0.0
+        self.viewVideoPlayerRight.alpha = 0.0
         
         // hide all visible cells
         //for cell in visibleCellViews { cell.alpha = 0.0 }

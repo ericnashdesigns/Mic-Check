@@ -227,20 +227,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgC-uX-WYe" userLabel="View Artist Image and Label">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="512.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="518"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="qb7-ke-a1S">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="512.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="518"/>
                                             </imageView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist.DONE" lineBreakMode="tailTruncation" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="433.5" width="229.5" height="60"/>
+                                                <rect key="frame" x="0.0" y="439" width="229.5" height="60"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="54"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue / Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caz-Gf-Mub" userLabel="Label Venue and Price" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="493.5" width="80" height="19"/>
+                                                <rect key="frame" x="0.0" y="499" width="80" height="19"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -260,7 +260,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="5" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="520.5" width="375" height="32"/>
+                                        <rect key="frame" x="0.0" y="526" width="375" height="61"/>
                                         <attributedString key="attributedText">
                                             <fragment content="No description available">
                                                 <attributes>
@@ -272,21 +272,38 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DNp-5y-Cfm" userLabel="Stack View Videos">
-                                        <rect key="frame" x="0.0" y="560.5" width="375" height="106.5"/>
+                                        <rect key="frame" x="0.0" y="595" width="375" height="72"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="gym-Z5-mpf" userLabel="View Video Top Left" customClass="YTPlayerView">
-                                                <rect key="frame" x="8" y="0.0" width="175.5" height="98.5"/>
+                                                <rect key="frame" x="8" y="0.0" width="114.5" height="64"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="gym-Z5-mpf" secondAttribute="height" multiplier="16:9" id="nPj-XE-i3e"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Hxj-65-G1j" userLabel="View Video Top RIght" customClass="YTPlayerView">
-                                                <rect key="frame" x="191.5" y="0.0" width="175.5" height="98.5"/>
+                                                <rect key="frame" x="130.5" y="0.0" width="114" height="64"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Hxj-65-G1j" secondAttribute="height" multiplier="16:9" id="hMi-Nw-fsm"/>
                                                 </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="hMi-Nw-fsm"/>
+                                                    </mask>
+                                                </variation>
+                                            </view>
+                                            <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="67L-ef-AZt" userLabel="View Video Right" customClass="YTPlayerView">
+                                                <rect key="frame" x="252.5" y="0.0" width="114.5" height="64"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="67L-ef-AZt" secondAttribute="height" multiplier="16:9" id="X0g-bK-6Hv"/>
+                                                </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="X0g-bK-6Hv"/>
+                                                    </mask>
+                                                </variation>
                                             </view>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="8" right="8"/>
@@ -325,8 +342,9 @@
                         <outlet property="labelVenueAndPrice" destination="caz-Gf-Mub" id="tLL-8F-oWS"/>
                         <outlet property="stackViewLabels" destination="yPa-do-MEU" id="mos-jm-99x"/>
                         <outlet property="viewContainer" destination="ZwX-cT-FIQ" id="AKu-bI-LUH"/>
-                        <outlet property="viewVideoPlayerTopLeft" destination="gym-Z5-mpf" id="Oq1-Cs-vM1"/>
-                        <outlet property="viewVideoPlayerTopRight" destination="Hxj-65-G1j" id="a5L-75-m4A"/>
+                        <outlet property="viewVideoPlayerCenter" destination="Hxj-65-G1j" id="U2y-I7-8b5"/>
+                        <outlet property="viewVideoPlayerLeft" destination="gym-Z5-mpf" id="giM-le-Dh3"/>
+                        <outlet property="viewVideoPlayerRight" destination="67L-ef-AZt" id="Ahp-df-rrh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GmD-Rr-ZGN" sceneMemberID="firstResponder"/>
