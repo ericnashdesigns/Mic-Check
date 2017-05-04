@@ -101,6 +101,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         if completed == true {
 
             // stop animation on previous controller
+            // EXPERIMENT: Seeing if stopping the animation on the previous controller here helps keep it from jittering when I page off and the page back onto it
 //            let previousViewController = previousViewControllers[0] as! DataViewController
 //            previousViewController.stopKenBurnsAnimation()
             
@@ -116,10 +117,10 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
             let direction = (nextEventIndex! + 1) - (eventIndex! + 1)
             
             if (direction == 1 || direction <= -2) { // you're moving down the stack or returning to the top                print("\r\nRootViewController.swift – Swipe Down")
-                completedController.animateControls(controlsDeltaY: 120.0)
+                completedController.animateControlsIn(controlsDeltaY: 120.0)
             }
             else if (direction == -1 || direction >= 2) { // you're moving up the stack or returning to the bottom                print("\r\nRootViewController.swift – Swipe Up")
-                completedController.animateControls(controlsDeltaY: -120.0)
+                completedController.animateControlsIn(controlsDeltaY: -120.0)
             }
             
             // since completed is true and we're down transitioning to the next view controller, reset eventIndex so there's a frame of reference for the next swipe            
@@ -133,9 +134,10 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         // of the index of the page it will display.  (We can't update our currentIndex
         // yet, because the transition might not be completed - we will check in didFinishAnimating:)
 
-        print("RootViewController.swift – willTransitionTo called")
+//        print("RootViewController.swift – willTransitionTo called")
 
         // end kenBurns animation as soon as another DataViewController is summoned
+        // EXPERIMENT: For some reason, this causes the image to look jittery when I page off and then page back on
 //        let currentViewController = self.pageViewController!.viewControllers![0] as! DataViewController
 //        currentViewController.stopKenBurnsAnimation()
         

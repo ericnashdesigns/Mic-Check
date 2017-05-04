@@ -69,13 +69,24 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             
             // cell background -> hero image view transition
             // (don't want to mess with actual views, so creating a new image view just for transition)
-            let imageView = createTransitionImageViewWithFrame(frame: selectedCellFrameInSuperview!)
-            imageView.image = selectedCell.imgViewArtist.image
-            imageView.alpha = 0.0 // hidden initially
-            rootVC.view.addSubview(imageView)
+            let transitionImageView = createTransitionImageViewWithFrame(frame: selectedCellFrameInSuperview!)
+            transitionImageView.image = selectedCell.imgViewArtist.image
+
+            // setup the mask for the artist image
+//            let shadowSize: CGFloat = 50.0
+//            let maskLayer = CAGradientLayer()
+//            maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: transitionImageView.frame.width + shadowSize * CGFloat(5.0), height: transitionImageView.frame.height)
+//            maskLayer.shadowRadius = shadowSize
+//            maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
+//            maskLayer.shadowOpacity = 1;
+//            maskLayer.shadowOffset = CGSize(width: 0, height: 0)
+//            maskLayer.shadowColor = UIColor.white.cgColor
+//            transitionImageView.layer.mask = maskLayer;
+            
+            transitionImageView.alpha = 0.0 // hidden initially
+            rootVC.view.addSubview(transitionImageView)
             rootVC.view.alpha = 1.0
             collectionVC.view.alpha = 1.0
-
             
             currentDataViewController.view.alpha = 0.0
             let heroFinalHeight = currentDataViewController.imgViewArtist.frame.height
@@ -100,22 +111,32 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 // make sure I have the latest on the height of the artist image
                 currentDataViewController.imgViewArtist.layoutIfNeeded()
                 
-                // move our transitioning imageView towards hero image position (and grow its size at the same time)
-                imageView.frame = CGRect(x: 0.0, y: 0.0, width: currentDataViewController.imgViewArtist.frame.width, height: currentDataViewController.imgViewArtist.frame.height)
-                imageView.alpha = 1.0
+                // move our transitionImageView towards hero image position (and grow its size at the same time)
+                transitionImageView.frame = CGRect(x: 0.0, y: 0.0, width: currentDataViewController.imgViewArtist.frame.width, height: currentDataViewController.imgViewArtist.frame.height)
+                transitionImageView.alpha = 1.0
                 
                 // fade the destination into view
                 currentDataViewController.view.alpha = 1.0
                 
             }) { finished in
-                
-                // now we are ready to clean up the temporary imageView and show the real heroView on top
-                rootVC.view.sendSubview(toBack: imageView)
-                imageView.removeFromSuperview()
-                currentDataViewController.imgViewArtist.alpha = 1.0
+
+                // transitionImage gives way to the permanent image
+                UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+
+                    transitionImageView.alpha = 0
+                    currentDataViewController.imgViewArtist.alpha = 1.0
+                    
+                // now we are ready to clean up the transitionImageView and show the real heroView on top
+                }) { finishedInner in
+
+                    
+                    rootVC.view.sendSubview(toBack: transitionImageView)
+                    transitionImageView.removeFromSuperview()
+                }
+
 
                 // start the animation of the other controls as a "down" swipe, which uses positive Y coordinates
-                currentDataViewController.animateControls(controlsDeltaY: 40.0)
+                currentDataViewController.animateControlsIn(controlsDeltaY: 40.0)
 
                 context.completeTransition(!context.transitionWasCancelled)
 
@@ -143,20 +164,20 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
         
         
         // Access the coordinates of the selected cell
-        let imageView = createTransitionImageViewWithFrame(frame: currentDataViewController.imgViewArtist.frame)
-        imageView.image = currentDataViewController.imgViewArtist.image
-        context.containerView.addSubview(imageView)
+        let transitionImageView = createTransitionImageViewWithFrame(frame: currentDataViewController.imgViewArtist.frame)
+        transitionImageView.image = currentDataViewController.imgViewArtist.image
+        context.containerView.addSubview(transitionImageView)
         
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             rootVC.view.alpha = 0.0
             currentDataViewController.view.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             collectionVC.view.alpha = 1.0
             collectionVC.collectionView?.frame.origin.y = self.originCollectionViewY ?? (collectionVC.collectionView?.frame.origin.y)!
-            imageView.alpha = 0.0
-            imageView.frame = self.selectedCellFrameInSuperview ?? imageView.frame
+            transitionImageView.alpha = 0.0
+            transitionImageView.frame = self.selectedCellFrameInSuperview ?? transitionImageView.frame
         }) { finished in
             rootVC.view.transform = .identity
-            imageView.removeFromSuperview()
+            transitionImageView.removeFromSuperview()
             // print("\r\n CollectionView FadeIn complete")
             context.completeTransition(!context.transitionWasCancelled)
         }
@@ -164,12 +185,12 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     private func createTransitionImageViewWithFrame(frame: CGRect) -> UIImageView {
-        let imageView = UIImageView(frame: frame)
+        let transitionImageView = UIImageView(frame: frame)
         //        print("  NavDelegate.swift – imageView.frame.origin.y is : \(imageView.frame.origin.y)")
-        imageView.contentMode = .scaleAspectFill
-        //imageView.setupDefaultTopInnerShadow()
-        imageView.clipsToBounds = true
-        return imageView
+        transitionImageView.contentMode = .scaleAspectFill
+        //transitionImageView.setupDefaultTopInnerShadow()
+        transitionImageView.clipsToBounds = true
+        return transitionImageView
     }
     
 }

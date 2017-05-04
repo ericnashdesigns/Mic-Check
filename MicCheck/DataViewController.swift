@@ -50,6 +50,9 @@ class DataViewController: UIViewController {
         super.viewWillAppear(animated)
 
         print("  DataViewController.swift – viewWillAppear() called for \(dataArtist)")
+
+        let backgroundColorDarker = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
+        self.view.backgroundColor = backgroundColorDarker
         
         self.labelArtist.text = dataArtist
         self.imgViewArtist.image =  dataImgArtist
@@ -66,6 +69,7 @@ class DataViewController: UIViewController {
             // I'm using a StackView with ContentHugging Priorities to get the artistImage and other fields to adjust to the vacant space when description isn't available.
             // EXPERIMENT: It still doesn't work when the description is null and I'm not in testMode.
             // Going to try and just leave it null to see how it lays out.
+            // I think the reason why this experiment succeeded was because I set the label equal to the data value in the first few lines of the code.
             self.labelDescription.text = dataDescriptionArtist
             self.labelDescription.isHidden = true
             //                        self.labelDescription.sizeToFit()
@@ -74,9 +78,9 @@ class DataViewController: UIViewController {
         }
         
         // setup the mask for the artist image
-        let shadowSize: CGFloat = 30.0
+        let shadowSize: CGFloat = 50.0
         let maskLayer = CAGradientLayer()
-        maskLayer.frame = CGRect(x: 0, y: -shadowSize, width: imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: imgViewArtist.frame.height)
+        maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: imgViewArtist.frame.height)
         maskLayer.shadowRadius = shadowSize
         maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
         maskLayer.shadowOpacity = 1;
@@ -126,8 +130,6 @@ class DataViewController: UIViewController {
                         // Going to try and just leave it null to see how it lays out.
                         self.labelDescription.text = artistDescription
                         self.labelDescription.isHidden = true
-//                        self.labelDescription.sizeToFit()
-//                        self.labelDescription.numberOfLines = 0
                         print("  DataViewController.swift – Hide description")
                         
                     }
@@ -234,7 +236,7 @@ class DataViewController: UIViewController {
         
     } // end viewWillAppear()
     
-    func animateControls(controlsDeltaY: CGFloat) {
+    func animateControlsIn(controlsDeltaY: CGFloat) {
         
         let shadowSize: CGFloat = 40.0
         
@@ -254,14 +256,14 @@ class DataViewController: UIViewController {
         }
         
         // setup the mask for the artist image intially offset so we can move it in later
-        let maskLayer = CAGradientLayer()
-        maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: self.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: self.imgViewArtist.frame.height)
-        maskLayer.shadowRadius = shadowSize
-        maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
-        maskLayer.shadowOpacity = 1;
-        maskLayer.shadowOffset = CGSize(width: 0, height: 0)
-        maskLayer.shadowColor = UIColor.white.cgColor
-        self.imgViewArtist.layer.mask = maskLayer;
+//        let maskLayer = CAGradientLayer()
+//        maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: self.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: self.imgViewArtist.frame.height)
+//        maskLayer.shadowRadius = shadowSize
+//        maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
+//        maskLayer.shadowOpacity = 1;
+//        maskLayer.shadowOffset = CGSize(width: 0, height: 0)
+//        maskLayer.shadowColor = UIColor.white.cgColor
+//        self.imgViewArtist.layer.mask = maskLayer;
         
         // hide controls initially so that we can fade them back in
         hideElementsForPushTransition()
@@ -276,7 +278,7 @@ class DataViewController: UIViewController {
         // fade the controls, shadow, and move them all into the proper view
         UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             
-            maskLayer.shadowOffset = CGSize(width: 0, height: -shadowSize)                
+//            maskLayer.shadowOffset = CGSize(width: 0, height: -shadowSize)                
 
             self.labelArtist.alpha = 1.0
             self.labelVenueAndPrice.alpha = 1.0
@@ -294,12 +296,12 @@ class DataViewController: UIViewController {
         }) { finished in
             
             self.startKenBurnsAnimation()
-            print("   DataViewController.swift – animateControls() finished animation")
+//            print("   DataViewController.swift – animateControlsIn() finished animation")
             //collectionVC.collectionView?.deselectRowAtIndexPath(indexPath, animated: false)
             
         } // end finished in
         
-    } // end animateControls()
+    } // end animateControlsIn()
     
     func loadVideoThumbs(strVIDs: Array<String>?) {
         
@@ -355,17 +357,20 @@ class DataViewController: UIViewController {
         kenBurnsImageView.zoomIntensity = 0.25
         kenBurnsImageView.setDuration(min: 10, max: 13)
         kenBurnsImageView.frame.size = self.imgViewArtist.frame.size
-
-        self.imgViewArtist.addSubview(kenBurnsImageView)
-        self.imgViewArtist.bringSubview(toFront: kenBurnsImageView)
         
+        // only add the kenBurns subview if it's not already added
+        if !kenBurnsImageView.isDescendant(of: self.imgViewArtist) {
+            self.imgViewArtist.addSubview(kenBurnsImageView)
+        }
+
+        self.imgViewArtist.bringSubview(toFront: kenBurnsImageView)
         kenBurnsImageView.startAnimating()
         
     } // end newKenBurnsImageView()
     
     func stopKenBurnsAnimation() {
         kenBurnsImageView.stopAnimating()
-        
+//        self.imgViewArtist.willRemoveSubview(kenBurnsImageView)
     }
 
     func hideElementsForPushTransition() {
