@@ -76,18 +76,7 @@ class DataViewController: UIViewController {
             //                        self.labelDescription.numberOfLines = 0
             
         }
-        
-        // setup the mask for the artist image
-        let shadowSize: CGFloat = 50.0
-        let maskLayer = CAGradientLayer()
-        maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: imgViewArtist.frame.height)
-        maskLayer.shadowRadius = shadowSize
-        maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
-        maskLayer.shadowOpacity = 1;
-        maskLayer.shadowOffset = CGSize(width: 0, height: 0)
-        maskLayer.shadowColor = UIColor.white.cgColor
-        imgViewArtist.layer.mask = maskLayer;
-        
+                
         let currentEvent = lineUp.events[dataIntEventIndex]
 
         // Use artists image to assign colors, if available.  If not, use a background thread so that the image processing won't slow down paging
@@ -256,14 +245,14 @@ class DataViewController: UIViewController {
         }
         
         // setup the mask for the artist image intially offset so we can move it in later
-//        let maskLayer = CAGradientLayer()
-//        maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: self.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: self.imgViewArtist.frame.height)
-//        maskLayer.shadowRadius = shadowSize
-//        maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
-//        maskLayer.shadowOpacity = 1;
-//        maskLayer.shadowOffset = CGSize(width: 0, height: 0)
-//        maskLayer.shadowColor = UIColor.white.cgColor
-//        self.imgViewArtist.layer.mask = maskLayer;
+        let maskLayer = CAGradientLayer()
+        maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: self.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: self.imgViewArtist.frame.height)
+        maskLayer.shadowRadius = shadowSize
+        maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
+        maskLayer.shadowOpacity = 1;
+        maskLayer.shadowOffset = CGSize(width: 0, height: 0)
+        maskLayer.shadowColor = UIColor.white.cgColor
+        self.imgViewArtist.layer.mask = maskLayer;
         
         // hide controls initially so that we can fade them back in
         hideElementsForPushTransition()
@@ -376,7 +365,6 @@ class DataViewController: UIViewController {
     func hideElementsForPushTransition() {
         
         // hide the elements on the DataViewController
-//        self.imgViewArtist.alpha = 0.0
         self.labelArtist.alpha = 0.0
         self.labelVenueAndPrice.alpha = 0.0
         self.labelDescription.alpha = 0.0

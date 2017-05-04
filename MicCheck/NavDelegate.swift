@@ -89,6 +89,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             collectionVC.view.alpha = 1.0
             
             currentDataViewController.view.alpha = 0.0
+            currentDataViewController.imgViewArtist.alpha = 0.0 // hidden initially
             let heroFinalHeight = currentDataViewController.imgViewArtist.frame.height
             let deltaY = convertedCoordinateY! - heroFinalHeight / 2.0
             
@@ -120,11 +121,11 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 
             }) { finished in
 
-                // transitionImage gives way to the permanent image
+                // unhide the permanent hero image underneath and slowly let the transitionImage give way to it
+                currentDataViewController.imgViewArtist.alpha = 1.0
                 UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
 
                     transitionImageView.alpha = 0
-                    currentDataViewController.imgViewArtist.alpha = 1.0
                     
                 // now we are ready to clean up the transitionImageView and show the real heroView on top
                 }) { finishedInner in
