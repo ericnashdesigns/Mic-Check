@@ -97,11 +97,18 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             currentDataViewController.hideElementsForPushTransition()
 
             // this appears to be the only way to get the new height of the label so I can derive the height of artist image
-            currentDataViewController.labelDescription.text = currentDataViewController.dataDescriptionArtist
+            // currentDataViewController.labelDescription.text = currentDataViewController.dataDescriptionArtist
             
             print("   NavDelegate.swift – currentDataViewController.dataDescriptionArtist: \(currentDataViewController.dataDescriptionArtist)")
 
             //print("   NavDelegate.swift – currentDataViewController.labelDescription.text is : \(currentDataViewController.labelDescription.text!)")
+            
+            currentDataViewController.imgViewArtist.setNeedsUpdateConstraints()
+            currentDataViewController.stackViewVideos.setNeedsUpdateConstraints()
+            currentDataViewController.viewVideoPlayerLeft.setNeedsUpdateConstraints()
+            currentDataViewController.viewVideoPlayerCenter.setNeedsUpdateConstraints()
+            currentDataViewController.viewVideoPlayerRight.setNeedsUpdateConstraints()
+            currentDataViewController.bottomBackButtonBar.setNeedsUpdateConstraints()
             
             UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
                 
@@ -109,11 +116,30 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 collectionVC.collectionView?.frame.origin.y -= deltaY
                 collectionVC.view.alpha = 0.0
 
-                // make sure I have the latest on the height of the artist image
+                // If I don't have this the transitionImage will clip on the right.
+                // Now that I'm explicitly setting paddings for my stackViewVideo, I'm getting the weird resizing issue
+                // with the transitionImage again.  So I need to fix it.
+                // The only way I've been able to get rid of it is by removing the explicit padding on stackViewVideos
+                // EXPERIEMENT: I'm going to try and use layoutIfNeeded for the stackViewVideos 
+                // if that doens't work I'll move on to the videos
+                // Didn't work. now I'm going to try setNeedsUpdateContraints() before the animation block
+                // Didn't work.  Going to try and remove the bottom padding.
+                // Didn't work.  going to try the "preserve superview margins" checkbox.
+                // Didn't work.  Going to try to expliclty set all the paddings to 0
+                // Didn't work. Going to try and just manually add 8.0 to the transitionImageView height
+                // Didn't work, but it's close.  Might try 12.0
+                // 16.0 was the closest I could get it to work
                 currentDataViewController.imgViewArtist.layoutIfNeeded()
+                currentDataViewController.stackViewVideos.layoutIfNeeded()
+                currentDataViewController.viewVideoPlayerLeft.layoutIfNeeded()
+                currentDataViewController.viewVideoPlayerCenter.layoutIfNeeded()
+                currentDataViewController.viewVideoPlayerRight.layoutIfNeeded()
+                currentDataViewController.bottomBackButtonBar.layoutIfNeeded()
                 
                 // move our transitionImageView towards hero image position (and grow its size at the same time)
-                transitionImageView.frame = CGRect(x: 0.0, y: 0.0, width: currentDataViewController.imgViewArtist.frame.width, height: currentDataViewController.imgViewArtist.frame.height)
+                // had to increase it to 16.0 for it not to jump once I added the explicit padding to the stackViewVideos
+                // maybe because it's a multiple of 8.0?
+                transitionImageView.frame = CGRect(x: 0.0, y: 0.0, width: currentDataViewController.imgViewArtist.frame.width, height: currentDataViewController.imgViewArtist.frame.height + 16.0)
                 transitionImageView.alpha = 1.0
                 
                 // fade the destination into view

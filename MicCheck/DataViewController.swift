@@ -27,6 +27,7 @@ class DataViewController: UIViewController {
     @IBOutlet var viewContainer: UIView!
     @IBOutlet weak var imgViewArtist: UIImageView!
     @IBOutlet weak var stackViewLabels: UIStackView!
+    @IBOutlet weak var stackViewVideos: UIStackView!
     let kenBurnsImageView = KenBurnsImageView()
     @IBOutlet weak var labelArtist: UILabel!
     @IBOutlet weak var labelVenueAndPrice: UILabel!
@@ -35,7 +36,15 @@ class DataViewController: UIViewController {
     @IBOutlet var viewVideoPlayerLeft: YTPlayerView!
     @IBOutlet var viewVideoPlayerCenter: YTPlayerView!
     @IBOutlet var viewVideoPlayerRight: YTPlayerView!
+    @IBOutlet var bottomBackButtonBar: UIToolbar!
+    
+    @IBAction func backToCollection(sender: AnyObject) {
 
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+        
+    }
+    
     // viewDidLoad is things you have to do once.  it occures before viewWillAppear
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,15 +96,17 @@ class DataViewController: UIViewController {
 
                 // To update anything on the main thread, just jump back on like so.
                 DispatchQueue.main.async {
-                    
+
+                    // tint the text controls
                     self.viewContainer.backgroundColor = colorsFromArtistImage.backgroundColor
-                    if (self.navigationController != nil) {
-                        self.navigationController?.navigationBar.tintColor = colorsFromArtistImage.secondaryColor;
-                    }
+                    //if (self.navigationController != nil) {
+                    //    self.navigationController?.navigationBar.tintColor = colorsFromArtistImage.secondaryColor;
+                    //}
                     //self.labelArtist.textColor = colorsFromArtistImage.primaryColor
                     //self.labelVenueAndPrice.textColor = colorsFromArtistImage.secondaryColor
                     self.labelDescription.textColor = colorsFromArtistImage.detailColor
                     self.labelNoVideosFound.textColor = colorsFromArtistImage.detailColor
+                    self.bottomBackButtonBar.tintColor = colorsFromArtistImage.secondaryColor;
                     
                 } // end Dispatch.main
                 
@@ -223,6 +234,12 @@ class DataViewController: UIViewController {
 //            }, completion: nil)
         
 //        }
+
+        // make the button bar transparent
+        bottomBackButtonBar.setBackgroundImage(UIImage(),
+                                        forToolbarPosition: .any,
+                                        barMetrics: .default)
+        bottomBackButtonBar.setShadowImage(UIImage(), forToolbarPosition: .any)
         
     } // end viewWillAppear()
     
@@ -265,12 +282,13 @@ class DataViewController: UIViewController {
         self.viewVideoPlayerLeft.frame.origin.y += controlsDeltaY
         self.viewVideoPlayerCenter.frame.origin.y += controlsDeltaY
         self.viewVideoPlayerRight.frame.origin.y += controlsDeltaY
-
+        self.bottomBackButtonBar.frame.origin.y += controlsDeltaY
         
         // fade the controls, shadow, and move them all into the proper view
         UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             
-//            maskLayer.shadowOffset = CGSize(width: 0, height: -shadowSize)                
+            // Not sure yet if I want to do this because it means the image will at first appear with nothing
+            // maskLayer.shadowOffset = CGSize(width: 0, height: -shadowSize)
 
             self.labelArtist.alpha = 1.0
             self.labelVenueAndPrice.alpha = 1.0
@@ -278,6 +296,7 @@ class DataViewController: UIViewController {
             self.viewVideoPlayerLeft.alpha = 1.0
             self.viewVideoPlayerCenter.alpha = 1.0
             self.viewVideoPlayerRight.alpha = 1.0
+            self.bottomBackButtonBar.alpha = 1.0
             
             self.labelArtist.frame.origin.y -= controlsDeltaY
             self.labelVenueAndPrice.frame.origin.y -= controlsDeltaY
@@ -285,12 +304,12 @@ class DataViewController: UIViewController {
             self.viewVideoPlayerLeft.frame.origin.y -= controlsDeltaY
             self.viewVideoPlayerCenter.frame.origin.y -= controlsDeltaY
             self.viewVideoPlayerRight.frame.origin.y -= controlsDeltaY
-            //for view in autoLayoutViews { view.layoutIfNeeded() }
+            self.bottomBackButtonBar.frame.origin.y -= controlsDeltaY
             
         }) { finished in
             
             self.startKenBurnsAnimation()
-//            print("   DataViewController.swift – animateControlsIn() finished animation")
+            // print("   DataViewController.swift – animateControlsIn() finished animation")
             //collectionVC.collectionView?.deselectRowAtIndexPath(indexPath, animated: false)
             
         } // end finished in
@@ -378,6 +397,7 @@ class DataViewController: UIViewController {
         self.viewVideoPlayerLeft.alpha = 0.0
         self.viewVideoPlayerCenter.alpha = 0.0
         self.viewVideoPlayerRight.alpha = 0.0
+        self.bottomBackButtonBar.alpha = 0.0
         
         // hide all visible cells
         //for cell in visibleCellViews { cell.alpha = 0.0 }

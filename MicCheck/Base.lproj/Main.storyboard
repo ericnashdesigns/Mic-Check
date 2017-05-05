@@ -19,7 +19,7 @@
         <!--Navigation Controller-->
         <scene sceneID="NyT-DX-zFM">
             <objects>
-                <navigationController id="bni-mu-vrF" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="bni-mu-vrF" sceneMemberID="viewController">
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hv3-bY-y7a">
@@ -51,7 +51,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <view key="backgroundView" contentMode="scaleToFill" id="rgu-wK-VhN" customClass="JBKenBurnsView" customModule="MicCheck" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="-64" width="375" height="667"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AUS-Va-wDn" userLabel="Colored Background">
@@ -227,20 +227,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgC-uX-WYe" userLabel="View Artist Image and Label">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="518"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="526"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="qb7-ke-a1S">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="518"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="526"/>
                                             </imageView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist.DONE" lineBreakMode="tailTruncation" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="439" width="229.5" height="60"/>
+                                                <rect key="frame" x="0.0" y="447" width="229.5" height="60"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="54"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue / Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caz-Gf-Mub" userLabel="Label Venue and Price" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="499" width="80" height="19"/>
+                                                <rect key="frame" x="0.0" y="507" width="80" height="19"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -260,7 +260,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="5" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="526" width="375" height="61"/>
+                                        <rect key="frame" x="0.0" y="534" width="375" height="9"/>
                                         <attributedString key="attributedText">
                                             <fragment content="No description available">
                                                 <attributes>
@@ -272,7 +272,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DNp-5y-Cfm" userLabel="Stack View Videos">
-                                        <rect key="frame" x="0.0" y="595" width="375" height="72"/>
+                                        <rect key="frame" x="0.0" y="551" width="375" height="64"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="gym-Z5-mpf" userLabel="View Video Top Left" customClass="YTPlayerView">
                                                 <rect key="frame" x="8" y="0.0" width="114.5" height="64"/>
@@ -306,8 +306,20 @@
                                                 </variation>
                                             </view>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="8" right="8"/>
+                                        <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="0.0" right="8"/>
                                     </stackView>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NOu-Nc-shw">
+                                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                        <items>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="p2T-Kb-sj2"/>
+                                            <barButtonItem style="plain" systemItem="done" id="kZp-Fp-Tv3">
+                                                <connections>
+                                                    <action selector="backToCollectionWithSender:" destination="S4R-Ja-viH" id="8zv-8f-oe3"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="4a6-CD-8sX"/>
+                                        </items>
+                                    </toolbar>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No videos found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5d-s1-TZT" userLabel="Label No Videos Found">
                                         <rect key="frame" x="0.0" y="647.5" width="375" height="19.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -335,12 +347,14 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomBackButtonBar" destination="NOu-Nc-shw" id="qfr-GG-nBg"/>
                         <outlet property="imgViewArtist" destination="qb7-ke-a1S" id="ARk-f4-3Xc"/>
                         <outlet property="labelArtist" destination="cF2-Le-7mQ" id="GCE-Jd-YEK"/>
                         <outlet property="labelDescription" destination="gDj-M6-bfC" id="BKY-ap-k3I"/>
                         <outlet property="labelNoVideosFound" destination="G5d-s1-TZT" id="QwE-4y-NoO"/>
                         <outlet property="labelVenueAndPrice" destination="caz-Gf-Mub" id="tLL-8F-oWS"/>
                         <outlet property="stackViewLabels" destination="yPa-do-MEU" id="mos-jm-99x"/>
+                        <outlet property="stackViewVideos" destination="DNp-5y-Cfm" id="je0-Gs-OmL"/>
                         <outlet property="viewContainer" destination="ZwX-cT-FIQ" id="AKu-bI-LUH"/>
                         <outlet property="viewVideoPlayerCenter" destination="Hxj-65-G1j" id="U2y-I7-8b5"/>
                         <outlet property="viewVideoPlayerLeft" destination="gym-Z5-mpf" id="giM-le-Dh3"/>
