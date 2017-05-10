@@ -65,7 +65,19 @@ class DataViewController: UIViewController {
         self.view.backgroundColor = backgroundColorDarker
         
         self.labelArtist.text = dataArtist
+
+        // setup the mask for the artist image intially offset so we can move it in later
         self.imgViewArtist.image =  dataImgArtist
+        let shadowSize: CGFloat = 40.0
+        let maskLayer = CAGradientLayer()
+        maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: self.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: self.imgViewArtist.frame.height)
+        maskLayer.shadowRadius = shadowSize
+        maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
+        maskLayer.shadowOpacity = 1;
+        maskLayer.shadowOffset = CGSize(width: 0, height: 0)
+        maskLayer.shadowColor = UIColor.white.cgColor
+        self.imgViewArtist.layer.mask = maskLayer;
+        
         self.labelVenueAndPrice.text = dataVenue
         if dataPrice != "" {
             self.labelVenueAndPrice.text = dataVenue + " / " + dataPrice
@@ -301,16 +313,6 @@ class DataViewController: UIViewController {
             // negative values (-20.0) mean swipe up
             print("  DataViewController.swift – SWIPE UP")
         }
-        
-        // setup the mask for the artist image intially offset so we can move it in later
-        let maskLayer = CAGradientLayer()
-        maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: self.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: self.imgViewArtist.frame.height)
-        maskLayer.shadowRadius = shadowSize
-        maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
-        maskLayer.shadowOpacity = 1;
-        maskLayer.shadowOffset = CGSize(width: 0, height: 0)
-        maskLayer.shadowColor = UIColor.white.cgColor
-        self.imgViewArtist.layer.mask = maskLayer;
         
         // hide controls initially so that we can fade them back in
         hideElementsForPushTransition()
