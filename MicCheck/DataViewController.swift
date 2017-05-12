@@ -36,18 +36,16 @@ class DataViewController: UIViewController {
     @IBOutlet var viewVideoPlayerLeft: YTPlayerView!
     @IBOutlet var viewVideoPlayerCenter: YTPlayerView!
     @IBOutlet var viewVideoPlayerRight: YTPlayerView!
-    @IBOutlet var bottomBackButtonBar: UIToolbar!
-    
-    @IBAction func backToCollection(sender: AnyObject) {
-
-        navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
-        
-    }
     
     // viewDidLoad is things you have to do once.  it occures before viewWillAppear
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Setting up so that tapping the artist image returns to the CollectionView
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        self.imgViewArtist.isUserInteractionEnabled = true
+        self.imgViewArtist.addGestureRecognizer(tapGestureRecognizer)
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -140,7 +138,6 @@ class DataViewController: UIViewController {
                     self.labelVenueAndPrice.textColor = colorsFromArtistImage.detailColor
                     self.labelDescription.textColor = colorsFromArtistImage.detailColor
                     self.labelNoVideosFound.textColor = colorsFromArtistImage.detailColor
-                    self.bottomBackButtonBar.tintColor = colorsFromArtistImage.secondaryColor;
                     
                 } // end Dispatch.main
                 
@@ -287,11 +284,6 @@ class DataViewController: UIViewController {
         
 //        }
 
-        // make the button bar transparent
-        bottomBackButtonBar.setBackgroundImage(UIImage(),
-                                        forToolbarPosition: .any,
-                                        barMetrics: .default)
-        bottomBackButtonBar.setShadowImage(UIImage(), forToolbarPosition: .any)
         
     } // end viewWillAppear()
     
@@ -324,7 +316,6 @@ class DataViewController: UIViewController {
         self.viewVideoPlayerLeft.frame.origin.y += controlsDeltaY
         self.viewVideoPlayerCenter.frame.origin.y += controlsDeltaY
         self.viewVideoPlayerRight.frame.origin.y += controlsDeltaY
-        self.bottomBackButtonBar.frame.origin.y += controlsDeltaY
         
         // fade the controls, shadow, and move them all into the proper view
         UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
@@ -338,7 +329,6 @@ class DataViewController: UIViewController {
             self.viewVideoPlayerLeft.alpha = 1.0
             self.viewVideoPlayerCenter.alpha = 1.0
             self.viewVideoPlayerRight.alpha = 1.0
-            self.bottomBackButtonBar.alpha = 1.0
             
             self.labelArtist.frame.origin.y -= controlsDeltaY
             self.labelVenueAndPrice.frame.origin.y -= controlsDeltaY
@@ -346,7 +336,6 @@ class DataViewController: UIViewController {
             self.viewVideoPlayerLeft.frame.origin.y -= controlsDeltaY
             self.viewVideoPlayerCenter.frame.origin.y -= controlsDeltaY
             self.viewVideoPlayerRight.frame.origin.y -= controlsDeltaY
-            self.bottomBackButtonBar.frame.origin.y -= controlsDeltaY
             
         }) { finished in
             
@@ -439,7 +428,6 @@ class DataViewController: UIViewController {
         self.viewVideoPlayerLeft.alpha = 0.0
         self.viewVideoPlayerCenter.alpha = 0.0
         self.viewVideoPlayerRight.alpha = 0.0
-        self.bottomBackButtonBar.alpha = 0.0
         
         // hide all visible cells
         //for cell in visibleCellViews { cell.alpha = 0.0 }
@@ -447,4 +435,15 @@ class DataViewController: UIViewController {
         // move back button arrow beyond screen
         //backButtonHorizontalSpacer.constant = -70.0
     }
+
+    func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        
+        // Your action
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
+    
+    }
+
 }

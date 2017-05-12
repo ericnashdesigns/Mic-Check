@@ -108,7 +108,6 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             currentDataViewController.viewVideoPlayerLeft.setNeedsUpdateConstraints()
             currentDataViewController.viewVideoPlayerCenter.setNeedsUpdateConstraints()
             currentDataViewController.viewVideoPlayerRight.setNeedsUpdateConstraints()
-            currentDataViewController.bottomBackButtonBar.setNeedsUpdateConstraints()
             
             UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
                 
@@ -127,19 +126,17 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 // Didn't work.  going to try the "preserve superview margins" checkbox.
                 // Didn't work.  Going to try to expliclty set all the paddings to 0
                 // Didn't work. Going to try and just manually add 8.0 to the transitionImageView height
-                // Didn't work, but it's close.  Might try 12.0
-                // 16.0 was the closest I could get it to work
+                // 8.0 was the closest I could get it to work
                 currentDataViewController.imgViewArtist.layoutIfNeeded()
                 currentDataViewController.stackViewVideos.layoutIfNeeded()
                 currentDataViewController.viewVideoPlayerLeft.layoutIfNeeded()
                 currentDataViewController.viewVideoPlayerCenter.layoutIfNeeded()
                 currentDataViewController.viewVideoPlayerRight.layoutIfNeeded()
-                currentDataViewController.bottomBackButtonBar.layoutIfNeeded()
                 
                 // move our transitionImageView towards hero image position (and grow its size at the same time)
-                // had to increase it to 16.0 for it not to jump once I added the explicit padding to the stackViewVideos
+                // had to increase it to 8.0 for it not to jump once I added the explicit padding to the stackViewVideos
                 // maybe because it's a multiple of 8.0?
-                transitionImageView.frame = CGRect(x: 0.0, y: 0.0, width: currentDataViewController.imgViewArtist.frame.width, height: currentDataViewController.imgViewArtist.frame.height + 16.0)
+                transitionImageView.frame = CGRect(x: 0.0, y: 0.0, width: currentDataViewController.imgViewArtist.frame.width, height: currentDataViewController.imgViewArtist.frame.height + 8.0)
                 transitionImageView.alpha = 1.0
                 
                 // fade the destination into view

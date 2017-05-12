@@ -233,7 +233,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="526"/>
                                             </imageView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist.DONE" lineBreakMode="tailTruncation" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="447" width="229.5" height="60"/>
+                                                <rect key="frame" x="0.0" y="463" width="229.5" height="60"/>
                                                 <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="54"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -252,13 +252,13 @@
                                             <constraint firstAttribute="bottom" secondItem="qb7-ke-a1S" secondAttribute="bottom" id="LvK-dX-aE8"/>
                                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="caz-Gf-Mub" secondAttribute="leading" id="OXX-aD-1do"/>
                                             <constraint firstItem="qb7-ke-a1S" firstAttribute="top" secondItem="cgC-uX-WYe" secondAttribute="top" id="R9p-xh-snP"/>
-                                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="bottom" secondItem="caz-Gf-Mub" secondAttribute="top" id="asF-BT-eTp"/>
+                                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="bottom" secondItem="caz-Gf-Mub" secondAttribute="top" constant="16" id="asF-BT-eTp"/>
                                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="cgC-uX-WYe" secondAttribute="leading" id="fq5-xo-Ii4"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="16" id="jjy-wx-yBX"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="5" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="534" width="375" height="9"/>
+                                        <rect key="frame" x="0.0" y="534" width="375" height="53"/>
                                         <attributedString key="attributedText">
                                             <fragment content="No description available">
                                                 <attributes>
@@ -270,7 +270,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DNp-5y-Cfm" userLabel="Stack View Videos">
-                                        <rect key="frame" x="0.0" y="551" width="375" height="64"/>
+                                        <rect key="frame" x="0.0" y="595" width="375" height="72"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="gym-Z5-mpf" userLabel="View Video Top Left" customClass="YTPlayerView">
                                                 <rect key="frame" x="8" y="0.0" width="114.5" height="64"/>
@@ -304,20 +304,8 @@
                                                 </variation>
                                             </view>
                                         </subviews>
-                                        <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="0.0" right="8"/>
+                                        <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="8" right="8"/>
                                     </stackView>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NOu-Nc-shw">
-                                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                        <items>
-                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="p2T-Kb-sj2"/>
-                                            <barButtonItem style="plain" systemItem="done" id="kZp-Fp-Tv3">
-                                                <connections>
-                                                    <action selector="backToCollectionWithSender:" destination="S4R-Ja-viH" id="8zv-8f-oe3"/>
-                                                </connections>
-                                            </barButtonItem>
-                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="4a6-CD-8sX"/>
-                                        </items>
-                                    </toolbar>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No videos found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5d-s1-TZT" userLabel="Label No Videos Found">
                                         <rect key="frame" x="0.0" y="647.5" width="375" height="19.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -345,7 +333,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomBackButtonBar" destination="NOu-Nc-shw" id="qfr-GG-nBg"/>
                         <outlet property="imgViewArtist" destination="qb7-ke-a1S" id="ARk-f4-3Xc"/>
                         <outlet property="labelArtist" destination="cF2-Le-7mQ" id="GCE-Jd-YEK"/>
                         <outlet property="labelDescription" destination="gDj-M6-bfC" id="BKY-ap-k3I"/>
