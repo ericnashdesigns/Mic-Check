@@ -22,7 +22,6 @@ class DataViewController: UIViewController {
     var dataIntEventIndex: Int = 0
     var dataStrVIDs: Array<String> = []
     var dataColorsImgArtist: UIImageColors?
-    var swipeDirection: String = ""
     
     @IBOutlet var viewContainer: UIView!
     @IBOutlet weak var imgViewArtist: UIImageView!
@@ -138,6 +137,8 @@ class DataViewController: UIViewController {
                     self.labelVenueAndPrice.textColor = colorsFromArtistImage.detailColor
                     self.labelDescription.textColor = colorsFromArtistImage.detailColor
                     self.labelNoVideosFound.textColor = colorsFromArtistImage.detailColor
+                    
+                    self.stackViewVideos.backgroundColor = colorsFromArtistImage.primaryColor
                     
                 } // end Dispatch.main
                 
@@ -338,10 +339,18 @@ class DataViewController: UIViewController {
             self.viewVideoPlayerRight.frame.origin.y -= controlsDeltaY
             
         }) { finished in
+
+            let when = DispatchTime.now() + 5 // change 5 to desired number of seconds
+            DispatchQueue.main.asyncAfter(deadline: when) {
+                // Your code with delay
+
+                self.startKenBurnsAnimation()
+                // print("   DataViewController.swift – animateControlsIn() finished animation")
+                //collectionVC.collectionView?.deselectRowAtIndexPath(indexPath, animated: false)
+                
+                
+            }
             
-            self.startKenBurnsAnimation()
-            // print("   DataViewController.swift – animateControlsIn() finished animation")
-            //collectionVC.collectionView?.deselectRowAtIndexPath(indexPath, animated: false)
             
         } // end finished in
         
@@ -400,8 +409,8 @@ class DataViewController: UIViewController {
     func startKenBurnsAnimation() {
 
         kenBurnsImageView.setImage(self.imgViewArtist.image!)
-        kenBurnsImageView.zoomIntensity = 0.25
-        kenBurnsImageView.setDuration(min: 10, max: 13)
+        kenBurnsImageView.zoomIntensity = 0.15
+        kenBurnsImageView.setDuration(min: 15, max: 20)
         kenBurnsImageView.frame.size = self.imgViewArtist.frame.size
         
         // only add the kenBurns subview if it's not already added
