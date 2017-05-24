@@ -24,6 +24,7 @@ class DataViewController: UIViewController {
     var dataColorsImgArtist: UIImageColors?
     
     @IBOutlet var viewContainer: UIView!
+    @IBOutlet var viewContainerStackView: UIView!
     @IBOutlet weak var imgViewArtist: UIImageView!
     @IBOutlet weak var stackViewLabels: UIStackView!
     @IBOutlet weak var stackViewVideos: UIStackView!
