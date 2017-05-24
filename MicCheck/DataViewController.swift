@@ -128,18 +128,18 @@ class DataViewController: UIViewController {
                 DispatchQueue.main.async {
 
                     // tint the text controls
-                    self.viewContainer.backgroundColor = colorsFromArtistImage.backgroundColor
+                    //self.viewContainer.backgroundColor = colorsFromArtistImage.backgroundColor
                     //if (self.navigationController != nil) {
                     //    self.navigationController?.navigationBar.tintColor = colorsFromArtistImage.secondaryColor;
                     //}
 //                    self.labelArtist.textColor = colorsFromArtistImage.primaryColor
 //                    self.labelVenueAndPrice.textColor = colorsFromArtistImage.secondaryColor
                     self.labelArtist.textColor = colorsFromArtistImage.detailColor
+                    self.labelArtist.backgroundColor = colorsFromArtistImage.primaryColor
                     self.labelVenueAndPrice.textColor = colorsFromArtistImage.detailColor
+                    self.labelVenueAndPrice.backgroundColor = colorsFromArtistImage.primaryColor
                     self.labelDescription.textColor = colorsFromArtistImage.detailColor
                     self.labelNoVideosFound.textColor = colorsFromArtistImage.detailColor
-                    
-                    self.stackViewVideos.backgroundColor = colorsFromArtistImage.primaryColor
                     
                 } // end Dispatch.main
                 
@@ -174,6 +174,7 @@ class DataViewController: UIViewController {
                     if artistDescription != "" {
                         self.labelDescription.isHidden = false
 //                        self.labelDescription.text = artistDescription
+                        self.labelDescription.sizeToFit()
                         print("  DataViewController.swift – Show description")
                     } else {
                         
@@ -181,7 +182,8 @@ class DataViewController: UIViewController {
                         // EXPERIMENT: It still doesn't work when the description is null and I'm not in testMode.  
                         // Going to try and just leave it null to see how it lays out.
 //                        self.labelDescription.text = artistDescription
-                        self.labelDescription.isHidden = true
+                        self.labelDescription.text = " "
+                        self.labelDescription.isHidden = false
                         print("  DataViewController.swift – Hide description")
                         
                     }
