@@ -230,16 +230,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="cgC-uX-WYe" userLabel="View Artist Image and Label">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="461"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="446"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist.DONE" lineBreakMode="tailTruncation" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="398" width="229.5" height="60"/>
+                                                <rect key="frame" x="0.0" y="383" width="229.5" height="60"/>
                                                 <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="54"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Venue / Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caz-Gf-Mub" userLabel="Label Venue and Price" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="442" width="80" height="19"/>
+                                                <rect key="frame" x="0.0" y="427" width="229.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -247,6 +247,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="caz-Gf-Mub" secondAttribute="leading" id="OXX-aD-1do"/>
+                                            <constraint firstItem="caz-Gf-Mub" firstAttribute="width" secondItem="cF2-Le-7mQ" secondAttribute="width" id="OXe-r6-8ir"/>
                                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="bottom" secondItem="caz-Gf-Mub" secondAttribute="top" constant="16" id="asF-BT-eTp"/>
                                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="cgC-uX-WYe" secondAttribute="leading" id="fq5-xo-Ii4"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="16" id="jjy-wx-yBX"/>
@@ -254,20 +255,20 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gzn-yh-joO" userLabel="Stack View Videos and Description">
-                                        <rect key="frame" x="0.0" y="469" width="375" height="198"/>
+                                        <rect key="frame" x="0.0" y="454" width="375" height="213"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DNp-5y-Cfm" userLabel="Stack View Videos">
-                                                <rect key="frame" x="0.0" y="0.0" width="120" height="198"/>
+                                                <rect key="frame" x="8" y="0.0" width="120" height="205"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="gym-Z5-mpf" userLabel="View Video Top Left" customClass="YTPlayerView">
-                                                        <rect key="frame" x="8" y="0.0" width="104" height="58"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="112" height="63"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="gym-Z5-mpf" secondAttribute="height" multiplier="16:9" id="nPj-XE-i3e"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Hxj-65-G1j" userLabel="View Video Top RIght" customClass="YTPlayerView">
-                                                        <rect key="frame" x="8" y="66" width="104" height="58"/>
+                                                        <rect key="frame" x="0.0" y="71" width="112" height="63"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Hxj-65-G1j" secondAttribute="height" multiplier="16:9" id="hMi-Nw-fsm"/>
@@ -279,7 +280,7 @@
                                                         </variation>
                                                     </view>
                                                     <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="67L-ef-AZt" userLabel="View Video Right" customClass="YTPlayerView">
-                                                        <rect key="frame" x="8" y="132" width="104" height="58"/>
+                                                        <rect key="frame" x="0.0" y="142" width="112" height="63"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="67L-ef-AZt" secondAttribute="height" multiplier="16:9" id="X0g-bK-6Hv"/>
@@ -294,21 +295,31 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="Urc-lI-uYd"/>
                                                 </constraints>
-                                                <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="8" right="8"/>
+                                                <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="8"/>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="5" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                                <rect key="frame" x="120" y="0.0" width="255" height="198"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="No description available">
-                                                        <attributes>
-                                                            <font key="NSFont" metaFont="system" size="17"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="4" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DTA-7D-v1G">
+                                                <rect key="frame" x="128" y="0.0" width="239" height="205"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="8" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDj-M6-bfC" userLabel="Label Description">
+                                                        <rect key="frame" x="0.0" y="0.0" width="239" height="175"/>
+                                                        <attributedString key="attributedText">
+                                                            <fragment content="This is just some descriptive text to see how well the line spacing works.">
+                                                                <attributes>
+                                                                    <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
+                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" minimumLineHeight="10" maximumLineHeight="10" lineHeightMultiple="8" tighteningFactorForTruncation="0.0"/>
+                                                                </attributes>
+                                                            </fragment>
+                                                        </attributedString>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JL1-IX-C5D">
+                                                        <rect key="frame" x="0.0" y="175" width="239" height="30"/>
+                                                        <state key="normal" title=" "/>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
+                                        <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="8" right="8"/>
                                     </stackView>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No videos found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5d-s1-TZT" userLabel="Label No Videos Found">
                                         <rect key="frame" x="0.0" y="647.5" width="375" height="19.5"/>

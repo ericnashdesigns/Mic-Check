@@ -127,6 +127,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 // Didn't work.  Going to try to expliclty set all the paddings to 0
                 // Didn't work. Going to try and just manually add 8.0 to the transitionImageView height
                 // 8.0 was the closest I could get it to work
+                // may be moot now that I'm using full screen.  
                 currentDataViewController.imgViewArtist.layoutIfNeeded()
                 currentDataViewController.stackViewVideos.layoutIfNeeded()
                 currentDataViewController.viewVideoPlayerLeft.layoutIfNeeded()
@@ -136,7 +137,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 // move our transitionImageView towards hero image position (and grow its size at the same time)
                 // had to increase it to 8.0 for it not to jump once I added the explicit padding to the stackViewVideos
                 // maybe because it's a multiple of 8.0?
-                transitionImageView.frame = CGRect(x: 0.0, y: 0.0, width: currentDataViewController.imgViewArtist.frame.width, height: currentDataViewController.imgViewArtist.frame.height + 8.0)
+                transitionImageView.frame = CGRect(x: 0.0, y: 0.0, width: currentDataViewController.imgViewArtist.frame.width, height: currentDataViewController.imgViewArtist.frame.height)
                 transitionImageView.alpha = 1.0
                 
                 // fade the destination into view

@@ -66,7 +66,7 @@ class DataViewController: UIViewController {
 
         // setup the mask for the artist image intially offset so we can move it in later
         self.imgViewArtist.image =  dataImgArtist
-        let shadowSize: CGFloat = 40.0
+        let shadowSize: CGFloat = 60.0
         let maskLayer = CAGradientLayer()
         maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: self.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: self.imgViewArtist.frame.height)
         maskLayer.shadowRadius = shadowSize
@@ -80,43 +80,54 @@ class DataViewController: UIViewController {
         if dataPrice != "" {
             self.labelVenueAndPrice.text = dataVenue + " / " + dataPrice
         }
-
+        
         self.labelDescription.text = dataDescriptionArtist
 
-        let attributedString = NSMutableAttributedString(string: dataDescriptionArtist)
-        
-        // EXPERIEMENT: I can't get the line spacing to work correctly in AutoLayout.  So I'm trying to set it programmitcally
-        // Seems to work here, but I think I need to set it in AutoLayout too for it to work.  Bizarre.
-        
-        // *** Create instance of `NSMutableParagraphStyle`
         let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 3
         
-        // *** set LineSpacing property in points ***
-        paragraphStyle.lineSpacing = 2.5 // Whatever line spacing you want in points
+        let attrString = NSMutableAttributedString(string: dataDescriptionArtist)
+        attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         
-        // *** Apply attribute to string ***
-        attributedString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+        self.labelDescription.attributedText = attrString
         
-        // *** Set Attributed String to your label ***
-        self.labelDescription.attributedText = attributedString;
+//        let attributedString = NSMutableAttributedString(string: dataDescriptionArtist)
+//        
+//        // EXPERIEMENT: I can't get the line spacing to work correctly in AutoLayout.  So I'm trying to set it programmitcally
+//        // Seems to work here, but I think I need to set it in AutoLayout too for it to work.  Bizarre.
+//        
+//        // *** Create instance of `NSMutableParagraphStyle`
+//        let paragraphStyle = NSMutableParagraphStyle()
+//        
+//        // *** set LineSpacing property in points ***
+//        paragraphStyle.lineSpacing = 2.5 // Whatever line spacing you want in points
+//        
+//        // *** Apply attribute to string ***
+//        attributedString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+//        
+//        // *** Set Attributed String to your label ***
+//        self.labelDescription.attributedText = attributedString;
+
+//        self.labelDescription.sizeToFit()
+//        self.labelDescription.numberOfLines = 0
         
         
         // EXPERIMENT: I think we need to keep setting the label at this point so that when I do the animation I have the proper size for the label
-        if dataDescriptionArtist != "" {
-            self.labelDescription.isHidden = false
-        } else {
-            
+//        if dataDescriptionArtist != "" {
+//            self.labelDescription.isHidden = false
+//        } else {
+        
             // I'm using a StackView with ContentHugging Priorities to get the artistImage and other fields to adjust to the vacant space when description isn't available.
             // EXPERIMENT: It still doesn't work when the description is null and I'm not in testMode.
             // Going to try and just leave it null to see how it lays out.
             // I think the reason why this experiment succeeded was because I set the label equal to the data value in the first few lines of the code.
 //            self.labelDescription.text = dataDescriptionArtist
-            self.labelDescription.isHidden = true
+//            self.labelDescription.isHidden = true
             //                        self.labelDescription.sizeToFit()
             //                        self.labelDescription.numberOfLines = 0
             
-        }
-                
+//        }
+        
         let currentEvent = lineUp.events[dataIntEventIndex]
 
         // Use artists image to assign colors, if available.  If not, use a background thread so that the image processing won't slow down paging
@@ -134,12 +145,48 @@ class DataViewController: UIViewController {
                     //}
 //                    self.labelArtist.textColor = colorsFromArtistImage.primaryColor
 //                    self.labelVenueAndPrice.textColor = colorsFromArtistImage.secondaryColor
-                    self.labelArtist.textColor = colorsFromArtistImage.detailColor
-                    self.labelArtist.backgroundColor = colorsFromArtistImage.primaryColor
-                    self.labelVenueAndPrice.textColor = colorsFromArtistImage.detailColor
-                    self.labelVenueAndPrice.backgroundColor = colorsFromArtistImage.primaryColor
-                    self.labelDescription.textColor = colorsFromArtistImage.detailColor
-                    self.labelNoVideosFound.textColor = colorsFromArtistImage.detailColor
+//                    self.labelArtist.textColor = colorsFromArtistImage.detailColor
+
+                        self.labelArtist.textColor = UIColor.white
+                    // white text on dark
+                    var backgroundColorDark: UIColor
+                    if colorsFromArtistImage.primaryColor.isDark() {
+                        backgroundColorDark = colorsFromArtistImage.primaryColor
+                        print("  DataViewController.swift – used primaryColor")
+                    } else {
+                        // dark text on light
+                        if colorsFromArtistImage.secondaryColor.isDark() {
+                            backgroundColorDark = colorsFromArtistImage.secondaryColor
+                            print("  DataViewController.swift – used secondaryColor")
+                        } else {
+
+                            if colorsFromArtistImage.detailColor.isDark() {
+                                backgroundColorDark = colorsFromArtistImage.detailColor
+                                print("  DataViewController.swift – used detailColor")
+                            } else {
+
+                                if colorsFromArtistImage.backgroundColor.isDark() {
+                                    backgroundColorDark = colorsFromArtistImage.backgroundColor
+                                    print("  DataViewController.swift – used backgroundColor")
+                                
+                                } else {
+
+                                    backgroundColorDark = backgroundColorDarker
+                                    print("  DataViewController.swift – used backgroundColorDarker")
+
+                                }
+                                
+                            }
+
+                        }
+                        
+                    }
+                    
+                    self.labelArtist.backgroundColor = backgroundColorDark
+                    self.labelVenueAndPrice.backgroundColor = backgroundColorDark
+                    self.labelVenueAndPrice.textColor = UIColor.white
+                    self.labelDescription.textColor = UIColor.white
+//                    self.labelNoVideosFound.textColor = colorsFromArtistImage.detailColor
                     
                 } // end Dispatch.main
                 
@@ -154,40 +201,52 @@ class DataViewController: UIViewController {
                 // To update anything on the main thread, just jump back on like so.
                 DispatchQueue.main.async {
 
-                    self.labelDescription.text = self.dataDescriptionArtist
-                    
-                    let attributedString = NSMutableAttributedString(string: self.dataDescriptionArtist)
-                    
-                    // *** Create instance of `NSMutableParagraphStyle`
+                    self.labelDescription.text = artistDescription
+
                     let paragraphStyle = NSMutableParagraphStyle()
+                    paragraphStyle.lineSpacing = 3
                     
-                    // *** set LineSpacing property in points ***
-                    paragraphStyle.lineSpacing = 2.5 // Whatever line spacing you want in points
+                    let attrString = NSMutableAttributedString(string: artistDescription)
+                    attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
                     
-                    // *** Apply attribute to string ***
-                    attributedString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+                    self.labelDescription.attributedText = attrString
+
                     
-                    // *** Set Attributed String to your label ***
-                    self.labelDescription.attributedText = attributedString;
+//                    let attributedString = NSMutableAttributedString(string: self.dataDescriptionArtist)
+//                    
+//                    // *** Create instance of `NSMutableParagraphStyle`
+//                    let paragraphStyle = NSMutableParagraphStyle()
+//                    
+//                    // *** set LineSpacing property in points ***
+//                    paragraphStyle.lineSpacing = 2.5 // Whatever line spacing you want in points
+//                    
+//                    // *** Apply attribute to string ***
+//                    attributedString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+//                    
+//                    // *** Set Attributed String to your label ***
+//                    self.labelDescription.attributedText = attributedString;
+
+//                    self.labelDescription.sizeToFit()
+//                    self.labelDescription.numberOfLines = 0
                     
-                    
-                    if artistDescription != "" {
-                        self.labelDescription.isHidden = false
-//                        self.labelDescription.text = artistDescription
-                        self.labelDescription.sizeToFit()
-                        print("  DataViewController.swift – Show description")
-                    } else {
-                        
-                        // I'm using a StackView with ContentHugging Priorities to get the artistImage and other fields to adjust to the vacant space when description isn't available.
-                        // EXPERIMENT: It still doesn't work when the description is null and I'm not in testMode.  
-                        // Going to try and just leave it null to see how it lays out.
-//                        self.labelDescription.text = artistDescription
-                        self.labelDescription.text = " "
-                        self.labelDescription.isHidden = false
-                        print("  DataViewController.swift – Hide description")
-                        
-                    }
-                    
+//                    
+//                    if artistDescription != "" {
+//                        self.labelDescription.isHidden = false
+////                        self.labelDescription.text = artistDescription
+//                        self.labelDescription.sizeToFit()
+//                        print("  DataViewController.swift – Show description")
+//                    } else {
+//                        
+//                        // I'm using a StackView with ContentHugging Priorities to get the artistImage and other fields to adjust to the vacant space when description isn't available.
+//                        // EXPERIMENT: It still doesn't work when the description is null and I'm not in testMode.  
+//                        // Going to try and just leave it null to see how it lays out.
+////                        self.labelDescription.text = artistDescription
+//                        self.labelDescription.text = " "
+//                        self.labelDescription.isHidden = false
+//                        print("  DataViewController.swift – Hide description")
+//                        
+//                    }
+//                    
                 } // end Dispatch.main
                 
             } else {
