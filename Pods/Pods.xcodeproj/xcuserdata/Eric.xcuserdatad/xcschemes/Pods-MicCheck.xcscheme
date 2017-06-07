@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6A35F6B096E76AB3C77E0FB8A6F1B224"
+               BlueprintIdentifier = "34F5F0861D70E39B99635E49BBA31BCB"
                BuildableName = "Pods_MicCheck.framework"
                BlueprintName = "Pods-MicCheck"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6A35F6B096E76AB3C77E0FB8A6F1B224"
+            BlueprintIdentifier = "34F5F0861D70E39B99635E49BBA31BCB"
             BuildableName = "Pods_MicCheck.framework"
             BlueprintName = "Pods-MicCheck"
             ReferencedContainer = "container:Pods.xcodeproj">

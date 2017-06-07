@@ -4,6 +4,9 @@ PODS:
   - KenBurns (0.2.7):
     - CalmParametricAnimations (~> 1.0.1)
     - SDWebImage (~> 3.8.1)
+  - Material (2.6.3):
+    - Material/Core (= 2.6.3)
+  - Material/Core (2.6.3)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
@@ -14,6 +17,7 @@ PODS:
 DEPENDENCIES:
   - Kanna (~> 2.1.0)
   - KenBurns
+  - Material (~> 2.0)
   - SwiftyJSON
   - UIImageColors (~> 1.2)
   - youtube-ios-player-helper (~> 0.1.4)
@@ -22,11 +26,12 @@ SPEC CHECKSUMS:
   CalmParametricAnimations: 8747c67d71e07be5e5b3b9d524560d1fbe74be94
   Kanna: 9b4b086c218703f2b94f5b21a466217dd2f9332e
   KenBurns: b0aa95846775eae47b1466dd9e0d463d1a325b83
+  Material: af607a7ec0e9978ef85cf189a3d8ceeeb650400f
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SwiftyJSON: 38a8ea2006779c0fc4c310cb2ee8195327740faf
   UIImageColors: 4daac49e88772d37d3f5a02b7abec9f85346497c
   youtube-ios-player-helper: 21ab92db027c7ff86cb17a3843a3f6eafc8158d2
 
-PODFILE CHECKSUM: efbb65d2cccec0237dd75997e32552380798515a
+PODFILE CHECKSUM: 8ae19cdaf3b18d16877277c05ad07d6cdadd773d
 
 COCOAPODS: 1.1.1

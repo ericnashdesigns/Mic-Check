@@ -11,6 +11,7 @@ target 'MicCheck' do
   pod 'youtube-ios-player-helper', '~> 0.1.4'
   pod 'UIImageColors', '~> 1.2'
   pod 'KenBurns'
+  pod 'Material', '~> 2.0'
 
   target 'MicCheckTests' do
     inherit! :search_paths
