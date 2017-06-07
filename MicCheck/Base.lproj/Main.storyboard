@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bni-mu-vrF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bni-mu-vrF">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -229,11 +229,11 @@
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yPa-do-MEU">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="cgC-uX-WYe" userLabel="View Artist Image and Label">
+                                    <view contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="cgC-uX-WYe" userLabel="View Headers">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="446"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist.DONE" lineBreakMode="tailTruncation" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="cF2-Le-7mQ" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="383" width="229.5" height="60"/>
+                                                <rect key="frame" x="0.0" y="387" width="229.5" height="60"/>
                                                 <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="54"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -248,7 +248,7 @@
                                         <constraints>
                                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="caz-Gf-Mub" secondAttribute="leading" id="OXX-aD-1do"/>
                                             <constraint firstItem="caz-Gf-Mub" firstAttribute="width" secondItem="cF2-Le-7mQ" secondAttribute="width" id="OXe-r6-8ir"/>
-                                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="bottom" secondItem="caz-Gf-Mub" secondAttribute="top" constant="16" id="asF-BT-eTp"/>
+                                            <constraint firstItem="cF2-Le-7mQ" firstAttribute="bottom" secondItem="caz-Gf-Mub" secondAttribute="top" constant="20" id="asF-BT-eTp"/>
                                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="cgC-uX-WYe" secondAttribute="leading" id="fq5-xo-Ii4"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="16" id="jjy-wx-yBX"/>
                                             <constraint firstAttribute="bottom" secondItem="caz-Gf-Mub" secondAttribute="bottom" id="yGp-km-Qtn"/>
@@ -357,6 +357,7 @@
                         <outlet property="stackViewLabels" destination="yPa-do-MEU" id="mos-jm-99x"/>
                         <outlet property="stackViewVideos" destination="DNp-5y-Cfm" id="je0-Gs-OmL"/>
                         <outlet property="viewContainer" destination="ZwX-cT-FIQ" id="AKu-bI-LUH"/>
+                        <outlet property="viewHeaders" destination="cgC-uX-WYe" id="VvZ-Ou-G04"/>
                         <outlet property="viewVideoPlayerCenter" destination="Hxj-65-G1j" id="U2y-I7-8b5"/>
                         <outlet property="viewVideoPlayerLeft" destination="gym-Z5-mpf" id="giM-le-Dh3"/>
                         <outlet property="viewVideoPlayerRight" destination="67L-ef-AZt" id="Ahp-df-rrh"/>

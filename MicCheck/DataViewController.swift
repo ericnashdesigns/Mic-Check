@@ -29,6 +29,7 @@ class DataViewController: UIViewController {
     @IBOutlet weak var stackViewLabels: UIStackView!
     @IBOutlet weak var stackViewVideos: UIStackView!
     let kenBurnsImageView = KenBurnsImageView()
+    @IBOutlet var viewHeaders: UIView!
     @IBOutlet weak var labelArtist: UILabel!
     @IBOutlet weak var labelVenueAndPrice: UILabel!
     @IBOutlet weak var labelDescription: UILabel!
@@ -42,9 +43,9 @@ class DataViewController: UIViewController {
         super.viewDidLoad()
 
         // Setting up so that tapping the artist image returns to the CollectionView
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        self.imgViewArtist.isUserInteractionEnabled = true
-        self.imgViewArtist.addGestureRecognizer(tapGestureRecognizer)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped(tapGestureRecognizer:)))
+        self.viewHeaders.isUserInteractionEnabled = true
+        self.viewHeaders.addGestureRecognizer(tapGestureRecognizer)
     
     }
 
@@ -406,7 +407,7 @@ class DataViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: when) {
                 // Your code with delay
 
-                self.startKenBurnsAnimation()
+//                self.startKenBurnsAnimation()
                 // print("   DataViewController.swift – animateControlsIn() finished animation")
                 //collectionVC.collectionView?.deselectRowAtIndexPath(indexPath, animated: false)
                 
@@ -507,9 +508,9 @@ class DataViewController: UIViewController {
         //backButtonHorizontalSpacer.constant = -70.0
     }
 
-    func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    func viewTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        let tappedView = tapGestureRecognizer.view
         
         // Your action
         navigationController?.popViewController(animated: true)

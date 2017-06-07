@@ -29,6 +29,7 @@
 		07C59E8E1E24AB6300CC24CB /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 07C59E8D1E24AB6300CC24CB /* events.json */; };
 		07E7AC7F1E276C83006ECA18 /* MicCheckUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7AC7E1E276C83006ECA18 /* MicCheckUITests.swift */; };
 		07E7AC8D1E276C96006ECA18 /* MicCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7AC8C1E276C96006ECA18 /* MicCheckTests.swift */; };
+		07FD2B671ED8000F0017F362 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 07FD2B661ED8000F0017F362 /* FontAwesome.otf */; };
 		8638F74A07331D398563A7EE /* Pods_MicCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 502BE0EB88CA0CD417A7AF0E /* Pods_MicCheck.framework */; };
 		9293CD5CE6EA9E5835FFE51F /* Pods_MicCheckTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D4F8A0B4AB559B3ACB640AC /* Pods_MicCheckTests.framework */; };
 		DC6D7EE7EF5DCB1489AB5C28 /* Pods_MicCheckUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3D89F24F792C7D22BC2610 /* Pods_MicCheckUITests.framework */; };
@@ -80,6 +81,7 @@
 		07E7AC8A1E276C96006ECA18 /* MicCheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicCheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E7AC8C1E276C96006ECA18 /* MicCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicCheckTests.swift; sourceTree = "<group>"; };
 		07E7AC8E1E276C96006ECA18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07FD2B661ED8000F0017F362 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
 		19540C1178879B495440962D /* Pods-MicCheck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicCheck.release.xcconfig"; path = "Pods/Target Support Files/Pods-MicCheck/Pods-MicCheck.release.xcconfig"; sourceTree = "<group>"; };
 		261088C4E97BD33433EB3DB1 /* Pods-MicCheck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicCheck.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MicCheck/Pods-MicCheck.debug.xcconfig"; sourceTree = "<group>"; };
 		502BE0EB88CA0CD417A7AF0E /* Pods_MicCheck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicCheck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,6 +185,7 @@
 				0721B9161E0A599D004BEB19 /* Assets.xcassets */,
 				0721B91B1E0A599D004BEB19 /* Info.plist */,
 				0721B90B1E0A599D004BEB19 /* AppDelegate.swift */,
+				07FD2B661ED8000F0017F362 /* FontAwesome.otf */,
 				072640C91E8CC84C004E76DF /* US101.TTF */,
 			);
 			name = "Bundle Files";
@@ -379,6 +382,7 @@
 			files = (
 				07C59E8E1E24AB6300CC24CB /* events.json in Resources */,
 				0721B91A1E0A599D004BEB19 /* LaunchScreen.storyboard in Resources */,
+				07FD2B671ED8000F0017F362 /* FontAwesome.otf in Resources */,
 				0721B9171E0A599D004BEB19 /* Assets.xcassets in Resources */,
 				0721B9151E0A599D004BEB19 /* Main.storyboard in Resources */,
 				072640CA1E8CC84C004E76DF /* US101.TTF in Resources */,

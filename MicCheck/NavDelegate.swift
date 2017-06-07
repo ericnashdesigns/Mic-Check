@@ -127,7 +127,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 // Didn't work.  Going to try to expliclty set all the paddings to 0
                 // Didn't work. Going to try and just manually add 8.0 to the transitionImageView height
                 // 8.0 was the closest I could get it to work
-                // may be moot now that I'm using full screen.  
+                // may be moot now that I'm using full screen.
                 currentDataViewController.imgViewArtist.layoutIfNeeded()
                 currentDataViewController.stackViewVideos.layoutIfNeeded()
                 currentDataViewController.viewVideoPlayerLeft.layoutIfNeeded()
