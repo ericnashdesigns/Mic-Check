@@ -10,6 +10,7 @@ import UIKit
 import youtube_ios_player_helper
 import UIImageColors
 import KenBurns
+import Material
 
 class DataViewController: UIViewController {
 
@@ -37,6 +38,7 @@ class DataViewController: UIViewController {
     @IBOutlet var viewVideoPlayerLeft: YTPlayerView!
     @IBOutlet var viewVideoPlayerCenter: YTPlayerView!
     @IBOutlet var viewVideoPlayerRight: YTPlayerView!
+    @IBOutlet var btnGetTickets: FABButton!
     
     // viewDidLoad is things you have to do once.  it occures before viewWillAppear
     override func viewDidLoad() {
@@ -139,6 +141,10 @@ class DataViewController: UIViewController {
                 // To update anything on the main thread, just jump back on like so.
                 DispatchQueue.main.async {
 
+                    // tint the button
+                    self.btnGetTickets.backgroundColor = colorsFromArtistImage.primaryColor
+                    self.btnGetTickets.pulseColor = backgroundColorDarker
+                    
                     // tint the text controls
                     //self.viewContainer.backgroundColor = colorsFromArtistImage.backgroundColor
                     //if (self.navigationController != nil) {

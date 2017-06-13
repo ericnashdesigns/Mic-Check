@@ -42,7 +42,6 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>US101.TTF</string>
-		<string>FontAwesome.otf</string>
 	</array>
 	<key>UIStatusBarHidden</key>
 	<true/>

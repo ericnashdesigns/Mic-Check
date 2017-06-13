@@ -244,13 +244,34 @@
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4e-cU-9Tj" userLabel="Btn GetTickets" customClass="FABButton" customModule="Material">
+                                                <rect key="frame" x="313" y="36" width="54" height="54"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="54" id="dh2-La-3DL"/>
+                                                    <constraint firstAttribute="width" constant="54" id="mb3-2u-NIg"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <inset key="imageEdgeInsets" minX="12" minY="12" maxX="12" maxY="12"/>
+                                                <state key="normal">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="image" value="white-ticket-512"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="e4e-cU-9Tj" firstAttribute="top" secondItem="cgC-uX-WYe" secondAttribute="top" constant="36" id="Hj8-T6-nN1"/>
                                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="caz-Gf-Mub" secondAttribute="leading" id="OXX-aD-1do"/>
                                             <constraint firstItem="caz-Gf-Mub" firstAttribute="width" secondItem="cF2-Le-7mQ" secondAttribute="width" id="OXe-r6-8ir"/>
                                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="bottom" secondItem="caz-Gf-Mub" secondAttribute="top" constant="20" id="asF-BT-eTp"/>
                                             <constraint firstItem="cF2-Le-7mQ" firstAttribute="leading" secondItem="cgC-uX-WYe" secondAttribute="leading" id="fq5-xo-Ii4"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cF2-Le-7mQ" secondAttribute="trailing" constant="16" id="jjy-wx-yBX"/>
+                                            <constraint firstAttribute="trailing" secondItem="e4e-cU-9Tj" secondAttribute="trailing" constant="8" id="v21-1U-YAB"/>
                                             <constraint firstAttribute="bottom" secondItem="caz-Gf-Mub" secondAttribute="bottom" id="yGp-km-Qtn"/>
                                         </constraints>
                                     </view>
@@ -349,6 +370,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnGetTickets" destination="e4e-cU-9Tj" id="Byu-9Z-Tok"/>
                         <outlet property="imgViewArtist" destination="qb7-ke-a1S" id="ARk-f4-3Xc"/>
                         <outlet property="labelArtist" destination="cF2-Le-7mQ" id="GCE-Jd-YEK"/>
                         <outlet property="labelDescription" destination="gDj-M6-bfC" id="BKY-ap-k3I"/>
@@ -371,5 +393,6 @@
     <resources>
         <image name="empty.stage.header.faded" width="559" height="223"/>
         <image name="miccheck.icon.clipped" width="72" height="72"/>
+        <image name="white-ticket-512" width="512" height="512"/>
     </resources>
 </document>
