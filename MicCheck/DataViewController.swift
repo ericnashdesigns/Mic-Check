@@ -60,7 +60,7 @@ class DataViewController: UIViewController {
     // viewWillAppear gets called every time the view appears.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         print("  DataViewController.swift – viewWillAppear() called for \(dataArtist)")
 
         let backgroundColorDarker = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
@@ -317,44 +317,6 @@ class DataViewController: UIViewController {
             } // end if
 
         } // end getVideoForArtist() completion handler
-
-//        self.labelArtist.alpha = 0
-//        self.labelVenue.alpha = 0
-//        self.labelPrice.alpha = 0
-        
-//        let labelAnimationOffsetBegin: CGFloat = 100
-//        if self.swipeDirection == "up" {
-
-            //print(" DataViewController.swift – swipe direction UP")
-            
-//            UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
-//                
-//                self.labelArtist.center.y += labelAnimationOffsetBegin
-//                self.labelArtist.alpha = 1
-//                self.labelVenue.center.y += labelAnimationOffsetBegin
-//                self.labelVenue.alpha = 1
-//                self.labelPrice.center.y += labelAnimationOffsetBegin
-//                self.labelPrice.alpha = 1
-                
-//            }, completion: nil)
-            
-//        } else if self.swipeDirection == "down" {
-
-            //print(" DataViewController.swift – swipe direction DOWN")
-            
-//            UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
-
-//                self.labelArtist.center.y -= labelAnimationOffsetBegin
-//                self.labelArtist.alpha = 1
-//                self.labelVenue.center.y -= labelAnimationOffsetBegin
-//                self.labelVenue.alpha = 1
-//                self.labelPrice.center.y -= labelAnimationOffsetBegin
-//                self.labelPrice.alpha = 1
-                
-//            }, completion: nil)
-        
-//        }
-
         
     } // end viewWillAppear()
     
@@ -381,6 +343,7 @@ class DataViewController: UIViewController {
         hideElementsForPushTransition()
         
         // offset the controls initially before we move them later, they won't be offset
+        self.btnGetTickets.frame.origin.y += controlsDeltaY
         self.labelArtist.frame.origin.y += controlsDeltaY
         self.labelVenueAndPrice.frame.origin.y += controlsDeltaY
         self.labelDescription.frame.origin.y += controlsDeltaY
@@ -394,6 +357,7 @@ class DataViewController: UIViewController {
             // Not sure yet if I want to do this because it means the image will at first appear with nothing
             // maskLayer.shadowOffset = CGSize(width: 0, height: -shadowSize)
 
+            self.btnGetTickets.alpha = 1.0
             self.labelArtist.alpha = 1.0
             self.labelVenueAndPrice.alpha = 1.0
             self.labelDescription.alpha = 1.0
@@ -401,6 +365,7 @@ class DataViewController: UIViewController {
             self.viewVideoPlayerCenter.alpha = 1.0
             self.viewVideoPlayerRight.alpha = 1.0
             
+            self.btnGetTickets.frame.origin.y -= controlsDeltaY
             self.labelArtist.frame.origin.y -= controlsDeltaY
             self.labelVenueAndPrice.frame.origin.y -= controlsDeltaY
             self.labelDescription.frame.origin.y -= controlsDeltaY
@@ -501,6 +466,7 @@ class DataViewController: UIViewController {
     func hideElementsForPushTransition() {
         
         // hide the elements on the DataViewController
+        self.btnGetTickets.alpha = 0.0
         self.labelArtist.alpha = 0.0
         self.labelVenueAndPrice.alpha = 0.0
         self.labelDescription.alpha = 0.0
