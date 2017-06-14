@@ -45,6 +45,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         dataViewController.dataImgArtist = self.lineUp.events[index].imgArtist
         dataViewController.dataVenue = self.lineUp.events[index].venue!
         dataViewController.dataPrice = self.lineUp.events[index].price!
+        dataViewController.dataURLEvent = self.lineUp.events[index].urlEvent
         
         dataViewController.dataColorsImgArtist = self.lineUp.events[index].colorsFromArtistImage
         dataViewController.dataDescriptionArtist = self.lineUp.events[index].descriptionArtist!

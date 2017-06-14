@@ -23,6 +23,7 @@ class DataViewController: UIViewController {
     var dataIntEventIndex: Int = 0
     var dataStrVIDs: Array<String> = []
     var dataColorsImgArtist: UIImageColors?
+    var dataURLEvent: String = ""
     
     @IBOutlet var viewContainer: UIView!
     @IBOutlet var viewContainerStackView: UIView!
@@ -140,10 +141,6 @@ class DataViewController: UIViewController {
 
                 // To update anything on the main thread, just jump back on like so.
                 DispatchQueue.main.async {
-
-                    // tint the button
-                    self.btnGetTickets.backgroundColor = colorsFromArtistImage.primaryColor
-                    self.btnGetTickets.pulseColor = backgroundColorDarker
                     
                     // tint the text controls
                     //self.viewContainer.backgroundColor = colorsFromArtistImage.backgroundColor
@@ -188,6 +185,10 @@ class DataViewController: UIViewController {
                         }
                         
                     }
+
+                    // tint the button
+                    self.btnGetTickets.backgroundColor = backgroundColorDark
+                    self.btnGetTickets.pulseColor = backgroundColorDarker
                     
                     self.labelArtist.backgroundColor = backgroundColorDark
                     self.labelVenueAndPrice.backgroundColor = backgroundColorDark
@@ -524,4 +525,11 @@ class DataViewController: UIViewController {
     
     }
 
+    @IBAction func gotoEventLink(sender: AnyObject) {
+        if let url = URL(string: dataURLEvent) {
+            UIApplication.shared.open(url, options: [:])
+        }
+        
+    }
+    
 }
