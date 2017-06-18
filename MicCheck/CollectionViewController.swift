@@ -21,6 +21,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     var dateToday: String = ""
     
     var viewBackgroundGradient: UIView!
+    var viewRadialGradientBackground: RadialGradientView!
+    
     var imageStageView: UIImageView!
     var cachedImageViewSize: CGRect!
     
@@ -87,23 +89,29 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             // get the colors for the first image since we'll need them for the main UI thread
             self.colorsFromFirstArtistImage = self.lineUp?.events[0].getColorsForArtistImage()
 
+            
+            
+            
             print(" CollectionViewController.swift – 4 of 5: Global Queue - Finish getColorsForArtistImage(), Starting Main Thread")
 
             // create a blurred background image of an empty stage using artist colors
-            let imageStage = UIImage(named: "empty.stage")
-            let blurRadius = 5
-            let imageToBlur = CIImage(image: imageStage!)
-            let blurfilter = CIFilter(name: "CIGaussianBlur")
-            blurfilter?.setValue(imageToBlur, forKey: "inputImage")
-            blurfilter?.setValue(blurRadius, forKey: "inputRadius")
-            let resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
-            let blurredImage = UIImage(ciImage: resultImage)
+//            let imageStage = UIImage(named: "empty.stage")
+//            let blurRadius = 5
+//            let imageToBlur = CIImage(image: imageStage!)
+//            let blurfilter = CIFilter(name: "CIGaussianBlur")
+//            blurfilter?.setValue(imageToBlur, forKey: "inputImage")
+//            blurfilter?.setValue(blurRadius, forKey: "inputRadius")
+//            let resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
+//            let blurredImage = UIImage(ciImage: resultImage)
+
+            
             
             
             // the .multiply blendMode is giving me some trouble when the background color is really dark.
             // essentially, it blocks the underlying gradient from appearing.
             // maybe I could check to see if background color is dark and if it is, just do a .hue blendMode instead
-            let imgBlended = UIImage.blend(image: blurredImage, color: (self.colorsFromFirstArtistImage?.backgroundColor)!, mode: .multiply)
+            
+            //            let imgBlended = UIImage.blend(image: blurredImage, color: (self.colorsFromFirstArtistImage?.backgroundColor)!, mode: .multiply)
             
             DispatchQueue.main.async {
 
@@ -120,23 +128,44 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 self.collectionView?.sendSubview(toBack: self.kenBurnsView)
                 self.kenBurnsView.alpha = 0
 
+                // create a radial gradient background just behind the CollectionViewHeader and the first collectionViewCell
+                
+                // attempting to create a new radial background programmatically
+                let backgroundColorDarker = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
+
+                
+                let newColors: [UIColor] = [self.colorsFromFirstArtistImage!.primaryColor, backgroundColorDarker]
+
+                self.viewRadialGradientBackground = RadialGradientView(frame: CGRect(x: 0, y: -(self.collectionView?.bounds.height)! / 2.0,
+                                                                   width: (self.collectionView?.bounds.width)!, height: (self.collectionView?.bounds.height)!))
+                self.viewRadialGradientBackground.colors = newColors
+                
+                
+//                self.viewRadialGradientBackground.frame.size = self.view.frame.size
+//                self.viewRadialGradientBackground.frame.origin = CGPoint(x: 0.0, y: 0.0)
+//                self.viewRadialGradientBackground.colors = newColors
+//                self.view.layer.insertSublayer(self.viewRadialGradientBackground, at: 0)
+
+                
+
+                
                 // create a gradient background just behind the CollectionViewHeader and the first collectionViewCell
                 self.viewBackgroundGradient = UIView(frame: CGRect(x: 0, y: -(self.collectionView?.bounds.height)! / 2.0,
                                                    width: (self.collectionView?.bounds.width)!, height: (self.collectionView?.bounds.height)!))
 
-                let topColor = self.colorsFromFirstArtistImage?.primaryColor
-                let bottomColor = self.colorsFromFirstArtistImage?.secondaryColor
-                let gradientColors: [CGColor] = [topColor!.cgColor, bottomColor!.cgColor]
-                let gradientLocations: [Float] = [0.0, 1.0]
-                let gradientLayer: CAGradientLayer = CAGradientLayer()
-                gradientLayer.colors = gradientColors
-                gradientLayer.locations = gradientLocations as [NSNumber]?
-                gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-                gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-                gradientLayer.frame.size = self.viewBackgroundGradient.frame.size
-                gradientLayer.frame.origin = CGPoint(x: 0.0, y: 0.0)
-                self.viewBackgroundGradient.backgroundColor = UIColor.clear
-                self.viewBackgroundGradient.layer.insertSublayer(gradientLayer, at: 0)
+//                let topColor = self.colorsFromFirstArtistImage?.primaryColor
+//                let bottomColor = self.colorsFromFirstArtistImage?.secondaryColor
+//                let gradientColors: [CGColor] = [topColor!.cgColor, bottomColor!.cgColor]
+//                let gradientLocations: [Float] = [0.0, 1.0]
+//                let gradientLayer: CAGradientLayer = CAGradientLayer()
+//                gradientLayer.colors = gradientColors
+//                gradientLayer.locations = gradientLocations as [NSNumber]?
+//                gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+//                gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+//                gradientLayer.frame.size = self.viewBackgroundGradient.frame.size
+//                gradientLayer.frame.origin = CGPoint(x: 0.0, y: 0.0)
+//                self.viewBackgroundGradient.backgroundColor = UIColor.clear
+//                self.viewBackgroundGradient.layer.insertSublayer(gradientLayer, at: 0)
                 
                 // add a bottom border to the background, using the lighter of the two colorsFromFirstArtistImage
                 var borderColor = self.colorsFromFirstArtistImage?.primaryColor!
@@ -146,25 +175,29 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 self.viewBackgroundGradient.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 1.0)
                 
 
-                self.imageStageView = UIImageView(image: imgBlended!)
-                self.imageStageView.clipsToBounds = true
-                self.imageStageView.contentMode = .center
-                self.imageStageView.frame = CGRect(x: 0, y: self.viewBackgroundGradient.frame.size.height / 2.0, width: self.viewBackgroundGradient.frame.size.width, height: self.viewBackgroundGradient.frame.size.height / 2.0)
-                self.cachedImageViewSize = self.imageStageView.frame;
-                
-                
-                // use a more opaque background image if the gradient colors are not dark
-                self.imageStageView.alpha = 0.35
-                if (!(self.colorsFromFirstArtistImage?.primaryColor?.isDark())! && !(self.colorsFromFirstArtistImage?.secondaryColor?.isDark())!) {
-                    print(" CollectionViewController.swift – Light background colors.  Using more opaque imageStageView")
-                    self.imageStageView.alpha = 0.80
-                }
+//                self.imageStageView = UIImageView(image: imgBlended!)
+//                self.imageStageView.clipsToBounds = true
+//                self.imageStageView.contentMode = .center
+//                self.imageStageView.frame = CGRect(x: 0, y: self.viewBackgroundGradient.frame.size.height / 2.0, width: self.viewBackgroundGradient.frame.size.width, height: self.viewBackgroundGradient.frame.size.height / 2.0)
+//                self.cachedImageViewSize = self.imageStageView.frame;
+//                
+//                
+//                // use a more opaque background image if the gradient colors are not dark
+//                self.imageStageView.alpha = 0.35
+//                if (!(self.colorsFromFirstArtistImage?.primaryColor?.isDark())! && !(self.colorsFromFirstArtistImage?.secondaryColor?.isDark())!) {
+//                    print(" CollectionViewController.swift – Light background colors.  Using more opaque imageStageView")
+//                    self.imageStageView.alpha = 0.80
+//                }
                 
                 
                 // send our newly constructed background to the back of the stack
-                self.viewBackgroundGradient.addSubview(self.imageStageView)
-                self.collectionView?.addSubview(self.viewBackgroundGradient)
-                self.collectionView?.sendSubview(toBack: self.viewBackgroundGradient)
+//                self.viewBackgroundGradient.addSubview(self.imageStageView)
+//                self.collectionView?.addSubview(self.viewBackgroundGradient)
+//                self.collectionView?.sendSubview(toBack: self.viewBackgroundGradient)
+  
+                self.collectionView?.addSubview(self.viewRadialGradientBackground)
+                self.collectionView?.sendSubview(toBack: self.viewRadialGradientBackground)
+
                 
                 // chug through the rest of the artist images.  runs in a separate background thread in global queue
                 self.lineUp?.getColorsForArtistImages()
@@ -293,10 +326,11 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 // I'm not sure it will work well in all cases though because it's sometimes too dark
                 // borderColor = self.colorsFromFirstArtistImage!.primaryColor!
                 // headerView.imgViewAppIcon.image = headerView.imgViewAppIcon.image!.maskWithColor(color: borderColor)
-                
+
                 
                 // Trying to decide if I want a gradient on the App icon
                 // var newGradientLayerAdded: CALayer?  // reference gradient later when changing size on rotations
+                
                 // let topColor = coloredBackground.secondaryColor
                 // let bottomColor = coloredBackground.primaryColor
                 // let gradientColors: [CGColor] = [topColor!.cgColor, bottomColor!.cgColor]
@@ -466,15 +500,15 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         
         // EXPERIMENT: this doesn't quite work right.  I really want the image to expand more when you pull down, but for now it's better than nothing...
         
-        let y: CGFloat = -scrollView.contentOffset.y
-        if y > 0 {
-
-            let muliplier = y * 5
-            
-            self.imageStageView.frame = CGRect(x: 0, y: scrollView.contentOffset.y + self.view.frame.height / 2.0, width: self.cachedImageViewSize.size.width + muliplier, height: self.cachedImageViewSize.size.height + y)
-        
-            self.imageStageView.center = CGPoint(x: self.view.center.x, y: self.imageStageView.center.y)
-        }
+//        let y: CGFloat = -scrollView.contentOffset.y
+//        if y > 0 {
+//
+//            let muliplier = y * 5
+//            
+//            self.imageStageView.frame = CGRect(x: 0, y: scrollView.contentOffset.y + self.view.frame.height / 2.0, width: self.cachedImageViewSize.size.width + muliplier, height: self.cachedImageViewSize.size.height + y)
+//        
+//            self.imageStageView.center = CGPoint(x: self.view.center.x, y: self.imageStageView.center.y)
+//        }
         
     }
     

@@ -29,6 +29,7 @@
 		07C59E8E1E24AB6300CC24CB /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = 07C59E8D1E24AB6300CC24CB /* events.json */; };
 		07E7AC7F1E276C83006ECA18 /* MicCheckUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7AC7E1E276C83006ECA18 /* MicCheckUITests.swift */; };
 		07E7AC8D1E276C96006ECA18 /* MicCheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7AC8C1E276C96006ECA18 /* MicCheckTests.swift */; };
+		07FEBB1E1EF6EE07008AB2A6 /* RadialGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FEBB1D1EF6EE07008AB2A6 /* RadialGradientView.swift */; };
 		8638F74A07331D398563A7EE /* Pods_MicCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 502BE0EB88CA0CD417A7AF0E /* Pods_MicCheck.framework */; };
 		9293CD5CE6EA9E5835FFE51F /* Pods_MicCheckTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D4F8A0B4AB559B3ACB640AC /* Pods_MicCheckTests.framework */; };
 		DC6D7EE7EF5DCB1489AB5C28 /* Pods_MicCheckUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3D89F24F792C7D22BC2610 /* Pods_MicCheckUITests.framework */; };
@@ -80,6 +81,7 @@
 		07E7AC8A1E276C96006ECA18 /* MicCheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicCheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E7AC8C1E276C96006ECA18 /* MicCheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicCheckTests.swift; sourceTree = "<group>"; };
 		07E7AC8E1E276C96006ECA18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07FEBB1D1EF6EE07008AB2A6 /* RadialGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadialGradientView.swift; sourceTree = "<group>"; };
 		19540C1178879B495440962D /* Pods-MicCheck.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicCheck.release.xcconfig"; path = "Pods/Target Support Files/Pods-MicCheck/Pods-MicCheck.release.xcconfig"; sourceTree = "<group>"; };
 		261088C4E97BD33433EB3DB1 /* Pods-MicCheck.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicCheck.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MicCheck/Pods-MicCheck.debug.xcconfig"; sourceTree = "<group>"; };
 		502BE0EB88CA0CD417A7AF0E /* Pods_MicCheck.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicCheck.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +162,7 @@
 				0721B9131E0A599D004BEB19 /* Main.storyboard */,
 				0721B9181E0A599D004BEB19 /* LaunchScreen.storyboard */,
 				074B93C81E4C3CE90042AFC0 /* JBKenBurnsView.swift */,
+				07FEBB1D1EF6EE07008AB2A6 /* RadialGradientView.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				075F17CE1E3F12BF0065CA26 /* CollectionViewCell.swift in Sources */,
 				075F17D01E3F16B10065CA26 /* CollectionViewController.swift in Sources */,
 				0721B9571E0A6BF5004BEB19 /* EventLineup.swift in Sources */,
+				07FEBB1E1EF6EE07008AB2A6 /* RadialGradientView.swift in Sources */,
 				072640D11E8CCAF5004E76DF /* UIColor.swift in Sources */,
 				0721B90C1E0A599D004BEB19 /* AppDelegate.swift in Sources */,
 				0712CF041E601776005E78C8 /* ViewBorder.swift in Sources */,
