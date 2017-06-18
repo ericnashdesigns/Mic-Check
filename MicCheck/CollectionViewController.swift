@@ -172,7 +172,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 if (borderColor?.isDark())! {
                     borderColor = self.colorsFromFirstArtistImage?.backgroundColor!
                 }
-                self.viewBackgroundGradient.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 1.0)
+//                self.viewBackgroundGradient.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 1.0)
                 
 
 //                self.imageStageView = UIImageView(image: imgBlended!)
@@ -317,10 +317,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 //                    borderColor = colorsFromFirstArtistImage!.detailColor!
 //                }
                 
-                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
-                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
-                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
-                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
+//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
+//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
+//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
+//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
                 
                 // EXPERIMENT: Set the app icon to color tint.
                 // I'm not sure it will work well in all cases though because it's sometimes too dark
@@ -348,7 +348,30 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 
                 //headerView.viewColoredBackground.backgroundColor = borderColor.withAlphaComponent(0.15)
                 //headerView.viewColoredBackground.backgroundColor = self.colorsFromFirstArtistImage?.detailColor.withAlphaComponent(0.15)
-                headerView.viewColoredBackground.backgroundColor = backgroundColorDarker
+
+                // work through the image colors until I find something dark
+                var imageColorDark: UIColor
+                if (self.colorsFromFirstArtistImage?.primaryColor.isDark())! {
+                    imageColorDark = (self.colorsFromFirstArtistImage?.primaryColor)!
+                } else {
+                    if (self.colorsFromFirstArtistImage?.secondaryColor.isDark())! {
+                        imageColorDark = (self.colorsFromFirstArtistImage?.secondaryColor)!
+                    } else {
+                        if (self.colorsFromFirstArtistImage?.detailColor.isDark())! {
+                            imageColorDark = (self.colorsFromFirstArtistImage?.detailColor)!
+                        } else {
+                            if (self.colorsFromFirstArtistImage?.backgroundColor.isDark())! {
+                                imageColorDark = (self.colorsFromFirstArtistImage?.backgroundColor)!
+                            } else {
+                                imageColorDark = backgroundColorDarker
+                                
+                            }
+                        }
+                    }
+                }
+                
+                headerView.viewColoredBackground.backgroundColor = imageColorDark
+                headerView.labelTodaysDate.backgroundColor = imageColorDark
                 
                 // update the venues.  I don't think I should do this every time the header renders, so maybe I'll move it up later.
                 headerView.labelVenueList.text = ""

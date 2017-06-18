@@ -145,8 +145,8 @@
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bL1-RR-YaS" userLabel="Label Artist and Venue" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
-                                    <rect key="frame" x="340.5" y="8" width="34.5" height="19"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bL1-RR-YaS" userLabel="labelTodaysDate" customClass="InsetLabel" customModule="MicCheck" customModuleProvider="target">
+                                    <rect key="frame" x="8" y="66" width="66" height="19"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="U.S.101" family="U.S. 101" pointSize="17"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -155,10 +155,11 @@
                             </subviews>
                             <constraints>
                                 <constraint firstItem="tTz-qU-Hai" firstAttribute="width" secondItem="XNP-Ju-KqO" secondAttribute="width" multiplier="0.175" id="7LQ-6v-G2W"/>
-                                <constraint firstItem="bL1-RR-YaS" firstAttribute="top" secondItem="XNP-Ju-KqO" secondAttribute="top" constant="8" id="UxB-lw-ZuN"/>
+                                <constraint firstItem="tTz-qU-Hai" firstAttribute="bottom" secondItem="bL1-RR-YaS" secondAttribute="top" id="Mvh-r6-3G7"/>
                                 <constraint firstItem="tTz-qU-Hai" firstAttribute="leading" secondItem="XNP-Ju-KqO" secondAttribute="leading" constant="8" id="dQf-oL-kmS"/>
                                 <constraint firstItem="tTz-qU-Hai" firstAttribute="trailing" secondItem="wvx-re-DEf" secondAttribute="leading" multiplier="0.65" id="seB-2V-Clp"/>
-                                <constraint firstAttribute="trailing" secondItem="bL1-RR-YaS" secondAttribute="trailing" id="tn6-9r-Yfh"/>
+                                <constraint firstItem="bL1-RR-YaS" firstAttribute="leading" secondItem="tTz-qU-Hai" secondAttribute="leading" id="umX-qI-7zU"/>
+                                <constraint firstItem="bL1-RR-YaS" firstAttribute="width" secondItem="tTz-qU-Hai" secondAttribute="width" id="wUC-FU-5UX"/>
                                 <constraint firstItem="tTz-qU-Hai" firstAttribute="top" secondItem="XNP-Ju-KqO" secondAttribute="top" id="xJl-RU-eE0"/>
                                 <constraint firstItem="wvx-re-DEf" firstAttribute="centerY" secondItem="XNP-Ju-KqO" secondAttribute="centerY" id="yfE-Dp-sZR"/>
                             </constraints>
