@@ -500,6 +500,15 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         cell.imgViewArtist.layer.removeAllBorders()
         cell.imgViewArtist.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
 
+
+        let gradient = CAGradientLayer()
+        gradient.frame = CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height / 5)
+        
+        let startColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.10)
+        let endColor = UIColor.clear
+        
+        gradient.colors = [startColor.cgColor, endColor.cgColor]
+        cell.imgViewArtist.layer.insertSublayer(gradient, at: 0)
         
 //        let tempBorderColor = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
 //        cell.labelArtist.layer.addBorder(edge: UIRectEdge.left, color: tempBorderColor, thickness: 1.0)
