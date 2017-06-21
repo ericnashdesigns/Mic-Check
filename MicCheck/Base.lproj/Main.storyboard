@@ -22,7 +22,7 @@
                 <navigationController navigationBarHidden="YES" id="bni-mu-vrF" sceneMemberID="viewController">
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hv3-bY-y7a">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hv3-bY-y7a">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -180,6 +180,8 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="VFD-QE-DXb"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="kenBurnsView" destination="rgu-wK-VhN" id="oNn-co-dYs"/>
                     </connections>

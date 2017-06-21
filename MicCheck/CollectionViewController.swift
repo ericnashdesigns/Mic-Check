@@ -306,7 +306,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 // I wrote this removeAllBorders function but it may be too crappy
                 headerView.viewColoredBackground.layer.removeAllBorders()
                 
-                var borderColor = UIColor.white.withAlphaComponent(0.10)
+//                var borderColor = UIColor.white.withAlphaComponent(0.10)
 //                if borderColor.isDark() {
 //                    borderColor = colorsFromFirstArtistImage!.backgroundColor!
 //                }

@@ -333,9 +333,7 @@ class DataViewController: UIViewController {
     } // end viewWillAppear()
     
     func animateControlsIn(controlsDeltaY: CGFloat) {
-        
-        let shadowSize: CGFloat = 40.0
-        
+                
         // debugging
         // print("\r\n \r\n \(currentDataViewController.dataArtist)")
         // print(" imgViewArtist.frame.width is : \(currentDataViewController.imgViewArtist.frame.width)")
@@ -495,8 +493,6 @@ class DataViewController: UIViewController {
 
     func viewTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-        let tappedView = tapGestureRecognizer.view
-        
         // Your action
         navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
