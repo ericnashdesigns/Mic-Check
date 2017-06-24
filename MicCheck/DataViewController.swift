@@ -67,23 +67,27 @@ class DataViewController: UIViewController {
         self.view.backgroundColor = backgroundColorDarker
         
         self.labelArtist.text = dataArtist
-
-
         self.imgViewArtist.image =  dataImgArtist
         
-        // setup the upper gradient
+        // add topShadow, garbage collecting any gradient sublayers inserted at any earlier point
+        // the .forEach is better here because it works with the sublayers optional value
+        self.imgViewArtist.layer.sublayers?.forEach {
+            if $0.name == "topShadow" {
+                $0.removeFromSuperlayer()
+            }
+        }
         let gradient = CAGradientLayer()
+        gradient.name = "topShadow"
         gradient.frame = CGRect(x: 0, y: 0, width: self.imgViewArtist.frame.width, height: self.imgViewArtist.frame.height / 5)
-        
         let startColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.10)
         let endColor = UIColor.clear
-        
         gradient.colors = [startColor.cgColor, endColor.cgColor]
         self.imgViewArtist.layer.insertSublayer(gradient, at: 0)
         
-        // setup the lower mask for the artist image intially offset so we can move it in later
+        // add lower mask for the artist image, intially offset so we can move it in later
         let shadowSize: CGFloat = 60.0
         let maskLayer = CAGradientLayer()
+        maskLayer.name = "bottomShadow"
         maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: self.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: self.imgViewArtist.frame.height)
         maskLayer.shadowRadius = shadowSize
         maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)

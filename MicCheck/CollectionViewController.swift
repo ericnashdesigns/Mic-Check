@@ -13,36 +13,30 @@ private let reuseIdentifier = "IDcell"
 
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    // data variables
     var lineUp: EventLineup?
     var eventsLoaded: Bool = false // keeps track of when everything is loaded
-    let cellSpacingsInStoryboard: CGFloat = 8 * 2 // spacing * 2 edges
-    var colorsFromFirstArtistImage: UIImageColors? = nil  // colors from the first artist image
-    let backgroundColorDarker = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
-    var dateToday: String = ""
-    
-    var viewBackgroundGradient: UIView!
+    var dataDateToday: String = ""
+
+    // UI variables
+    var colorsFromFirstArtistImage: UIImageColors? = nil  // use these colors for the hero area
+    var viewHeroBackground: UIView!
     var viewRadialGradientBackground: RadialGradientView!
-    
-    var imageStageView: UIImageView!
-    var cachedImageViewSize: CGRect!
-    
-    var gradientLayerAdded: CALayer?  // reference gradient later when changing size on rotations
-    
+    let backgroundColorDark = UIColor(red: (62/255.0), green: (70/255.0), blue: (76/255.0), alpha: 1)
+    let backgroundColorDarker = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
+    let cellSpacingsInStoryboard: CGFloat = 8 * 2 // spacing * 2 edges
     @IBOutlet var kenBurnsView: JBKenBurnsView!
+    @IBOutlet var viewAppIcon: UIView!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        // create the model, starting with placeholder data
+        print(" CollectionViewController.swift – 1 of 5: Main Queue - Starting EventLineup() Instance")
+        self.lineUp = EventLineup.sharedInstance
 
-        // Do any additional setup after loading the view.
-
-        // if I don't use this, the collectionview will be too low on the screen.
-        self.automaticallyAdjustsScrollViewInsets = false
-
-        // create the array of ken burns images to iterate through
+        // create array of ken burns images to iterate through
         let images = [
             UIImage(named: "empty.stage")!,
             UIImage(named: "guitarist.mountain.oasis")!,
@@ -51,30 +45,21 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             UIImage(named: "jazz.horns")!
         ]
         self.kenBurnsView.animateWithImages(images, imageAnimationDuration: 5, initialDelay: 0, shouldLoop: true, randomFirstImage: true)
+        self.kenBurnsView.bringSubview(toFront: self.viewAppIcon)
         
-        // get todays date
+        // get and format todays date
         let currentDate = NSDate()
-        
         let dayFormatter = DateFormatter()
         dayFormatter.dateFormat = "E"
         let convertedDay = dayFormatter.string(from: currentDate as Date).uppercased()
-        
-
         let monthFormatter = DateFormatter()
         monthFormatter.dateFormat = "M"
         let convertedMonth = monthFormatter.string(from: currentDate as Date).uppercased()
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d"
         let convertedDate = dateFormatter.string(from: currentDate as Date).uppercased()
-
-        dateToday = convertedDay + " " + convertedMonth + "/" + convertedDate
-
-        print(" CollectionViewController.swift – 1 of 5: Main Queue - Starting EventLineup() Instance")
+        dataDateToday = convertedDay + " " + convertedMonth + "/" + convertedDate
         
-        // create the model, starting with placeholder data
-        self.lineUp = EventLineup.sharedInstance
-
         // Add background color to the collectionView
         self.collectionView?.backgroundColor = backgroundColorDarker
 
@@ -88,30 +73,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 
             // get the colors for the first image since we'll need them for the main UI thread
             self.colorsFromFirstArtistImage = self.lineUp?.events[0].getColorsForArtistImage()
-
             
-            
-            
-            print(" CollectionViewController.swift – 4 of 5: Global Queue - Finish getColorsForArtistImage(), Starting Main Thread")
-
-            // create a blurred background image of an empty stage using artist colors
-//            let imageStage = UIImage(named: "empty.stage")
-//            let blurRadius = 5
-//            let imageToBlur = CIImage(image: imageStage!)
-//            let blurfilter = CIFilter(name: "CIGaussianBlur")
-//            blurfilter?.setValue(imageToBlur, forKey: "inputImage")
-//            blurfilter?.setValue(blurRadius, forKey: "inputRadius")
-//            let resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
-//            let blurredImage = UIImage(ciImage: resultImage)
-
-            
-            
-            
-            // the .multiply blendMode is giving me some trouble when the background color is really dark.
-            // essentially, it blocks the underlying gradient from appearing.
-            // maybe I could check to see if background color is dark and if it is, just do a .hue blendMode instead
-            
-            //            let imgBlended = UIImage.blend(image: blurredImage, color: (self.colorsFromFirstArtistImage?.backgroundColor)!, mode: .multiply)
+            print(" CollectionViewController.swift – 4 of 5: Global Queue - Finish getColorsForArtistImage(), Resuming Main Thread")
             
             DispatchQueue.main.async {
 
@@ -123,93 +86,33 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 // show only events filtered for today
                 self.collectionView?.reloadData()
 
-                // move the ken burns animations to the back
+                // stop and fade the ken burns animations
                 self.kenBurnsView.stopAnimation()
-                self.collectionView?.sendSubview(toBack: self.kenBurnsView)
-                self.kenBurnsView.alpha = 0
+                UIView.animate(withDuration: 0.5, animations: { self.kenBurnsView.alpha = 0 })
 
-                // create a radial gradient background just behind the CollectionViewHeader and the first collectionViewCell
-                
-                // attempting to create a new radial background programmatically
-                let backgroundColorDarker = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
-
-                
-                let newColors: [UIColor] = [self.colorsFromFirstArtistImage!.primaryColor, backgroundColorDarker]
-
-                self.viewRadialGradientBackground = RadialGradientView(frame: CGRect(x: 0, y: -(self.collectionView?.bounds.height)! / 2.0,
-                                                                   width: (self.collectionView?.bounds.width)!, height: (self.collectionView?.bounds.height)!))
+                // create a radial gradient background for the hero region just behind the CollectionViewHeader
+                let newColors: [UIColor] = [self.colorsFromFirstArtistImage!.primaryColor, self.backgroundColorDarker]
+                self.viewRadialGradientBackground = RadialGradientView(frame: CGRect(x: 0, y: -(self.collectionView?.bounds.height)! / 2.0, width: (self.collectionView?.bounds.width)!, height: (self.collectionView?.bounds.height)!))
                 self.viewRadialGradientBackground.colors = newColors
-                
-                
-//                self.viewRadialGradientBackground.frame.size = self.view.frame.size
-//                self.viewRadialGradientBackground.frame.origin = CGPoint(x: 0.0, y: 0.0)
-//                self.viewRadialGradientBackground.colors = newColors
-//                self.view.layer.insertSublayer(self.viewRadialGradientBackground, at: 0)
+                self.viewHeroBackground = UIView(frame: CGRect(x: 0, y: -(self.collectionView?.bounds.height)! / 2.0, width: (self.collectionView?.bounds.width)!, height:(self.collectionView?.bounds.height)!))
+                self.collectionView?.addSubview(self.viewRadialGradientBackground)
+                self.collectionView?.sendSubview(toBack: self.viewRadialGradientBackground)
 
-                
-
-                
-                // create a gradient background just behind the CollectionViewHeader and the first collectionViewCell
-                self.viewBackgroundGradient = UIView(frame: CGRect(x: 0, y: -(self.collectionView?.bounds.height)! / 2.0,
-                                                   width: (self.collectionView?.bounds.width)!, height: (self.collectionView?.bounds.height)!))
-
-//                let topColor = self.colorsFromFirstArtistImage?.primaryColor
-//                let bottomColor = self.colorsFromFirstArtistImage?.secondaryColor
-//                let gradientColors: [CGColor] = [topColor!.cgColor, bottomColor!.cgColor]
-//                let gradientLocations: [Float] = [0.0, 1.0]
-//                let gradientLayer: CAGradientLayer = CAGradientLayer()
-//                gradientLayer.colors = gradientColors
-//                gradientLayer.locations = gradientLocations as [NSNumber]?
-//                gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-//                gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-//                gradientLayer.frame.size = self.viewBackgroundGradient.frame.size
-//                gradientLayer.frame.origin = CGPoint(x: 0.0, y: 0.0)
-//                self.viewBackgroundGradient.backgroundColor = UIColor.clear
-//                self.viewBackgroundGradient.layer.insertSublayer(gradientLayer, at: 0)
-                
                 // add a bottom border to the background, using the lighter of the two colorsFromFirstArtistImage
                 var borderColor = self.colorsFromFirstArtistImage?.primaryColor!
                 if (borderColor?.isDark())! {
                     borderColor = self.colorsFromFirstArtistImage?.backgroundColor!
                 }
-//                self.viewBackgroundGradient.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 1.0)
+                self.viewHeroBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 2.0)
                 
-
-//                self.imageStageView = UIImageView(image: imgBlended!)
-//                self.imageStageView.clipsToBounds = true
-//                self.imageStageView.contentMode = .center
-//                self.imageStageView.frame = CGRect(x: 0, y: self.viewBackgroundGradient.frame.size.height / 2.0, width: self.viewBackgroundGradient.frame.size.width, height: self.viewBackgroundGradient.frame.size.height / 2.0)
-//                self.cachedImageViewSize = self.imageStageView.frame;
-//                
-//                
-//                // use a more opaque background image if the gradient colors are not dark
-//                self.imageStageView.alpha = 0.35
-//                if (!(self.colorsFromFirstArtistImage?.primaryColor?.isDark())! && !(self.colorsFromFirstArtistImage?.secondaryColor?.isDark())!) {
-//                    print(" CollectionViewController.swift – Light background colors.  Using more opaque imageStageView")
-//                    self.imageStageView.alpha = 0.80
-//                }
-                
-                
-                // send our newly constructed background to the back of the stack
-//                self.viewBackgroundGradient.addSubview(self.imageStageView)
-//                self.collectionView?.addSubview(self.viewBackgroundGradient)
-//                self.collectionView?.sendSubview(toBack: self.viewBackgroundGradient)
-  
-                self.collectionView?.addSubview(self.viewRadialGradientBackground)
-                self.collectionView?.sendSubview(toBack: self.viewRadialGradientBackground)
-
-                
-                // chug through the rest of the artist images.  runs in a separate background thread in global queue
+                // chug through the rest of the artist images in a separate background thread in global queue
                 self.lineUp?.getColorsForArtistImages()
 
-                // chug through the rest of the artist descriptions.  runs in a separate background thread in global queue
+                // chug through the rest of the artist descriptions in a separate background thread in global queue
                 self.lineUp?.getArtistDescriptions()
                 
             } // end Dispatch.main.sync
-
         } // end Dispatch.global
-    
-        // print(" CollectionViewController – viewDidLoad() called")
     }
 
     // removes the status bar
@@ -296,60 +199,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 headerView.isHidden = true
             } else {
                 headerView.isHidden = false
-
+                
                 print(" CollectionViewController.swift - Header Formatting: ArtistImage Colors Were Used")
                 
-                // add the border to the app icon, using lightest of two colorsFromFirstArtistImage
-//                var borderColor = self.colorsFromFirstArtistImage!.primaryColor!
+                // add todays date to the app icon
+                headerView.labelTodaysDate.text = dataDateToday
                 
-                // I think I need to clear them first so that the alphas don't add up as they get reused
-                // I wrote this removeAllBorders function but it may be too crappy
-                headerView.viewColoredBackground.layer.removeAllBorders()
-                
-//                var borderColor = UIColor.white.withAlphaComponent(0.10)
-//                if borderColor.isDark() {
-//                    borderColor = colorsFromFirstArtistImage!.backgroundColor!
-//                }
-//                if borderColor.isDark() {
-//                    borderColor = colorsFromFirstArtistImage!.secondaryColor!
-//                }
-//                if borderColor.isDark() {
-//                    borderColor = colorsFromFirstArtistImage!.detailColor!
-//                }
-                
-//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
-//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
-//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
-//                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
-                
-                // EXPERIMENT: Set the app icon to color tint.
-                // I'm not sure it will work well in all cases though because it's sometimes too dark
-                // borderColor = self.colorsFromFirstArtistImage!.primaryColor!
-                // headerView.imgViewAppIcon.image = headerView.imgViewAppIcon.image!.maskWithColor(color: borderColor)
-
-                
-                // Trying to decide if I want a gradient on the App icon
-                // var newGradientLayerAdded: CALayer?  // reference gradient later when changing size on rotations
-                
-                // let topColor = coloredBackground.secondaryColor
-                // let bottomColor = coloredBackground.primaryColor
-                // let gradientColors: [CGColor] = [topColor!.cgColor, bottomColor!.cgColor]
-                // let gradientLocations: [Float] = [0.0, 1.0]
-                // let gradientLayer: CAGradientLayer = CAGradientLayer()
-                // gradientLayer.colors = gradientColors
-                // gradientLayer.locations = gradientLocations as [NSNumber]?
-                // gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-                // gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-                // gradientLayer.frame.size = headerView.viewColoredBackground.frame.size
-                //gradientLayer.frame.origin = CGPoint(x: 0.0, y: 0.0)
-                //headerView.viewColoredBackground.backgroundColor = coloredBackground.detailColor.withAlphaComponent(0.15)
-                //headerView.viewColoredBackground.backgroundColor = UIColor.clear
-                //headerView.viewColoredBackground.layer.insertSublayer(gradientLayer, at: 0)
-                
-                //headerView.viewColoredBackground.backgroundColor = borderColor.withAlphaComponent(0.15)
-                //headerView.viewColoredBackground.backgroundColor = self.colorsFromFirstArtistImage?.detailColor.withAlphaComponent(0.15)
-
-                // work through the image colors until I find something dark
+                // add color to the app icon, working through the image colors until I find something dark
                 var imageColorDark: UIColor
                 if (self.colorsFromFirstArtistImage?.primaryColor.isDark())! {
                     imageColorDark = (self.colorsFromFirstArtistImage?.primaryColor)!
@@ -369,15 +225,37 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                         }
                     }
                 }
-                
                 headerView.viewColoredBackground.backgroundColor = imageColorDark
                 headerView.labelTodaysDate.backgroundColor = imageColorDark
+ 
+                // add border to app icon, garbage collecting any borders added at any earlier point
+                headerView.viewColoredBackground.layer.removeAllBorders()
+                let borderColor = backgroundColorDarker
+                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
+                headerView.viewColoredBackground.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
+                headerView.labelTodaysDate.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
+                headerView.labelTodaysDate.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
+                headerView.labelTodaysDate.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
                 
-                // update the venues.  I don't think I should do this every time the header renders, so maybe I'll move it up later.
+                // add topShadow to app icon, garbage collecting any sublayers inserted at any earlier point
+                // the .forEach is better here because it works with the sublayers optional value
+                headerView.viewColoredBackground.layer.sublayers?.forEach {
+                    if $0.name == "topShadow" {
+                        $0.removeFromSuperlayer()
+                    }
+                }
+                let gradient = CAGradientLayer()
+                gradient.name = "topShadow"
+                gradient.frame = CGRect(x: 0, y: 0, width: headerView.viewColoredBackground.frame.width, height: headerView.viewColoredBackground.frame.height / 5)
+                let startColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.10)
+                let endColor = UIColor.clear
+                gradient.colors = [startColor.cgColor, endColor.cgColor]
+                headerView.viewColoredBackground.layer.insertSublayer(gradient, at: 0)
+                
+                // add the venues.  I don't think I should do this every time the header renders though
                 headerView.labelVenueList.text = ""
                 headerView.labelVenueList.numberOfLines = 0
                 var venueCount = 0
-                
                 for currentEvent in (self.lineUp?.events)! {
                     if (currentEvent.eventHappeningTonight) {
                         
@@ -404,11 +282,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 let attrString = NSMutableAttributedString(string: headerView.labelVenueList.text!)
                 attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
                 headerView.labelVenueList.attributedText = attrString
-                                
-                // update todays date
-                headerView.labelTodaysDate.text = dateToday
-                //headerView.labelTodaysDate.textColor = borderColor
-                
                 
             } // end else
             
@@ -429,10 +302,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             
     }
     
-    
-    
     // MARK: - Navigation
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "collectionViewSegue" {
@@ -440,11 +310,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             // Pass the selected index to the new view controller.
             let cell = sender as! CollectionViewCell
             let vc = segue.destination as! RootViewController
-            
             if let indexPath = self.collectionView?.indexPath(for: cell) {
                 vc.eventIndex = indexPath.row
-                // let selectedEvent = self.modelController.lineUp.events[indexPath.row]
-                // print(" CollectionViewController – indexPath = \(indexPath.row)")
             }
             
         }
@@ -452,7 +319,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     }
     
     // MARK: UICollectionViewDataSource
-
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -467,56 +333,39 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
     
-        // hide the cell
+        // hide the cell so we can fade it in once it's ready
         cell.alpha = 0
         
-        // Configure the cell
+        // Add artist image, name, and venue
         cell.imgViewArtist.image = self.lineUp?.events[indexPath.row].imgArtist
-
         cell.labelArtistAndVenue.text = (self.lineUp?.events[indexPath.row].artist)! + " / " + (self.lineUp?.events[indexPath.row].venue)!
-
         cell.labelArtistAndVenue.backgroundColor = backgroundColorDarker
         
-        // add the border
-//        let coloredBackground = self.lineUp?.events[indexPath.row].getColorsForArtistImage()
-//        
-//        var borderColor = coloredBackground?.primaryColor!.withAlphaComponent(0.10)
-//        if (borderColor?.isDark())! {
-//            //borderColor = UIColor.white.withAlphaComponent(0.75)
-//            borderColor = UIColor.white.withAlphaComponent(0.10)
-//        }
-
-        // I think I need to clear them first so that the alphas don't add up as they get reused
-        // I wrote this removeAllBorders function but it may be too crappy
+        // add border, garbage collecting any that may have already been created
         cell.layer.removeAllBorders()
-        
-        let borderColor = UIColor.white.withAlphaComponent(0.10)
-//        cell.labelArtist.layer.addBorder(edge: UIRectEdge.right, color: borderColor!, thickness: 1.0)
-        
-        //headerView.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor.black, thickness: 2.0)
+        let borderColor = backgroundColorDarker
         cell.layer.addBorder(edge: UIRectEdge.top, color: borderColor, thickness: 1.0)
         cell.layer.addBorder(edge: UIRectEdge.right, color: borderColor, thickness: 1.0)
         cell.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor, thickness: 1.0)
         cell.imgViewArtist.layer.removeAllBorders()
         cell.imgViewArtist.layer.addBorder(edge: UIRectEdge.left, color: borderColor, thickness: 1.0)
 
-
+        // add topShadow, garbage collecting any gradient sublayers inserted at any earlier point
+        // the .forEach is better here because it works with the sublayers optional value
+        cell.imgViewArtist.layer.sublayers?.forEach {
+            if $0.name == "topShadow" {
+                $0.removeFromSuperlayer()
+            }
+        }
         let gradient = CAGradientLayer()
+        gradient.name = "topShadow"
         gradient.frame = CGRect(x: 0, y: 0, width: cell.frame.width, height: cell.frame.height / 5)
-        
         let startColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.10)
         let endColor = UIColor.clear
-        
         gradient.colors = [startColor.cgColor, endColor.cgColor]
         cell.imgViewArtist.layer.insertSublayer(gradient, at: 0)
         
-//        let tempBorderColor = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
-//        cell.labelArtist.layer.addBorder(edge: UIRectEdge.left, color: tempBorderColor, thickness: 1.0)
-
-        // I'm not sure what this does
-        // cell.sendSubview(toBack: cell.imgViewArtist)
-
-        // fade the cell into view once it's configured
+        // fade the cell into view
         UIView.animate(withDuration: 0.5, animations: { cell.alpha = 1 })
         
         if eventsLoaded == false {
@@ -529,22 +378,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        // EXPERIMENT: this doesn't quite work right.  I really want the image to expand more when you pull down, but for now it's better than nothing...
-        
-//        let y: CGFloat = -scrollView.contentOffset.y
-//        if y > 0 {
-//
-//            let muliplier = y * 5
-//            
-//            self.imageStageView.frame = CGRect(x: 0, y: scrollView.contentOffset.y + self.view.frame.height / 2.0, width: self.cachedImageViewSize.size.width + muliplier, height: self.cachedImageViewSize.size.height + y)
-//        
-//            self.imageStageView.center = CGPoint(x: self.view.center.x, y: self.imageStageView.center.y)
-//        }
-        
     }
-    
-    //
     
     // MARK: UICollectionViewDelegate
 
