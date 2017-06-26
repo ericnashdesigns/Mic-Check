@@ -376,8 +376,6 @@
                         <outlet property="labelDescription" destination="gDj-M6-bfC" id="BKY-ap-k3I"/>
                         <outlet property="labelNoVideosFound" destination="G5d-s1-TZT" id="QwE-4y-NoO"/>
                         <outlet property="labelVenueAndPrice" destination="caz-Gf-Mub" id="tLL-8F-oWS"/>
-                        <outlet property="stackViewLabels" destination="yPa-do-MEU" id="mos-jm-99x"/>
-                        <outlet property="stackViewVideos" destination="DNp-5y-Cfm" id="je0-Gs-OmL"/>
                         <outlet property="viewContainer" destination="ZwX-cT-FIQ" id="AKu-bI-LUH"/>
                         <outlet property="viewHeaders" destination="cgC-uX-WYe" id="VvZ-Ou-G04"/>
                         <outlet property="viewVideoPlayerCenter" destination="Hxj-65-G1j" id="U2y-I7-8b5"/>
@@ -391,7 +389,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="miccheck.icon.clipped" width="72" height="72"/>
+        <image name="miccheck.icon.clipped" width="256" height="256"/>
         <image name="white-ticket-512" width="512" height="512"/>
     </resources>
 </document>

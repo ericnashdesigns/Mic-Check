@@ -53,7 +53,6 @@ class EventLineup {
         } // end guard
 
         eventLoop: for (index, currentEvent) in jsonlineup.enumerated() {
-            
             let eventDictionary: NSDictionary = currentEvent.object as! NSDictionary
             let event = Event(Dictionary: eventDictionary)
             event.eventHappeningTonight = true
@@ -62,13 +61,10 @@ class EventLineup {
             event.descriptionArtist = jsonlineup[index]["testArtistDescription"].string!
             event.imgArtist = UIImage(named: jsonlineup[index]["testImgArtist"].string!)
             event.price = jsonlineup[index]["testPrice"].string!
-            
             events.append(event)
-            
         } // end eventLoop
 
         print("  EventLineup.swift - Finished getVenueList() \r\n")
-
         
     } // end getVenueList()
 

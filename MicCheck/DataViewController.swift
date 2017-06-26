@@ -14,6 +14,7 @@ import Material
 
 class DataViewController: UIViewController {
 
+    // data variables
     let lineUp = EventLineup.sharedInstance
     var dataArtist: String = ""
     var dataDescriptionArtist: String = ""
@@ -24,12 +25,10 @@ class DataViewController: UIViewController {
     var dataStrVIDs: Array<String> = []
     var dataColorsImgArtist: UIImageColors?
     var dataURLEvent: String = ""
-    
+
+    // UI variables
     @IBOutlet var viewContainer: UIView!
-    @IBOutlet var viewContainerStackView: UIView!
     @IBOutlet weak var imgViewArtist: UIImageView!
-    @IBOutlet weak var stackViewLabels: UIStackView!
-    @IBOutlet weak var stackViewVideos: UIStackView!
     let kenBurnsImageView = KenBurnsImageView()
     @IBOutlet var viewHeaders: UIView!
     @IBOutlet weak var labelArtist: UILabel!
@@ -110,43 +109,6 @@ class DataViewController: UIViewController {
         attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
         
         self.labelDescription.attributedText = attrString
-        
-//        let attributedString = NSMutableAttributedString(string: dataDescriptionArtist)
-//        
-//        // EXPERIEMENT: I can't get the line spacing to work correctly in AutoLayout.  So I'm trying to set it programmitcally
-//        // Seems to work here, but I think I need to set it in AutoLayout too for it to work.  Bizarre.
-//        
-//        // *** Create instance of `NSMutableParagraphStyle`
-//        let paragraphStyle = NSMutableParagraphStyle()
-//        
-//        // *** set LineSpacing property in points ***
-//        paragraphStyle.lineSpacing = 2.5 // Whatever line spacing you want in points
-//        
-//        // *** Apply attribute to string ***
-//        attributedString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
-//        
-//        // *** Set Attributed String to your label ***
-//        self.labelDescription.attributedText = attributedString;
-
-//        self.labelDescription.sizeToFit()
-//        self.labelDescription.numberOfLines = 0
-        
-        
-        // EXPERIMENT: I think we need to keep setting the label at this point so that when I do the animation I have the proper size for the label
-//        if dataDescriptionArtist != "" {
-//            self.labelDescription.isHidden = false
-//        } else {
-        
-            // I'm using a StackView with ContentHugging Priorities to get the artistImage and other fields to adjust to the vacant space when description isn't available.
-            // EXPERIMENT: It still doesn't work when the description is null and I'm not in testMode.
-            // Going to try and just leave it null to see how it lays out.
-            // I think the reason why this experiment succeeded was because I set the label equal to the data value in the first few lines of the code.
-//            self.labelDescription.text = dataDescriptionArtist
-//            self.labelDescription.isHidden = true
-            //                        self.labelDescription.sizeToFit()
-            //                        self.labelDescription.numberOfLines = 0
-            
-//        }
         
         let currentEvent = lineUp.events[dataIntEventIndex]
 
@@ -235,42 +197,7 @@ class DataViewController: UIViewController {
                     
                     self.labelDescription.attributedText = attrString
 
-                    
-//                    let attributedString = NSMutableAttributedString(string: self.dataDescriptionArtist)
-//                    
-//                    // *** Create instance of `NSMutableParagraphStyle`
-//                    let paragraphStyle = NSMutableParagraphStyle()
-//                    
-//                    // *** set LineSpacing property in points ***
-//                    paragraphStyle.lineSpacing = 2.5 // Whatever line spacing you want in points
-//                    
-//                    // *** Apply attribute to string ***
-//                    attributedString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
-//                    
-//                    // *** Set Attributed String to your label ***
-//                    self.labelDescription.attributedText = attributedString;
 
-//                    self.labelDescription.sizeToFit()
-//                    self.labelDescription.numberOfLines = 0
-                    
-//                    
-//                    if artistDescription != "" {
-//                        self.labelDescription.isHidden = false
-////                        self.labelDescription.text = artistDescription
-//                        self.labelDescription.sizeToFit()
-//                        print("  DataViewController.swift – Show description")
-//                    } else {
-//                        
-//                        // I'm using a StackView with ContentHugging Priorities to get the artistImage and other fields to adjust to the vacant space when description isn't available.
-//                        // EXPERIMENT: It still doesn't work when the description is null and I'm not in testMode.  
-//                        // Going to try and just leave it null to see how it lays out.
-////                        self.labelDescription.text = artistDescription
-//                        self.labelDescription.text = " "
-//                        self.labelDescription.isHidden = false
-//                        print("  DataViewController.swift – Hide description")
-//                        
-//                    }
-//                    
                 } // end Dispatch.main
                 
             } else {
@@ -286,32 +213,6 @@ class DataViewController: UIViewController {
         // you can tack closures at the end of the function call and it will be passed to the function just like a parameter
 //        currentEvent.getDescriptionForArtist() { (strDescription, error) -> Void in
 //
-//            if error != nil{
-//                print(error as Any)
-//            }
-//            else {
-//                
-//                // To update anything on the main thread, just jump back on like so.
-//                DispatchQueue.main.async {
-//                    
-//                    // populate the label with the description, otherwise, just hide it.  Not sure how this affects constraints.
-//                    if strDescription != nil && strDescription != "" {
-//                        self.labelDescription.text = strDescription
-//                        print(" DataViewController.swift – Show description")
-//                    } else {
-//                        
-//                        // I'm using a StackView with ContentHugging Priorities to get the artistImage and other fields to adjust to the vacant space when description isn't available.
-//                        self.labelDescription.isHidden = true
-//                        print(" DataViewController.swift – Hide description")
-//
-//                    }
-//
-//                } // end Dispatch.main.sync
-//                
-//            } // end if
-//            
-//        }
-        
     
         // fetch the artist videos and load them into the Event object
         currentEvent.getVideosForArtist() { (strVIDs, error) -> Void in

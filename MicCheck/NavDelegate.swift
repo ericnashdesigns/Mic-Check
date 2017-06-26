@@ -103,11 +103,11 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
 
             //print("   NavDelegate.swift – currentDataViewController.labelDescription.text is : \(currentDataViewController.labelDescription.text!)")
             
-            currentDataViewController.imgViewArtist.setNeedsUpdateConstraints()
-            currentDataViewController.stackViewVideos.setNeedsUpdateConstraints()
-            currentDataViewController.viewVideoPlayerLeft.setNeedsUpdateConstraints()
-            currentDataViewController.viewVideoPlayerCenter.setNeedsUpdateConstraints()
-            currentDataViewController.viewVideoPlayerRight.setNeedsUpdateConstraints()
+//            currentDataViewController.imgViewArtist.setNeedsUpdateConstraints()
+//            currentDataViewController.stackViewVideos.setNeedsUpdateConstraints()
+//            currentDataViewController.viewVideoPlayerLeft.setNeedsUpdateConstraints()
+//            currentDataViewController.viewVideoPlayerCenter.setNeedsUpdateConstraints()
+//            currentDataViewController.viewVideoPlayerRight.setNeedsUpdateConstraints()
             
             UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
                 
@@ -116,6 +116,8 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 collectionVC.view.alpha = 0.0
 
                 // If I don't have this the transitionImage will clip on the right.
+                currentDataViewController.imgViewArtist.layoutIfNeeded()
+                
                 // Now that I'm explicitly setting paddings for my stackViewVideo, I'm getting the weird resizing issue
                 // with the transitionImage again.  So I need to fix it.
                 // The only way I've been able to get rid of it is by removing the explicit padding on stackViewVideos
@@ -128,11 +130,11 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                 // Didn't work. Going to try and just manually add 8.0 to the transitionImageView height
                 // 8.0 was the closest I could get it to work
                 // may be moot now that I'm using full screen.
-                currentDataViewController.imgViewArtist.layoutIfNeeded()
-                currentDataViewController.stackViewVideos.layoutIfNeeded()
-                currentDataViewController.viewVideoPlayerLeft.layoutIfNeeded()
-                currentDataViewController.viewVideoPlayerCenter.layoutIfNeeded()
-                currentDataViewController.viewVideoPlayerRight.layoutIfNeeded()
+//                currentDataViewController.imgViewArtist.layoutIfNeeded()
+//                currentDataViewController.stackViewVideos.layoutIfNeeded()
+//                currentDataViewController.viewVideoPlayerLeft.layoutIfNeeded()
+//                currentDataViewController.viewVideoPlayerCenter.layoutIfNeeded()
+//                currentDataViewController.viewVideoPlayerRight.layoutIfNeeded()
                 
                 // move our transitionImageView towards hero image position (and grow its size at the same time)
                 // had to increase it to 8.0 for it not to jump once I added the explicit padding to the stackViewVideos

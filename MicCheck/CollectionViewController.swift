@@ -45,7 +45,8 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             UIImage(named: "jazz.horns")!
         ]
         self.kenBurnsView.animateWithImages(images, imageAnimationDuration: 5, initialDelay: 0, shouldLoop: true, randomFirstImage: true)
-        self.kenBurnsView.bringSubview(toFront: self.viewAppIcon)
+        // This didn't work
+        //self.kenBurnsView.bringSubview(toFront: self.viewAppIcon)
         
         // get and format todays date
         let currentDate = NSDate()
