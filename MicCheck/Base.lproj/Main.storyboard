@@ -326,7 +326,7 @@
                                                         <attributedString key="attributedText">
                                                             <fragment content="This is just some descriptive text to see how well the line spacing works.">
                                                                 <attributes>
-                                                                    <font key="NSFont" size="17" name=".AppleSystemUIFont"/>
+                                                                    <font key="NSFont" size="17" name=".SFNSText"/>
                                                                     <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="10" minimumLineHeight="10" maximumLineHeight="10" lineHeightMultiple="8" tighteningFactorForTruncation="0.0"/>
                                                                 </attributes>
                                                             </fragment>

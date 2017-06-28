@@ -13,7 +13,7 @@ import KenBurns
 import Material
 
 class DataViewController: UIViewController {
-
+    
     // data variables
     let lineUp = EventLineup.sharedInstance
     var dataArtist: String = ""
@@ -25,7 +25,7 @@ class DataViewController: UIViewController {
     var dataStrVIDs: Array<String> = []
     var dataColorsImgArtist: UIImageColors?
     var dataURLEvent: String = ""
-
+    
     // UI variables
     @IBOutlet var viewContainer: UIView!
     @IBOutlet weak var imgViewArtist: UIImageView!
@@ -48,7 +48,6 @@ class DataViewController: UIViewController {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped(tapGestureRecognizer:)))
         self.viewHeaders.isUserInteractionEnabled = true
         self.viewHeaders.addGestureRecognizer(tapGestureRecognizer)
-    
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,21 +58,24 @@ class DataViewController: UIViewController {
     // viewWillAppear gets called every time the view appears.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         print("  DataViewController.swift – viewWillAppear() called for \(dataArtist)")
-
-        let backgroundColorDarker = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
-        self.view.backgroundColor = backgroundColorDarker
         
-        self.labelArtist.text = dataArtist
+        // set the page to the proper event
+        let currentEvent = lineUp.events[dataIntEventIndex]
+        
+        // populate the labels
         self.imgViewArtist.image =  dataImgArtist
+        self.labelArtist.text = dataArtist
+        self.labelVenueAndPrice.text = dataVenue
+        if dataPrice != "" {
+            self.labelVenueAndPrice.text = dataVenue + " / " + dataPrice
+        }
+        self.labelDescription.text = dataDescriptionArtist
         
         // add topShadow, garbage collecting any gradient sublayers inserted at any earlier point
         // the .forEach is better here because it works with the sublayers optional value
         self.imgViewArtist.layer.sublayers?.forEach {
-            if $0.name == "topShadow" {
-                $0.removeFromSuperlayer()
-            }
+            $0.name == "topShadow" ? $0.removeFromSuperlayer() : ()
         }
         let gradient = CAGradientLayer()
         gradient.name = "topShadow"
@@ -82,8 +84,9 @@ class DataViewController: UIViewController {
         let endColor = UIColor.clear
         gradient.colors = [startColor.cgColor, endColor.cgColor]
         self.imgViewArtist.layer.insertSublayer(gradient, at: 0)
-        
-        // add lower mask for the artist image, intially offset so we can move it in later
+
+        // add lower mask for the artist image, using a shadow around perimeter to generage the gradient change
+        // intially drawn off the viewport so we can move it in later
         let shadowSize: CGFloat = 60.0
         let maskLayer = CAGradientLayer()
         maskLayer.name = "bottomShadow"
@@ -95,146 +98,99 @@ class DataViewController: UIViewController {
         maskLayer.shadowColor = UIColor.white.cgColor
         self.imgViewArtist.layer.mask = maskLayer;
         
-        self.labelVenueAndPrice.text = dataVenue
-        if dataPrice != "" {
-            self.labelVenueAndPrice.text = dataVenue + " / " + dataPrice
-        }
-        
-        self.labelDescription.text = dataDescriptionArtist
-
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 3
-        
-        let attrString = NSMutableAttributedString(string: dataDescriptionArtist)
-        attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
-        
-        self.labelDescription.attributedText = attrString
-        
-        let currentEvent = lineUp.events[dataIntEventIndex]
-
-        // Use artists image to assign colors, if available.  If not, use a background thread so that the image processing won't slow down paging
+        // Grab artist videos from YouTube API asynchronously.  When it's finished, use it in our UI
         DispatchQueue.global(qos: .userInitiated).async {
+            // fetch the artist videos and load them into the Event object
+            // closures have a syntax: { (parameters) -> return type in statements }
+            // you can tack closures at the end of the function call and it will be passed to the function just like a parameter
+            currentEvent.getVideosForArtist() { (strVIDs, error) -> Void in
+                if error != nil{
+                    print(error as Any)
+                } else {
+                    DispatchQueue.main.async { // jump back on the main thread to update UI
+                        // load the video thumbs onto the page
+                        self.loadVideoThumbs(strVIDs: strVIDs)
+                        print("  DataViewController.swift – Video Thumbs Loaded")
+                    } // end Dispatch.main.sync
+                } // end if
+            } // end getVideoForArtist() completion handler
+        } // end Dispatch.global
         
-            if let colorsFromArtistImage = currentEvent.getColorsForArtistImage() {
-
-                // To update anything on the main thread, just jump back on like so.
-                DispatchQueue.main.async {
+        
+        // Grab artist description from the Wikipedia API asynchronously.  When it's finished, use it in our UI
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let artistDescription = currentEvent.getArtistDescription(testMode: self.lineUp.testMode) {
+                DispatchQueue.main.async { // jump back on the main thread to update UI
+                    self.labelDescription.text = artistDescription
                     
-                    // tint the text controls
-                    //self.viewContainer.backgroundColor = colorsFromArtistImage.backgroundColor
-                    //if (self.navigationController != nil) {
-                    //    self.navigationController?.navigationBar.tintColor = colorsFromArtistImage.secondaryColor;
-                    //}
-//                    self.labelArtist.textColor = colorsFromArtistImage.primaryColor
-//                    self.labelVenueAndPrice.textColor = colorsFromArtistImage.secondaryColor
-//                    self.labelArtist.textColor = colorsFromArtistImage.detailColor
+                    // increase lineheight of artist description
+                    let paragraphStyle = NSMutableParagraphStyle()
+                    paragraphStyle.lineSpacing = 3
+                    let attrString = NSMutableAttributedString(string: artistDescription)
+                    attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+                    self.labelDescription.attributedText = attrString
+                } // end Dispatch.main
+            } else {
+                print("  DataViewController.swift - No Description Available for Formatting ")
+            } // end else
+        } // end Dispatch.global
 
-                        self.labelArtist.textColor = UIColor.white
-                    // white text on dark
+        
+        // set the colors, gradients, and shadows
+        let backgroundColorDarker = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
+        self.view.backgroundColor = backgroundColorDarker
+        
+        // Use current event's artist's image colors to assign colors in the UI, if available
+        // If not yet available, finish color processing in a background thread so that paging isn't slown down
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let colorsFromArtistImage = currentEvent.getColorsForArtistImage() {
+                DispatchQueue.main.async { // jump back on the main thread to update UI
+                    
+                    // find a dark background color for the label and button background colors
                     var backgroundColorDark: UIColor
                     if colorsFromArtistImage.primaryColor.isDark() {
                         backgroundColorDark = colorsFromArtistImage.primaryColor
                         print("  DataViewController.swift – used primaryColor")
                     } else {
-                        // dark text on light
                         if colorsFromArtistImage.secondaryColor.isDark() {
                             backgroundColorDark = colorsFromArtistImage.secondaryColor
                             print("  DataViewController.swift – used secondaryColor")
                         } else {
-
                             if colorsFromArtistImage.detailColor.isDark() {
                                 backgroundColorDark = colorsFromArtistImage.detailColor
                                 print("  DataViewController.swift – used detailColor")
                             } else {
-
                                 if colorsFromArtistImage.backgroundColor.isDark() {
                                     backgroundColorDark = colorsFromArtistImage.backgroundColor
                                     print("  DataViewController.swift – used backgroundColor")
-                                
                                 } else {
-
                                     backgroundColorDark = backgroundColorDarker
                                     print("  DataViewController.swift – used backgroundColorDarker")
+                                } // end else
+                            } // end else
+                        } // end else
+                    } // end else
 
-                                }
-                                
-                            }
-
-                        }
-                        
-                    }
-
-                    // tint the button
+                    // color the controls
                     self.btnGetTickets.backgroundColor = backgroundColorDark
                     self.btnGetTickets.pulseColor = backgroundColorDarker
-                    
                     self.labelArtist.backgroundColor = backgroundColorDark
                     self.labelVenueAndPrice.backgroundColor = backgroundColorDark
-                    self.labelVenueAndPrice.textColor = UIColor.white
-                    self.labelDescription.textColor = UIColor.white
-//                    self.labelNoVideosFound.textColor = colorsFromArtistImage.detailColor
-                    
+                    self.labelDescription.textColor = UIColor.white // have to set because it's attributed text
+
+                    // THIS DID NOT WORK
+                    // tint the status bar controls to contrast with light or dark background color darkness
+                    if colorsFromArtistImage.primaryColor.isDark() {
+                        self.navigationController?.navigationBar.tintColor = UIColor.white
+                    } else {
+                        self.navigationController?.navigationBar.tintColor = UIColor.black
+                    }
                 } // end Dispatch.main
                 
             } else {
-
                 print(" DataViewController.swift - No Artist Image Colors Available for Formatting ")
-                
             } // end else
-            
-            if let artistDescription = currentEvent.getArtistDescription(testMode: self.lineUp.testMode) {
-                
-                // To update anything on the main thread, just jump back on like so.
-                DispatchQueue.main.async {
-
-                    self.labelDescription.text = artistDescription
-
-                    let paragraphStyle = NSMutableParagraphStyle()
-                    paragraphStyle.lineSpacing = 3
-                    
-                    let attrString = NSMutableAttributedString(string: artistDescription)
-                    attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
-                    
-                    self.labelDescription.attributedText = attrString
-
-
-                } // end Dispatch.main
-                
-            } else {
-                
-                print("  DataViewController.swift - No Description Available for Formatting ")
-                
-            } // end else
-            
         } // end Dispatch.global
-
-        // Grab a description of the artist from the Wikipedia API asynchronously.  When it's finished, use it in our UI
-        // closures have a syntax: { (parameters) -> return type in statements }
-        // you can tack closures at the end of the function call and it will be passed to the function just like a parameter
-//        currentEvent.getDescriptionForArtist() { (strDescription, error) -> Void in
-//
-    
-        // fetch the artist videos and load them into the Event object
-        currentEvent.getVideosForArtist() { (strVIDs, error) -> Void in
-            
-            if error != nil{
-                print(error as Any)
-            }
-            else {
-                
-                // To update anything on the main thread, just jump back on like so.
-                DispatchQueue.main.async {
-
-                    // load the video thumbs onto the page
-                    self.loadVideoThumbs(strVIDs: strVIDs)
-
-                    print("  DataViewController.swift – Video Thumbs Loaded")
-                } // end Dispatch.main.sync
-                
-            } // end if
-
-        } // end getVideoForArtist() completion handler
-        
     } // end viewWillAppear()
     
     func animateControlsIn(controlsDeltaY: CGFloat) {
@@ -269,9 +225,6 @@ class DataViewController: UIViewController {
         // fade the controls, shadow, and move them all into the proper view
         UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             
-            // Not sure yet if I want to do this because it means the image will at first appear with nothing
-            // maskLayer.shadowOffset = CGSize(width: 0, height: -shadowSize)
-
             self.btnGetTickets.alpha = 1.0
             self.labelArtist.alpha = 1.0
             self.labelVenueAndPrice.alpha = 1.0
@@ -290,27 +243,21 @@ class DataViewController: UIViewController {
             
         }) { finished in
 
-            let when = DispatchTime.now() + 5 // change 5 to desired number of seconds
+            let when = DispatchTime.now() + 5 // 5 second delay
             DispatchQueue.main.asyncAfter(deadline: when) {
-                // Your code with delay
-
-//                self.startKenBurnsAnimation()
+                // TODO: Need to get the topShadow to fade off or stay put or something while image animates
+                self.startKenBurnsAnimation()
                 // print("   DataViewController.swift – animateControlsIn() finished animation")
-                //collectionVC.collectionView?.deselectRowAtIndexPath(indexPath, animated: false)
-                
-                
-            }
-            
+            } //end DispatchQueue.main.asyncAfter
             
         } // end finished in
         
     } // end animateControlsIn()
     
     func loadVideoThumbs(strVIDs: Array<String>?) {
-        
         // if the model is empty now then it's because there were no videos returned by the YouTube API
         guard (strVIDs?.count)! > 0 else {
-            
+
             // Fade out the the video thumbs
             self.viewVideoPlayerLeft.alpha = 0
             self.viewVideoPlayerCenter.alpha = 0
@@ -322,9 +269,7 @@ class DataViewController: UIViewController {
             UIView.animate(withDuration: 0.5, delay: 1, options: [], animations: {
                 self.labelNoVideosFound.alpha = 1
             }, completion: nil)
-
             return
-
         } // end guard
 
         // load the video thumb parameters
@@ -341,46 +286,41 @@ class DataViewController: UIViewController {
                                 self.viewVideoPlayerRight]
         var intVIDIndex = 0
 
+        // check to see if each exists and if so, fade it in
         for currentViewVideoPlayer in viewVideoPlayers {
-            
-            // check to see if each exists and if so, fade it in
             if (strVIDs?.count)! > intVIDIndex {
                 currentViewVideoPlayer?.load(withVideoId: strVIDs![intVIDIndex], playerVars: playervars)
             } else {
                 currentViewVideoPlayer?.alpha = 0
             } // end if
-
             intVIDIndex += 1
-            
         } // end for
         
     } // end loadVideoThumbs()
     
     func startKenBurnsAnimation() {
 
+        // set parameters
         kenBurnsImageView.setImage(self.imgViewArtist.image!)
         kenBurnsImageView.zoomIntensity = 0.15
         kenBurnsImageView.setDuration(min: 15, max: 20)
         kenBurnsImageView.frame.size = self.imgViewArtist.frame.size
         
-        // only add the kenBurns subview if it's not already added
+        // only add kenBurns subview if it's not already added
         if !kenBurnsImageView.isDescendant(of: self.imgViewArtist) {
             self.imgViewArtist.addSubview(kenBurnsImageView)
-        }
-
+        } // end if
         self.imgViewArtist.bringSubview(toFront: kenBurnsImageView)
         kenBurnsImageView.startAnimating()
-        
     } // end newKenBurnsImageView()
     
     func stopKenBurnsAnimation() {
         kenBurnsImageView.stopAnimating()
-//        self.imgViewArtist.willRemoveSubview(kenBurnsImageView)
-    }
+        //self.imgViewArtist.willRemoveSubview(kenBurnsImageView)
+    } // end stopKenBurnsAnimation()
 
+    // hide elements on the DataViewController
     func hideElementsForPushTransition() {
-        
-        // hide the elements on the DataViewController
         self.btnGetTickets.alpha = 0.0
         self.labelArtist.alpha = 0.0
         self.labelVenueAndPrice.alpha = 0.0
@@ -388,27 +328,18 @@ class DataViewController: UIViewController {
         self.viewVideoPlayerLeft.alpha = 0.0
         self.viewVideoPlayerCenter.alpha = 0.0
         self.viewVideoPlayerRight.alpha = 0.0
-        
-        // hide all visible cells
-        //for cell in visibleCellViews { cell.alpha = 0.0 }
-        
-        // move back button arrow beyond screen
-        //backButtonHorizontalSpacer.constant = -70.0
-    }
+    } // end hideElementsForPushTransition()
 
     func viewTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-        // Your action
         navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
-    
-    }
+    } // end viewTapped
 
     @IBAction func gotoEventLink(sender: AnyObject) {
         if let url = URL(string: dataURLEvent) {
             UIApplication.shared.open(url, options: [:])
-        }
-        
-    }
+        } // end if
+    } // end @IBAction
     
 }

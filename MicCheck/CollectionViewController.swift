@@ -241,9 +241,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 // add topShadow to app icon, garbage collecting any sublayers inserted at any earlier point
                 // the .forEach is better here because it works with the sublayers optional value
                 headerView.viewColoredBackground.layer.sublayers?.forEach {
-                    if $0.name == "topShadow" {
-                        $0.removeFromSuperlayer()
-                    }
+                    $0.name == "topShadow" ? $0.removeFromSuperlayer() : ()
                 }
                 let gradient = CAGradientLayer()
                 gradient.name = "topShadow"
@@ -259,7 +257,6 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 var venueCount = 0
                 for currentEvent in (self.lineUp?.events)! {
                     if (currentEvent.eventHappeningTonight) {
-                        
                         if venueCount == 6 {
                             headerView.labelVenueList.text = headerView.labelVenueList.text! + "& More"
                             break
@@ -300,12 +297,10 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             //4
             assert(false, "Unexpected element kind")
         }
-            
     }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "collectionViewSegue" {
             
             // Pass the selected index to the new view controller.
@@ -314,9 +309,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
             if let indexPath = self.collectionView?.indexPath(for: cell) {
                 vc.eventIndex = indexPath.row
             }
-            
         }
-        
     }
     
     // MARK: UICollectionViewDataSource
@@ -354,9 +347,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         // add topShadow, garbage collecting any gradient sublayers inserted at any earlier point
         // the .forEach is better here because it works with the sublayers optional value
         cell.imgViewArtist.layer.sublayers?.forEach {
-            if $0.name == "topShadow" {
-                $0.removeFromSuperlayer()
-            }
+            $0.name == "topShadow" ? $0.removeFromSuperlayer() : ()
         }
         let gradient = CAGradientLayer()
         gradient.name = "topShadow"
