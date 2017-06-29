@@ -19,8 +19,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     var dataDateToday: String = ""
 
     // UI variables
-    var colorsFromFirstArtistImage: UIImageColors? = nil  // use these colors for the hero area
-    var viewHeroBackground: UIView!
+    var colorsFromFirstArtistImage: UIImageColors? = nil  // colors used for the viewRadialGradientBackground
     var viewRadialGradientBackground: RadialGradientView!
     let backgroundColorDark = UIColor(red: (62/255.0), green: (70/255.0), blue: (76/255.0), alpha: 1)
     let backgroundColorDarker = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
@@ -91,20 +90,30 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
                 self.kenBurnsView.stopAnimation()
                 UIView.animate(withDuration: 0.5, animations: { self.kenBurnsView.alpha = 0 })
 
-                // create a radial gradient background for the hero region just behind the CollectionViewHeader
-                let newColors: [UIColor] = [self.colorsFromFirstArtistImage!.primaryColor, self.backgroundColorDarker]
+                // create a hero-style radial gradient background offset so it's still shown while scrolling up 
                 self.viewRadialGradientBackground = RadialGradientView(frame: CGRect(x: 0, y: -(self.collectionView?.bounds.height)! / 2.0, width: (self.collectionView?.bounds.width)!, height: (self.collectionView?.bounds.height)!))
+                let newColors: [UIColor] = [self.colorsFromFirstArtistImage!.primaryColor, self.backgroundColorDarker]
                 self.viewRadialGradientBackground.colors = newColors
-                self.viewHeroBackground = UIView(frame: CGRect(x: 0, y: -(self.collectionView?.bounds.height)! / 2.0, width: (self.collectionView?.bounds.width)!, height:(self.collectionView?.bounds.height)!))
-                self.collectionView?.addSubview(self.viewRadialGradientBackground)
-                self.collectionView?.sendSubview(toBack: self.viewRadialGradientBackground)
+
+                // create the linear spotlight gradient effect and
+                let gradientLayer : CAGradientLayer = CAGradientLayer()
+                gradientLayer.frame = (self.viewRadialGradientBackground?.bounds)!
+                gradientLayer.colors = [UIColor.clear.cgColor, UIColor.white.cgColor, UIColor.clear.cgColor]
+                gradientLayer.startPoint = CGPoint(x: -0.25, y: 1.0)
+                gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.0)
+                gradientLayer.opacity = 0.20
+                self.viewRadialGradientBackground.layer.addSublayer(gradientLayer)
 
                 // add a bottom border to the background, using the lighter of the two colorsFromFirstArtistImage
-                var borderColor = self.colorsFromFirstArtistImage?.primaryColor!
-                if (borderColor?.isDark())! {
-                    borderColor = self.colorsFromFirstArtistImage?.backgroundColor!
-                }
-                self.viewHeroBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 2.0)
+                // var borderColor = self.colorsFromFirstArtistImage?.primaryColor!
+                // if (borderColor?.isDark())! {
+                //     borderColor = self.colorsFromFirstArtistImage?.backgroundColor!
+                // }
+                // self.viewRadialGradientBackground.layer.addBorder(edge: UIRectEdge.bottom, color: borderColor!, thickness: 1.0)
+
+                // put everything together into the new hero view
+                self.collectionView?.addSubview(self.viewRadialGradientBackground)
+                self.collectionView?.sendSubview(toBack: self.viewRadialGradientBackground)
                 
                 // chug through the rest of the artist images in a separate background thread in global queue
                 self.lineUp?.getColorsForArtistImages()
