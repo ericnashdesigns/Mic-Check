@@ -16,5 +16,7 @@ class CollectionViewHeader: UICollectionReusableView {
     @IBOutlet var labelTodaysDate: UILabel!
     @IBOutlet var labelVenueList: UILabel!
 
-
+    // place the outlets in the Header class instead so you won't get the 'repeating content' erro
+    @IBOutlet var constraintViewColoredBackground: NSLayoutConstraint!
+    
 }

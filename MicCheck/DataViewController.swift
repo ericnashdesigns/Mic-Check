@@ -72,32 +72,6 @@ class DataViewController: UIViewController {
         }
         self.labelDescription.text = dataDescriptionArtist
         
-        // add topShadow, garbage collecting any gradient sublayers inserted at any earlier point
-        // the .forEach is better here because it works with the sublayers optional value
-        self.imgViewArtist.layer.sublayers?.forEach {
-            $0.name == "topShadow" ? $0.removeFromSuperlayer() : ()
-        }
-        let gradient = CAGradientLayer()
-        gradient.name = "topShadow"
-        gradient.frame = CGRect(x: 0, y: 0, width: self.imgViewArtist.frame.width, height: self.imgViewArtist.frame.height / 5)
-        let startColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.10)
-        let endColor = UIColor.clear
-        gradient.colors = [startColor.cgColor, endColor.cgColor]
-        self.imgViewArtist.layer.insertSublayer(gradient, at: 0)
-
-        // add lower mask for the artist image, using a shadow around perimeter to generage the gradient change
-        // intially drawn off the viewport so we can move it in later
-        let shadowSize: CGFloat = 60.0
-        let maskLayer = CAGradientLayer()
-        maskLayer.name = "bottomShadow"
-        maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: self.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: self.imgViewArtist.frame.height)
-        maskLayer.shadowRadius = shadowSize
-        maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
-        maskLayer.shadowOpacity = 1;
-        maskLayer.shadowOffset = CGSize(width: 0, height: 0)
-        maskLayer.shadowColor = UIColor.white.cgColor
-        self.imgViewArtist.layer.mask = maskLayer;
-        
         // Grab artist videos from YouTube API asynchronously.  When it's finished, use it in our UI
         DispatchQueue.global(qos: .userInitiated).async {
             // fetch the artist videos and load them into the Event object
@@ -127,7 +101,7 @@ class DataViewController: UIViewController {
                     let paragraphStyle = NSMutableParagraphStyle()
                     paragraphStyle.lineSpacing = 3
                     let attrString = NSMutableAttributedString(string: artistDescription)
-                    attrString.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
+                    attrString.addAttribute(kCTParagraphStyleAttributeName as NSAttributedStringKey, value:paragraphStyle, range:NSMakeRange(0, attrString.length))
                     self.labelDescription.attributedText = attrString
                 } // end Dispatch.main
             } else {
@@ -139,6 +113,34 @@ class DataViewController: UIViewController {
         // set the colors, gradients, and shadows
         let backgroundColorDarker = UIColor(red: (12/255.0), green: (20/255.0), blue: (26/255.0), alpha: 1)
         self.view.backgroundColor = backgroundColorDarker
+
+        // add topShadow, garbage collecting any gradient sublayers inserted at any earlier point
+        // the .forEach is better here because it works with the sublayers optional value
+        self.imgViewArtist.layoutIfNeeded()
+        self.imgViewArtist.layer.sublayers?.forEach {
+            $0.name == "topShadow" ? $0.removeFromSuperlayer() : ()
+        }
+        let gradient = CAGradientLayer()
+        gradient.name = "topShadow"
+        gradient.frame = CGRect(x: 0, y: 0, width: self.imgViewArtist.frame.width, height: self.imgViewArtist.frame.height / 5)
+        let startColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.10)
+        let endColor = UIColor.clear
+        gradient.colors = [startColor.cgColor, endColor.cgColor]
+        self.imgViewArtist.layer.insertSublayer(gradient, at: 0)
+        
+        // add lower mask for the artist image, using a shadow around perimeter to generage the gradient change
+        // intially drawn off the viewport so we can move it in later
+        let shadowSize: CGFloat = 60.0
+        let maskLayer = CAGradientLayer()
+        maskLayer.name = "bottomShadow"
+        maskLayer.frame = CGRect(x: -shadowSize, y: -shadowSize, width: self.imgViewArtist.frame.width + shadowSize * CGFloat(5.0), height: self.imgViewArtist.frame.height)
+        maskLayer.shadowRadius = shadowSize
+        maskLayer.shadowPath = CGPath(rect: maskLayer.frame, transform: nil)
+        maskLayer.shadowOpacity = 1;
+        maskLayer.shadowOffset = CGSize(width: 0, height: 0)
+        maskLayer.shadowColor = UIColor.white.cgColor
+        self.imgViewArtist.layer.mask = maskLayer;
+        
         
         // Use current event's artist's image colors to assign colors in the UI, if available
         // If not yet available, finish color processing in a background thread so that paging isn't slown down
@@ -148,20 +150,20 @@ class DataViewController: UIViewController {
                     
                     // find a dark background color for the label and button background colors
                     var backgroundColorDark: UIColor
-                    if colorsFromArtistImage.primaryColor.isDark() {
-                        backgroundColorDark = colorsFromArtistImage.primaryColor
+                    if colorsFromArtistImage.primary.isDark() {
+                        backgroundColorDark = colorsFromArtistImage.primary
                         print("  DataViewController.swift – used primaryColor")
                     } else {
-                        if colorsFromArtistImage.secondaryColor.isDark() {
-                            backgroundColorDark = colorsFromArtistImage.secondaryColor
+                        if colorsFromArtistImage.secondary.isDark() {
+                            backgroundColorDark = colorsFromArtistImage.secondary
                             print("  DataViewController.swift – used secondaryColor")
                         } else {
-                            if colorsFromArtistImage.detailColor.isDark() {
-                                backgroundColorDark = colorsFromArtistImage.detailColor
+                            if colorsFromArtistImage.detail.isDark() {
+                                backgroundColorDark = colorsFromArtistImage.detail
                                 print("  DataViewController.swift – used detailColor")
                             } else {
-                                if colorsFromArtistImage.backgroundColor.isDark() {
-                                    backgroundColorDark = colorsFromArtistImage.backgroundColor
+                                if colorsFromArtistImage.background.isDark() {
+                                    backgroundColorDark = colorsFromArtistImage.background
                                     print("  DataViewController.swift – used backgroundColor")
                                 } else {
                                     backgroundColorDark = backgroundColorDarker
@@ -180,7 +182,7 @@ class DataViewController: UIViewController {
 
                     // THIS DID NOT WORK
                     // tint the status bar controls to contrast with light or dark background color darkness
-                    if colorsFromArtistImage.primaryColor.isDark() {
+                    if colorsFromArtistImage.primary.isDark() {
                         self.navigationController?.navigationBar.tintColor = UIColor.white
                     } else {
                         self.navigationController?.navigationBar.tintColor = UIColor.black
@@ -202,19 +204,19 @@ class DataViewController: UIViewController {
         // print(" convertedCoordinateY is : \(convertedCoordinateY!)")
         // print(" heroFinalHeight / 2 is : \(heroFinalHeight / 2)")
         // print(" deltaY is : \(deltaY)")
-        if controlsDeltaY == 40.0 {
+        if controlsDeltaY >= 0 {
             // positive values (20.0) mean swipe down
             print("  DataViewController.swift – SWIPE DOWN")
-        } else if controlsDeltaY == -40 {
+        } else if controlsDeltaY < 0 {
             // negative values (-20.0) mean swipe up
             print("  DataViewController.swift – SWIPE UP")
         }
-        
+
         // hide controls initially so that we can fade them back in
         hideElementsForPushTransition()
         
         // offset the controls initially before we move them later, they won't be offset
-        self.btnGetTickets.frame.origin.y += controlsDeltaY
+        self.btnGetTickets.frame.origin.y -= controlsDeltaY
         self.labelArtist.frame.origin.y += controlsDeltaY
         self.labelVenueAndPrice.frame.origin.y += controlsDeltaY
         self.labelDescription.frame.origin.y += controlsDeltaY
@@ -222,9 +224,9 @@ class DataViewController: UIViewController {
         self.viewVideoPlayerCenter.frame.origin.y += controlsDeltaY
         self.viewVideoPlayerRight.frame.origin.y += controlsDeltaY
         
-        // fade the controls, shadow, and move them all into the proper view
+        // fade in the controls, shadow, and move them all into the proper view
         UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
-            
+        
             self.btnGetTickets.alpha = 1.0
             self.labelArtist.alpha = 1.0
             self.labelVenueAndPrice.alpha = 1.0
@@ -233,7 +235,7 @@ class DataViewController: UIViewController {
             self.viewVideoPlayerCenter.alpha = 1.0
             self.viewVideoPlayerRight.alpha = 1.0
             
-            self.btnGetTickets.frame.origin.y -= controlsDeltaY
+            self.btnGetTickets.frame.origin.y += controlsDeltaY
             self.labelArtist.frame.origin.y -= controlsDeltaY
             self.labelVenueAndPrice.frame.origin.y -= controlsDeltaY
             self.labelDescription.frame.origin.y -= controlsDeltaY
@@ -242,14 +244,12 @@ class DataViewController: UIViewController {
             self.viewVideoPlayerRight.frame.origin.y -= controlsDeltaY
             
         }) { finished in
-
             let when = DispatchTime.now() + 5 // 5 second delay
             DispatchQueue.main.asyncAfter(deadline: when) {
                 // TODO: Need to get the topShadow to fade off or stay put or something while image animates
                 self.startKenBurnsAnimation()
                 // print("   DataViewController.swift – animateControlsIn() finished animation")
             } //end DispatchQueue.main.asyncAfter
-            
         } // end finished in
         
     } // end animateControlsIn()

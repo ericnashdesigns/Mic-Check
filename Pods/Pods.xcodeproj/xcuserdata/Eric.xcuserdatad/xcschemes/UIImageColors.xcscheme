@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'F119CFABB171220DDDE4BCC09AD2A7D9'
-               BlueprintName = 'UIImageColors'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'UIImageColors.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0F286E75A2C63634C30EB2A1C2B3F510"
+               BlueprintName = "UIImageColors"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "UIImageColors.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

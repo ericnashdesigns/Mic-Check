@@ -1,10 +1,12 @@
 # UIImageColors
 
-iTunes style color fetcher for UIImage. This is an *almost* identical port of [Panic's OS X ColorArt](https://github.com/panicinc/ColorArt/) for iOS Swift.
-
-In other words, it fetches the most dominant and prominent colors.
+iTunes style color fetcher for UIImage. It fetches the most dominant and prominent colors.
 
 ![preview](preview.png)
+
+## Installation
+
+You can either directly copy [UIImageColors.swift](Sources/UIImageColors.swift) into your project *or* you can use CocoaPods: [UIImageColors](https://cocoapods.org/pods/UIImageColors).
 
 ## Example
 
@@ -14,10 +16,10 @@ Asynchronous example:
 let image = UIImage(named: "yeezus.png")
 
 image.getColors { colors in
-  backgroundView.backgroundColor = colors.backgroundColor
-  mainLabel.textColor = colors.primaryColor
-  secondaryLabel.textColor = colors.secondaryColor
-  detailLabel.textColor = colors.detailColor
+  backgroundView.backgroundColor = colors.background
+  mainLabel.textColor = colors.primary
+  secondaryLabel.textColor = colors.secondary
+  detailLabel.textColor = colors.detail
 }
 ```
 
@@ -26,10 +28,10 @@ Synchronous example:
 ```swift
 let colors = UIImage(named: "yeezus.png").getColors()
 
-backgroundView.backgroundColor = colors.backgroundColor
-mainLabel.textColor = colors.primaryColor
-secondaryLabel.textColor = colors.secondaryColor
-detailLabel.textColor = colors.detailColor
+backgroundView.backgroundColor = colors.background
+mainLabel.textColor = colors.primary
+secondaryLabel.textColor = colors.secondary
+detailLabel.textColor = colors.detail
 ```
 
 ## UIImage Methods
@@ -38,40 +40,47 @@ detailLabel.textColor = colors.detailColor
 getColors() -> UIImageColors
 ```
 
-Returns a `UIImageColors` object. The sample image is rescaled to a width of 250px and the aspect ratio height. This blocks the main thread.
-
 ```swift
-getColors(scaleDownSize: CGSize) -> UIImageColors
+getColors(quality: UIImageColorsQuality) -> UIImageColors
 ```
 
-Returns a `UIImageColors` object with a custom image rescale. Use smaller sizes for better performance at the cost of quality colors. Use larger sizes for better color sampling and quality at the cost of performance. This blocks the main thread.
-
 ```swift
-getColors(completionHandler: (UIImageColors) -> Void) -> Void
+getColors(_ completion: (UIImageColors) -> Void) -> Void
 ```
 
-Passes a `UIImageColors` object into the closure. The sample image is rescaled to a width of 250px and the aspect ratio height. This runs on the background thread.
-
 ```swift
-getColors(scaleDownSize: CGSize, completionHandler: (UIImageColors) -> Void) -> Void
+getColors(quality: UIImageColorsQuality, _ completion: (UIImageColors) -> Void) -> Void
 ```
 
-Passes a `UIImageColors` object into the closure, with a custom image rescale. Use smaller sizes for better performance at the cost of quality colors. Use larger sizes for better color sampling and quality at the cost of performance. This runs on the background thread.
+## UIImageColors Objects
 
-## UIImageColors
-
-`UIImageColors` is struct that contains four different `UIColor`s.
+`UIImageColors` is struct that contains four different `UIColor` variables.
 
 ```swift
-var backgroundColor
-var primaryColor
-var secondaryColor
-var detailColor
+public struct UIImageColors {
+    public var background: UIColor!
+    public var primary: UIColor!
+    public var secondary: UIColor!
+    public var detail: UIColor!
+}
+```
+
+`UIImageColorsQuality` is a enum with four different qualities. The qualities refer to how much the original image is scaled down. `Lowest` implies smaller size and faster performance at the cost of quality colors. `High` implies larger size with slower performance with good colors. `Highest` implies no downscaling and very good colors, but it is very slow.
+
+The default is set to `high`.
+
+```swift
+public enum UIImageColorsQuality: CGFloat {
+    case lowest = 50 // 50px
+    case low = 100 // 100px
+    case high = 250 // 250px
+    case highest = 0 // No scale
+}
 ```
 
 ## License
 
-The [license](https://github.com/jathu/UIImageColors/blob/master/LICENSE) is provided in the project folder. Please also refer to Panic's [original license](https://github.com/panicinc/ColorArt/#license).
+The [license](https://github.com/jathu/UIImageColors/blob/master/LICENSE) is provided in the project folder. This is based on Panic's [OS X ColorArt](https://github.com/panicinc/ColorArt/#license).
 
 ------
 June 2015 - Toronto

@@ -40,14 +40,14 @@ class EventLineup {
             return
         } // end guard
         
-        let json = JSON(data: data as Data)
+        let json = try? JSON(data: data as Data)
         
         guard json != JSON.null else {
             print("  EventLineup.swift - Could not generate JSON from the data.  Make sure your syntax is correct")
             return
         } // end guard
         
-        guard let jsonlineup = json["events"].array else {
+        guard let jsonlineup = json!["events"].array else {
             print("  EventLineup.swift – could not generate lineup array from JSON")
             return
         } // end guard
@@ -112,7 +112,7 @@ class EventLineup {
                 continue eventLoop
             } // end guard
             
-            guard let doc = HTML(html: venueHTMLString, encoding: .utf8) else {
+            guard let doc = try? HTML(html: venueHTMLString, encoding: .utf8) else {
                 print("  EventLineup.swift – \(venueURLString) URL is not returning any HTML.  Going to next event.")
                 continue eventLoop
             } // end guard

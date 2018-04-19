@@ -11,25 +11,20 @@ import UIKit
 class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
     var pageViewController: UIPageViewController?
-    //var eventLineUp: EventLineup?
     var eventIndex: Int?
     var nextEventIndex: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         // Configure the page view controller and add it as a child view controller.
         self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .vertical, options: nil)
         self.pageViewController!.delegate = self
 
-        // ERic: swapped out the 0 for the monthIndex as an Int
-        
+        // Setup the pageviewController
         let startingViewController: DataViewController = self.modelController.viewControllerAtIndex(eventIndex!, storyboard: self.storyboard!)!
         let viewControllers = [startingViewController]
         self.pageViewController!.setViewControllers(viewControllers, direction: .forward, animated: false, completion: {done in })
-
         self.pageViewController!.dataSource = self.modelController
-
         self.addChildViewController(self.pageViewController!)
         self.view.addSubview(self.pageViewController!.view)
 
@@ -39,13 +34,10 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
             pageViewRect = pageViewRect.insetBy(dx: 40.0, dy: 40.0)
         }
         self.pageViewController!.view.frame = pageViewRect
-        
         self.pageViewController!.didMove(toParentViewController: self)
 
         // if I don't use this, the dataviewcontrollers will be too low on the screen.
         self.automaticallyAdjustsScrollViewInsets = false
-        
-    
     }
 
     override func didReceiveMemoryWarning() {
@@ -106,22 +98,29 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 //            previousViewController.stopKenBurnsAnimation()
             
             let completedController = self.pageViewController!.viewControllers![0] as! DataViewController
+
+            // The animations from going down versus up never quite looked that good. 
+            // And now I'm starting to experiment with animations that come in differently
+            // at the top than on the bottom, so I may just forgoe the commented code below
+            // and stick with animating in one direction no matter if swiping up or down
+            completedController.animateControlsIn(controlsDeltaY: 120.0)
+
             
             // there's no way to mathematically tell if you're moving up/down using subtraction with 2 elements, so don't animate
-            guard self.modelController.lineUp.events.count > 2 else {
-                return
-            }
+            // guard self.modelController.lineUp.events.count > 2 else {
+            //    return
+            // }
             
             // I'm using (destination - depature) so that positive values mean going downward.             
             // I'm also adding 1 to everything so that when I use subtraction, I never accidentally subtract 0            
-            let direction = (nextEventIndex! + 1) - (eventIndex! + 1)
+            // let direction = (nextEventIndex! + 1) - (eventIndex! + 1)
             
-            if (direction == 1 || direction <= -2) { // you're moving down the stack or returning to the top                print("\r\nRootViewController.swift – Swipe Down")
-                completedController.animateControlsIn(controlsDeltaY: 120.0)
-            }
-            else if (direction == -1 || direction >= 2) { // you're moving up the stack or returning to the bottom                print("\r\nRootViewController.swift – Swipe Up")
-                completedController.animateControlsIn(controlsDeltaY: -120.0)
-            }
+            // if (direction == 1 || direction <= -2) { // you're moving down the stack or returning to the top                print("\r\nRootViewController.swift – Swipe Down")
+            //     completedController.animateControlsIn(controlsDeltaY: 120.0)
+            // }
+            // else if (direction == -1 || direction >= 2) { // you're moving up the stack or returning to the bottom                print("\r\nRootViewController.swift – Swipe Up")
+            //     completedController.animateControlsIn(controlsDeltaY: -120.0)
+            // }
             
             // since completed is true and we're down transitioning to the next view controller, reset eventIndex so there's a frame of reference for the next swipe            
             eventIndex = nextEventIndex
@@ -147,10 +146,11 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
             return
         }
         
-        // get pending Controller ready for transition
+        // get pending Controller ready for transition.
         if let pendingController = pendingViewControllers[0] as? DataViewController {
-
             nextEventIndex = pendingController.dataIntEventIndex
+            
+            // hiding elements early so they can be animated into position later
             pendingController.hideElementsForPushTransition()
         }
         

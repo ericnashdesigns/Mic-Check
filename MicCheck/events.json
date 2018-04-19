@@ -4,12 +4,12 @@
 
     "venue": "The Chapel",
     "imgVenue": "thechapel.sf.jpg",
-    "urlVenue": "http://thechapelsf.com",
+    "urlVenue": "https://www.thechapelsf.com/music",
     "addressVenue": "777 Valencia St, San Francisco, CA 94110",
     "distanceFromVenue": "1 blocks",
     "xPathUrlEvent": "//*[@id='tfly-featured-events']/ul[1]/li[1]/a/@href",
     "xPathDate": "(//h2[@class='dates'])[1]",
-    "dateFormat": "E M/dd",
+    "dateFormat": "E. MMMM d, yyyy",
     "xPathArtist": "//div[@id='tfly-featured-events']/ul/li[1]/a/img/@title",
     "xPathImgArtist": "//div[@id='tfly-featured-events']/ul/li[1]/a/img/@src",
     "boolPriceShown": "true",
@@ -21,28 +21,6 @@
     "testImgArtist": "diane.coffee",
     "testPrice": "Free",
     "testVIDArtist": "UmvvZ-wUINY",
-
-    } , {
-
-    "venue": "Elbo Room",
-    "imageVenue": "elboroom.jpg",
-    "urlVenue": "http://www.elbo.com/Calendar.php",
-    "addressVenue": "647 Valencia Street, San Francisco, CA 94110",
-    "distanceFromVenue": "3 blocks",
-    "xPathUrlEvent": "(//p[@class='headliner'])[1]/a/@href",
-    "xPathDate": "(//p[@class='date'])[1]",
-    "dateFormat": "EEEE  MMMM d",
-    "xPathArtist": "(//p[@class='headliner'])[1]/a",
-    "xPathImgArtist": "(//a[contains(@target, 'band')])[1]/img/@src",
-    "boolPriceShown": "true",
-    "xPathPrice": "(//p[@class='tickets'])[2]",
-    "testUrlEvent": "http://www.thechapelsf.com/event/875085-afrolicious-san-francisco/",
-    "testDate": "07-23-2015",
-    "testArtist": "Basia Bulat",
-    "testArtistDescription": "Basia Bulat is great.  She's really really red, but that doesn't mean she's dead.",
-    "testImgArtist": "basia.bulat",
-    "testPrice": "$13",
-    "testVIDArtist": "96PMkcWx_sA",
 
     } , {
 

@@ -44,6 +44,6 @@
 		<string>US101.TTF</string>
 	</array>
 	<key>UIStatusBarHidden</key>
-	<true/>
+	<false/>
 </dict>
 </plist>

@@ -177,11 +177,11 @@ class Event {
             }
 
             // parse the result as JSON, since that's what the API provides
-            let json = JSON(data: data)
+            let json = try? JSON(data: data)
             
             //Getting an array of string from a JSON Array
             
-            if let items = json["items"].array {
+            if let items = json!["items"].array {
                 for item in items {
                     
                     // grab the videoIDs and store them in the Event
@@ -240,10 +240,10 @@ class Event {
 
         print("   Event.swift – \(self.artist) Colors ")
         print("   Event.swift – - - - - - - - - - - - ")
-        print("   Event.swift – Primary Color: \(self.colorsFromArtistImage!.primaryColor.hexString!)")
-        print("   Event.swift – Secondary Color: \(self.colorsFromArtistImage!.secondaryColor.hexString!)")
-        print("   Event.swift – Background Color: \(self.colorsFromArtistImage!.backgroundColor.hexString!)")
-        print("   Event.swift – Detail Color: \(self.colorsFromArtistImage!.detailColor.hexString!)")
+        print("   Event.swift – Primary Color: \(self.colorsFromArtistImage!.primary.hexString!)")
+        print("   Event.swift – Secondary Color: \(self.colorsFromArtistImage!.secondary.hexString!)")
+        print("   Event.swift – Background Color: \(self.colorsFromArtistImage!.background.hexString!)")
+        print("   Event.swift – Detail Color: \(self.colorsFromArtistImage!.detail.hexString!)")
         
         return colorsFromArtistImage
         
@@ -284,10 +284,10 @@ class Event {
             }
             
             // parse the result as JSON, since that's what the API provides
-            let json = JSON(data: data)
+            let json = try? JSON(data: data)
             
             //Getting a string from JSON
-            if let parsedDescription = json[2][0].string {
+            if let parsedDescription = json![2][0].string {
                 
                 // Add parsed description to the event object
                 self.descriptionArtist = parsedDescription
